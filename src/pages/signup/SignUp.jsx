@@ -1,10 +1,17 @@
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import useAuth from "../../hooks/useAuth";
 import Logo from "../../shared/header/Logo";
 import SocialButton from "../../shared/social_button/SocialButton";
 
 function SignUp() {
+  // user info
+  const { createNewUser, updateUserProfile } = useAuth();
+
+  const navigate = useNavigate();
+
   // handle sign up
   const {
     register,
@@ -12,7 +19,20 @@ function SignUp() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    const name = data.name;
+    const photo = data.photo;
+    const email = data.email;
+    const password = data.password;
+    createNewUser(email, password).then(() => {
+      updateUserProfile(name, photo)
+        .then(() => {
+          toast.success("Logged in successfully!");
+          navigate("/");
+        })
+        .catch(() => {
+          toast.error("An error occurred!");
+        });
+    });
   };
   return (
     <>

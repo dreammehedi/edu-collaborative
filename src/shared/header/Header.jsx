@@ -7,7 +7,7 @@ import Logo from "./Logo";
 function Header() {
   // user info
   const { user, userSignOut } = useAuth();
-
+  console.log(user);
   // handle logout
   const handleLogout = () => {
     userSignOut()
