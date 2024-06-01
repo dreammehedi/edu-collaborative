@@ -20,7 +20,7 @@ function Header() {
   };
   return (
     <>
-      <header className="w-full h-auto py-2 bg-slate-100">
+      <header className="w-full h-[80px] flex items-center py-2 bg-slate-100">
         <nav className="container flex justify-between items-center">
           {/* logo */}
           <Logo></Logo>
