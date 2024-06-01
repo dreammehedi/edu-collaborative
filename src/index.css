@@ -14,3 +14,9 @@
     @apply font-roboto;
   }
 }
+
+@layer components {
+  .my-transition {
+    @apply transition-all duration-300 ease-linear;
+  }
+}
