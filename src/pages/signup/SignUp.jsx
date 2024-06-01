@@ -1,167 +1,143 @@
 import { Helmet } from "react-helmet-async";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import Logo from "../../shared/header/Logo";
+import SocialButton from "../../shared/social_button/SocialButton";
 
 function SignUp() {
+  // handle sign up
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+  };
   return (
     <>
       <Helmet>
         <title>EduCollaboration | Sign Up</title>
       </Helmet>
-      <section className="bg-white dark:bg-gray-900">
-        <div className="container flex justify-center min-h-screen">
-          <div className="flex items-center w-full max-w-3xl p-8 mx-auto lg:px-12 lg:w-3/5">
-            <div className="w-full">
-              <h1 className="text-2xl font-semibold tracking-wider text-gray-800 capitalize dark:text-white">
-                Get your free account now.
-              </h1>
-
-              <p className="mt-4 text-gray-500 dark:text-gray-400">
-                {` Let’s get you all set up so you can verify your personal account
-                and begin setting up your profile.`}
-              </p>
-
-              <div className="mt-6">
-                <h1 className="text-gray-500 dark:text-gray-300">
-                  Select type of account
-                </h1>
-
-                <div className="mt-3 md:flex md:items-center md:-mx-2">
-                  <button className="flex justify-center w-full px-6 py-3 text-white bg-blue-500 rounded-lg md:w-auto md:mx-2 focus:outline-none">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-6 h-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
-
-                    <span className="mx-2">client</span>
-                  </button>
-
-                  <button className="flex justify-center w-full px-6 py-3 mt-4 text-blue-500 border border-blue-500 rounded-lg md:mt-0 md:w-auto md:mx-2 dark:border-blue-400 dark:text-blue-400 focus:outline-none">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-6 h-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                      />
-                    </svg>
-
-                    <span className="mx-2">worker</span>
-                  </button>
-                </div>
+      <section className="py-12 bg-slate-100 w-full h-auto flex justify-center items-center">
+        <div className="container  grid grid-cols-2 gap-12">
+          <div className="space-y-3">
+            <h2 className="font-bold text-3xl relative">
+              Sign Up to your <span className="font-normal">Account</span>
+            </h2>
+            <p className="text-sm">
+              {`Already have an account?  `}
+              <Link to={"/login"} className="underline">
+                Login
+              </Link>
+            </p>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              <div className="form-control">
+                <label className="label font-bold">
+                  <span className="label-text">Name</span>
+                </label>
+                <input
+                  {...register("name", { required: true })}
+                  type="text"
+                  placeholder="Your Name"
+                  className="input border-0 border-b border-primary !outline-none"
+                />
+                {errors.name && (
+                  <span className="text-xs mt-2 font-bold text-red-500">
+                    This field is required!
+                  </span>
+                )}
               </div>
-
-              <form className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
-                <div>
-                  <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                    First Name
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="John"
-                    className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                  />
-                </div>
-
-                <div>
-                  <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                    Last name
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Snow"
-                    className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                  />
-                </div>
-
-                <div>
-                  <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                    Phone number
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="XXX-XX-XXXX-XXX"
-                    className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                  />
-                </div>
-
-                <div>
-                  <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                    Email address
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="johnsnow@example.com"
-                    className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                  />
-                </div>
-
-                <div>
-                  <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    placeholder="Enter your password"
-                    className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                  />
-                </div>
-
-                <div>
-                  <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                    Confirm password
-                  </label>
-                  <input
-                    type="password"
-                    placeholder="Enter your password"
-                    className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                  />
-                </div>
-
-                <button className="flex items-center justify-between w-full px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-                  <span>Sign Up </span>
-
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-5 h-5 rtl:-scale-x-100"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </form>
-              <div className="flex items-center justify-center py-4 text-center bg-gray-50 dark:bg-gray-700">
-                <span className="text-sm text-gray-600 dark:text-gray-200">
-                  {` Already have an account?`}
-                </span>
-
-                <Link
-                  to={"/login"}
-                  className="mx-2 text-sm font-bold text-blue-500 dark:text-blue-400 hover:underline"
+              <div className="form-control">
+                <label className="label font-bold">
+                  <span className="label-text">Photo</span>
+                </label>
+                <input
+                  {...register("photo", { required: true })}
+                  type="text"
+                  placeholder="Your photo"
+                  className="input border-0 border-b border-primary !outline-none"
+                />
+                {errors.photo && (
+                  <span className="text-xs mt-2 font-bold text-red-500">
+                    This field is required!
+                  </span>
+                )}
+              </div>
+              <div className="form-control">
+                <label className="label font-bold">
+                  <span className="label-text">Email</span>
+                </label>
+                <input
+                  {...register("email", { required: true })}
+                  type="email"
+                  placeholder="Your email"
+                  className="input border-0 border-b border-primary !outline-none"
+                />
+                {errors.email && (
+                  <span className="text-xs mt-2 font-bold text-red-500">
+                    This field is required!
+                  </span>
+                )}
+              </div>
+              <div className="form-control">
+                <label className="label font-bold">
+                  <span className="label-text">Password</span>
+                </label>
+                <input
+                  {...register("password", { required: true })}
+                  type="password"
+                  placeholder="Your password"
+                  className="input border-0 border-b border-primary !outline-none"
+                />
+                {errors.password && (
+                  <span className="text-xs mt-2 font-bold text-red-500">
+                    This field is required!
+                  </span>
+                )}
+              </div>
+              <div className="form-control">
+                <label className="label font-bold">
+                  <span className="label-text">Role</span>
+                </label>
+                <select
+                  {...register("role", { required: true })}
+                  id="role"
+                  name="role"
+                  className="input border-0 border-b border-primary !outline-none"
                 >
-                  Login
-                </Link>
+                  <option value="">Select Role</option>
+                  <option value="student">Student</option>
+                  <option value="tutor">Tutor</option>
+                  <option value="admin">Administrator</option>
+                </select>
+
+                {errors.role && (
+                  <span className="text-xs mt-2 font-bold text-red-500">
+                    This field is required!
+                  </span>
+                )}
               </div>
+              <input
+                className="rounded-md bg-primary px-8 py-3 cursor-pointer text-neutral-50"
+                type="submit"
+                value={"Sign Up"}
+              />
+            </form>
+            <div className="pt-6 space-y-2">
+              <p className="text-sm font-semibold">Sign Up with social Media</p>
+              <div className="space-x-4">
+                <SocialButton></SocialButton>
+              </div>
+            </div>
+          </div>
+          <div className="relative rounded-md overflow-hidden">
+            <img
+              src="https://img.freepik.com/free-photo/start-up-designers_1098-14229.jpg?t=st=1717235896~exp=1717239496~hmac=2e723870f597acf57e0517f56c92745c5626aa5f9045821672c6752bbc887104&w=740"
+              alt=""
+            />
+            <div className="w-full h-full flex justify-center items-center bg-black/70 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+              <Logo></Logo>
             </div>
           </div>
         </div>
