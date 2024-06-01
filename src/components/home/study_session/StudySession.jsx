@@ -9,6 +9,11 @@ function StudySession() {
           <SectionTitle
             firstCls={"text-black"}
             secondCls={"text-primary"}
+            firstName={"Study"}
+            secondName={"Session"}
+            description={
+              "Our study sessions are designed to help you master your subjects through collaboration and expert guidance."
+            }
           ></SectionTitle>
         </div>
 

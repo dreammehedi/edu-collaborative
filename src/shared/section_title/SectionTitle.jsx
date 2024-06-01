@@ -1,14 +1,17 @@
 import PropTypes from "prop-types";
-function SectionTitle({ firstCls, secondCls }) {
+function SectionTitle({
+  firstCls,
+  secondCls,
+  firstName,
+  secondName,
+  description,
+}) {
   return (
     <>
       <h2 className={`text-3xl ${firstCls} font-bold`}>
-        Study <span className={secondCls}>Session</span>
+        {firstName} <span className={secondCls}>{secondName}</span>
       </h2>
-      <p className="text-sm font-medium text-slate-900">
-        Our study sessions are designed to help you master your subjects through
-        collaboration and expert guidance.
-      </p>
+      <p className="text-sm font-medium text-slate-900">{description}</p>
     </>
   );
 }
@@ -16,5 +19,8 @@ function SectionTitle({ firstCls, secondCls }) {
 SectionTitle.propTypes = {
   firstCls: PropTypes.string,
   secondCls: PropTypes.string,
+  firstName: PropTypes.string,
+  secondName: PropTypes.string,
+  description: PropTypes.string,
 };
 export default SectionTitle;
