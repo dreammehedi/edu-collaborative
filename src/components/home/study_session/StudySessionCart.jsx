@@ -1,3 +1,4 @@
+import { FaArrowAltCircleRight } from "react-icons/fa";
 import Button from "../../../shared/button/Button";
 
 function StudySessionCart() {
@@ -20,8 +21,11 @@ function StudySessionCart() {
             Smith, this session is ideal for students looking to excel in
             calculus.
           </p>
-          <div className="text-sm *:px-4 *:py-1">
-            <Button name="Read More"></Button>
+          <div className="flex justify-between items-center !mt-6 text-sm *:px-4 *:py-1">
+            <Button name="Ongoing"></Button>
+            <Button name="Read More">
+              <FaArrowAltCircleRight className="relative z-10"></FaArrowAltCircleRight>
+            </Button>
           </div>
         </div>
       </div>
