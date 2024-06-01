@@ -1,5 +1,14 @@
+import { Helmet } from "react-helmet-async";
+
 function Home() {
-  return <div>Home</div>;
+  return (
+    <>
+      <Helmet>
+        <title>EduCollaborate | Home</title>
+      </Helmet>
+      Home
+    </>
+  );
 }
 
 export default Home;
