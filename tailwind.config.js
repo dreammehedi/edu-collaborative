@@ -10,7 +10,21 @@ export default {
       "open-sans": ["Open Sans", "sans-serif"],
       roboto: ["Roboto", "sans-serif"],
     },
-    extend: {},
+    extend: {
+      colors: {
+        " main-primary": "#ffb74d",
+        primary: "#5c6bc0",
+        secondary: "#7986cv",
+        accent: "#F4B400",
+        neutral1: "#F5F5F5 ",
+        neutral2: "#333333 ",
+        "rich-blue": "#0056D2 ",
+        coral: "#FF6F61 ",
+        "sun-yellow": "#F4B400",
+        "light-gray": "#F5F5F5 ",
+        "dark-charcoal": "#333333",
+      },
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {
