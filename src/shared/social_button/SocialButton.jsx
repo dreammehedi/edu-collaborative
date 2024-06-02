@@ -13,7 +13,7 @@ function SocialButton() {
   const handleFacebook = () => {
     loginWithFacebook()
       .then(() => {
-        toast.success("Logged in successfully!");
+        toast.success("User Login successfully!");
         navigate("/");
       })
       .catch(() => {
@@ -25,7 +25,7 @@ function SocialButton() {
   const handleGoogle = () => {
     loginWithGoogle()
       .then(() => {
-        toast.success("Logged in successfully!");
+        toast.success("User Login successfully!");
         navigate("/");
       })
       .catch(() => {

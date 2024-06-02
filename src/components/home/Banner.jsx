@@ -20,7 +20,9 @@ function Banner() {
               Join a community of learners, share knowledge, and improve your
               grades together.
             </p>
-            <Button name={"Get Started"}></Button>
+            <div className=" flex justify-center">
+              <Button name={"Get Started"}></Button>
+            </div>
           </div>
         </div>
       </div>

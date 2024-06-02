@@ -7,12 +7,12 @@ import Logo from "./Logo";
 function Header() {
   // user info
   const { user, userSignOut } = useAuth();
-  console.log(user);
+  
   // handle logout
   const handleLogout = () => {
     userSignOut()
       .then(() => {
-        toast.success("Logged in successfully!");
+        toast.success("User Logout!");
       })
       .catch(() => {
         toast.error("An error occurred!");

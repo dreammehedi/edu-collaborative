@@ -67,11 +67,10 @@ function AuthProvider({ children }) {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
-        setUserLoading(false);
       } else {
         setUser(null);
-        setUserLoading(false);
       }
+      setUserLoading(false);
     });
     return () => unsubscribe;
   }, [user?.email]);

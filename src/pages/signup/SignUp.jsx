@@ -1,14 +1,15 @@
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
+import DataLoader from "../../shared/data_loader/DataLoader";
 import Logo from "../../shared/header/Logo";
 import SocialButton from "../../shared/social_button/SocialButton";
 
 function SignUp() {
   // user info
-  const { createNewUser, updateUserProfile } = useAuth();
+  const { user, userLoading, createNewUser, updateUserProfile } = useAuth();
 
   const navigate = useNavigate();
 
@@ -26,7 +27,7 @@ function SignUp() {
     createNewUser(email, password).then(() => {
       updateUserProfile(name, photo)
         .then(() => {
-          toast.success("Logged in successfully!");
+          toast.success("User Login successfully!");
           navigate("/");
         })
         .catch(() => {
@@ -34,6 +35,17 @@ function SignUp() {
         });
     });
   };
+
+  if (userLoading) {
+    return (
+      <div className="w-full h-screen flex justify-center items-center">
+        <DataLoader></DataLoader>
+      </div>
+    );
+  }
+  if (user) {
+    return <Navigate to={"/"}></Navigate>;
+  }
   return (
     <>
       <Helmet>

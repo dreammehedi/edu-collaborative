@@ -1,20 +1,46 @@
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useAuth from "../../hooks/useAuth";
 import Logo from "../../shared/header/Logo";
 import SocialButton from "../../shared/social_button/SocialButton";
+import DataLoader from "./../../shared/data_loader/DataLoader";
 
 function Login() {
+  const navigate = useNavigate();
+
+  const { user, userLoading, loginWithEmailAndPassword } = useAuth();
   // handle login
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => {
-    console.log(data);
+    const email = data.email;
+    const password = data.password;
+    loginWithEmailAndPassword(email, password)
+      .then(() => {
+        toast.success("User Login successfully!");
+        navigate("/");
+      })
+      .catch(() => {
+        toast.error("An error occurred!");
+      });
   };
+  if (userLoading) {
+    return (
+      <div className="w-full h-screen flex justify-center items-center">
+        <DataLoader></DataLoader>
+      </div>
+    );
+  }
+  if (user) {
+    return <Navigate to={"/"}></Navigate>;
+  }
 
   return (
     <>
