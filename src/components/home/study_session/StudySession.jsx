@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import errorData from "../../../assets/error-data.jpg";
 import Button from "../../../shared/button/Button";
 import DataLoader from "../../../shared/data_loader/DataLoader";
+import ErrorDataImage from "../../../shared/error_data_image/ErrorDataImage";
 import SectionTitle from "../../../shared/section_title/SectionTitle";
 import useAxiosPublic from "./../../../hooks/useAxiosPublic";
 import StudySessionCart from "./StudySessionCart";
@@ -46,11 +46,7 @@ function StudySession() {
         )}
         {error && (
           <div className="flex flex-col spacey-2 justify-center items-center">
-            <img
-              className="size-[300px] object-cover"
-              src={errorData}
-              alt="error data"
-            />
+            <ErrorDataImage></ErrorDataImage>
             <span className="text-red-500">
               An error has occurred: {error.message}
             </span>

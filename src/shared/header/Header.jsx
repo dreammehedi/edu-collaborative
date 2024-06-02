@@ -7,7 +7,7 @@ import Logo from "./Logo";
 function Header() {
   // user info
   const { user, userSignOut } = useAuth();
-  
+
   // handle logout
   const handleLogout = () => {
     userSignOut()
@@ -23,7 +23,9 @@ function Header() {
       <header className="w-full h-[80px] flex items-center py-2 bg-slate-100">
         <nav className="container flex justify-between items-center">
           {/* logo */}
-          <Logo></Logo>
+          <Link to={"/"}>
+            <Logo></Logo>
+          </Link>
 
           <div className="flex justify-between items-center gap-4">
             {user ? (

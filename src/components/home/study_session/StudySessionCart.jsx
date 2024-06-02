@@ -1,15 +1,18 @@
 import moment from "moment";
 import PropTypes from "prop-types";
 import { FaArrowAltCircleRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import Button from "../../../shared/button/Button";
 
 function StudySessionCart({ studySession }) {
   const {
+    _id,
     sessionTitle,
     tutorName,
     fee,
     sessionDescription,
     registrationEndDate,
+    image,
   } = studySession;
 
   // current date
@@ -19,10 +22,7 @@ function StudySessionCart({ studySession }) {
   return (
     <>
       <div className="space-y-3 p-4 rounded-md hover:shadow-md ring-1 ring-slate-200 my-transition">
-        <img
-          src="https://img.freepik.com/free-photo/colleagues-studying-together-exam_23-2149038439.jpg?t=st=1717249717~exp=1717253317~hmac=d33ba36bb9487bd6eabb0a7fa2ed32ee0650dcfe823821c0fb9a617bcdc51476&w=740"
-          alt=""
-        />
+        <img className="object-cover w-full h-[300px]" src={image} alt="" />
         <div className="space-y-1">
           <div className="flex justify-between items-center">
             <span className="font-medium text-primary">{tutorName}</span>
@@ -39,9 +39,11 @@ function StudySessionCart({ studySession }) {
               {!isRegistrationEnd ? "Closed" : "Ongoing"}
             </span>
 
-            <Button name="Read More">
-              <FaArrowAltCircleRight className="relative z-10"></FaArrowAltCircleRight>
-            </Button>
+            <Link to={`study-session-detailes/${_id}`}>
+              <Button name="Read More">
+                <FaArrowAltCircleRight className="relative z-10"></FaArrowAltCircleRight>
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

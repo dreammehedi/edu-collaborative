@@ -6,12 +6,11 @@ import "react-toastify/dist/ReactToastify.css";
 import useAuth from "../../hooks/useAuth";
 import Logo from "../../shared/header/Logo";
 import SocialButton from "../../shared/social_button/SocialButton";
-import DataLoader from "./../../shared/data_loader/DataLoader";
 
 function Login() {
   const navigate = useNavigate();
 
-  const { user, userLoading, loginWithEmailAndPassword } = useAuth();
+  const { user, loginWithEmailAndPassword } = useAuth();
   // handle login
   const {
     register,
@@ -31,13 +30,7 @@ function Login() {
         toast.error("An error occurred!");
       });
   };
-  if (userLoading) {
-    return (
-      <div className="w-full h-screen flex justify-center items-center">
-        <DataLoader></DataLoader>
-      </div>
-    );
-  }
+
   if (user) {
     return <Navigate to={"/"}></Navigate>;
   }

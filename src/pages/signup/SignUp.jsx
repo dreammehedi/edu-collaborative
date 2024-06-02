@@ -3,13 +3,12 @@ import { useForm } from "react-hook-form";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
-import DataLoader from "../../shared/data_loader/DataLoader";
 import Logo from "../../shared/header/Logo";
 import SocialButton from "../../shared/social_button/SocialButton";
 
 function SignUp() {
   // user info
-  const { user, userLoading, createNewUser, updateUserProfile } = useAuth();
+  const { user, createNewUser, updateUserProfile } = useAuth();
 
   const navigate = useNavigate();
 
@@ -36,13 +35,6 @@ function SignUp() {
     });
   };
 
-  if (userLoading) {
-    return (
-      <div className="w-full h-screen flex justify-center items-center">
-        <DataLoader></DataLoader>
-      </div>
-    );
-  }
   if (user) {
     return <Navigate to={"/"}></Navigate>;
   }
