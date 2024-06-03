@@ -2,13 +2,16 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Logo from "../../shared/header/Logo";
 import SocialButton from "../../shared/social_button/SocialButton";
 
 function SignUp() {
   // user info
   const { user, createNewUser, updateUserProfile } = useAuth();
+  const axiosPublic = useAxiosPublic();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,8 +32,25 @@ function SignUp() {
     createNewUser(email, password).then(() => {
       updateUserProfile(name, photo)
         .then(() => {
-          toast.success("User Login successfully!");
-          navigate(from, { replace: true });
+          const userAllInfo = {
+            name,
+            photo,
+            email,
+            role: data.role,
+          };
+          // user data store in database
+          axiosPublic.post("/users", userAllInfo).then((res) => {
+            const data = res.data;
+            if (data.insertedData) {
+              Swal.fire({
+                title: "User Created Successfully",
+                icon: "success",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              navigate(from, { replace: true });
+            }
+          });
         })
         .catch(() => {
           toast.error("An error occurred!");
@@ -136,7 +156,6 @@ function SignUp() {
                   <option value="">Select Role</option>
                   <option value="student">Student</option>
                   <option value="tutor">Tutor</option>
-                  <option value="admin">Administrator</option>
                 </select>
 
                 {errors.role && (

@@ -8,7 +8,6 @@ import Logo from "./Logo";
 function Header() {
   // user info
   const { user } = useAuth();
-
   return (
     <>
       <header className="w-full h-[80px] flex items-center py-2 bg-slate-100">
