@@ -8,6 +8,7 @@ import logo from "../../../assets/logo.png";
 import useAuth from "../../../hooks/useAuth";
 import AdminNavigate from "./AdminNavigate";
 import StudentNavigate from "./StudentNavigate";
+import TutorNavigate from "./TutorNavigate";
 
 function DashboardNavigate() {
   // user info
@@ -56,12 +57,20 @@ function DashboardNavigate() {
             className="w-[40px] rounded-full h-auto object-cover"
           />
         </div>
-
+        <h3 className="pt-4 text-right font-semibold">
+          You are{" "}
+          <span className="text-primary font-bold capitalize">
+            {isUserRole}
+          </span>
+        </h3>
         {/* admin navigate */}
         {isUserRole === "admin" && <AdminNavigate></AdminNavigate>}
 
         {/* student navigate */}
         {isUserRole === "student" && <StudentNavigate></StudentNavigate>}
+
+        {/* tutor navigate */}
+        {isUserRole === "tutor" && <TutorNavigate></TutorNavigate>}
         {/* main navigate */}
         <ul className="pt-10 text-slate-500 font-medium font-roboto space-y-3">
           <li className="flex items-center gap-2">

@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
-import AllMaterials from "../dashboard/admin/all_materials/AllMaterials";
-import AllStudySession from "../dashboard/admin/all_study_session/AllStudySession";
-import AllUsers from "../dashboard/admin/all_users/AllUsers";
+import AllMaterials from "../dashboard/admin/AllMaterials";
+import AllStudySession from "../dashboard/admin/AllStudySession";
+import AllUsers from "../dashboard/admin/AllUsers";
+import Profile from "../dashboard/user_profile/Profile";
 import Dashboard from "../layout/dashboard/Dashboard";
 import DashboardLayout from "../layout/dashboard/DashboardLayout";
 import MainLayout from "../layout/main_layout/MainLayout";
@@ -10,12 +11,17 @@ import Home from "../pages/home/Home";
 import Login from "../pages/login/Login";
 import SignUp from "../pages/signup/SignUp";
 import PrivateRoute from "../private/PrivateRoute";
-import UserProfile from "../shared/user_profile/UserProfile";
 import StudySessionDetailes from "./../components/home/study_session/study_session_detailes/StudySessionDetailes";
 import CreateNote from "./../dashboard/student/CreateNote";
 import ManagePersonalNotes from "./../dashboard/student/ManagePersonalNotes";
 import ViewAllStudyMaterial from "./../dashboard/student/ViewAllStudyMaterial";
 import ViewBookedSession from "./../dashboard/student/ViewBookedSession";
+import CreateStudySession from "./../dashboard/tutor/CreateStudySession";
+import UploadMaterials from "./../dashboard/tutor/UploadMaterials";
+import ViewAllMaterials from "./../dashboard/tutor/ViewAllMaterials";
+import ViewAllNotes from "./../dashboard/tutor/ViewAllNotes";
+import ViewAllStudySession from "./../dashboard/tutor/ViewAllStudySession";
+import Payment from "./../payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +40,10 @@ const router = createBrowserRouter([
             <StudySessionDetailes></StudySessionDetailes>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/payment",
+        element: <Payment></Payment>,
       },
     ],
   },
@@ -71,7 +81,7 @@ const router = createBrowserRouter([
       },
       {
         path: "user-profile",
-        element: <UserProfile></UserProfile>,
+        element: <Profile></Profile>,
       },
       {
         path: "view-booked-session",
@@ -88,6 +98,26 @@ const router = createBrowserRouter([
       {
         path: "view-all-study-materials",
         element: <ViewAllStudyMaterial></ViewAllStudyMaterial>,
+      },
+      {
+        path: "create-study-session",
+        element: <CreateStudySession></CreateStudySession>,
+      },
+      {
+        path: "view-all-study-session",
+        element: <ViewAllStudySession></ViewAllStudySession>,
+      },
+      {
+        path: "upload-materials",
+        element: <UploadMaterials></UploadMaterials>,
+      },
+      {
+        path: "view-all-materials",
+        element: <ViewAllMaterials></ViewAllMaterials>,
+      },
+      {
+        path: "view-all-notes",
+        element: <ViewAllNotes></ViewAllNotes>,
       },
     ],
   },

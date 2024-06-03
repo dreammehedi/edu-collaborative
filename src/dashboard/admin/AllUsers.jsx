@@ -1,5 +1,5 @@
 import { MdPersonSearch } from "react-icons/md";
-import SectionTitle from "../../../shared/section_title/SectionTitle";
+import SectionTitle from "../../shared/section_title/SectionTitle";
 
 function AllUsers() {
   return (
