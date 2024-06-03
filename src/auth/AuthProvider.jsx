@@ -10,11 +10,14 @@ import {
 import PropTypes from "prop-types";
 import { createContext, useEffect, useState } from "react";
 import auth from "../firebase/firebase.init";
+import useAxiosPublic from "./../hooks/useAxiosPublic";
 
 // create a auth context
 export const AuthContext = createContext();
 
 function AuthProvider({ children }) {
+  const axiosPublic = useAxiosPublic();
+
   // firebase authentication all functions
 
   // set user
@@ -67,14 +70,26 @@ function AuthProvider({ children }) {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
-        setUserLoading(false);
+        // get token and store local storage
+        const userEmail = { email: currentUser.email };
+
+        axiosPublic.post("/user-login", userEmail).then((res) => {
+          const resToken = res.data.userToken;
+          console.log(resToken);
+          if (resToken) {
+            localStorage.setItem("userToken", resToken);
+          }
+        });
       } else {
         setUser(null);
-        setUserLoading(false);
+        localStorage.removeItem("userToken");
       }
+      setUserLoading(false);
     });
-    return () => unsubscribe;
-  }, [user?.email]);
+    return () => {
+      return unsubscribe();
+    };
+  }, [user?.email, axiosPublic]);
 
   // all function provide to auth context value
   const authInfo = {
