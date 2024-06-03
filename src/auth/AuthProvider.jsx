@@ -75,7 +75,6 @@ function AuthProvider({ children }) {
 
         axiosPublic.post("/user-login", userEmail).then((res) => {
           const resToken = res.data.userToken;
-          console.log(resToken);
           if (resToken) {
             localStorage.setItem("userToken", resToken);
           }

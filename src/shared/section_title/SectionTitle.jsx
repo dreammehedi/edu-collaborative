@@ -8,7 +8,10 @@ function SectionTitle({
 }) {
   return (
     <>
-      <h2 className={`text-3xl ${firstCls} font-bold`}>
+      <h2
+        className={`text-3xl ${firstCls} h-full font-bold flex justify-center items-center gap-3`}
+      >
+        <div className="!h-8 w-1 bg-primary-main"></div>
         {firstName} <span className={secondCls}>{secondName}</span>
       </h2>
       <p className="text-sm font-medium text-slate-900">{description}</p>

@@ -14,7 +14,7 @@ const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ToastContainer></ToastContainer>
+    <ToastContainer autoClose={1000}></ToastContainer>
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
