@@ -28,7 +28,7 @@ function DashboardNavigate() {
       });
   };
 
-  const isUserRole = "tutor";
+  const isUserRole = "admin";
 
   return (
     <>

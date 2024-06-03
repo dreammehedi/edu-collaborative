@@ -9,7 +9,7 @@ const PrivateRoute = ({ children }) => {
 
   if (userLoading) {
     return (
-      <div className="flex justify-center py-12 h-screen w-full">
+      <div className="flex justify-center items-center py-12 h-screen w-full">
         <DataLoader></DataLoader>
       </div>
     );
