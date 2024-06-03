@@ -77,7 +77,7 @@ function StudySessionDetailes() {
             </div>
           )}
 
-          <div className=" py-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="py-12 grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="h-fit bg-white rounded-md shadow-md overflow-hidden">
               <img
                 className="object-cover w-full h-[400px]"
