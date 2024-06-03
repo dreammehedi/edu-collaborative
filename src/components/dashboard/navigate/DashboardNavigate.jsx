@@ -1,14 +1,13 @@
 import { FaHome } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
-import { GiMaterialsScience } from "react-icons/gi";
 import { ImProfile } from "react-icons/im";
 import { MdDashboardCustomize } from "react-icons/md";
-import { SiSession } from "react-icons/si";
-import { TbUsersGroup } from "react-icons/tb";
 import { Link, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import logo from "../../../assets/logo.png";
 import useAuth from "../../../hooks/useAuth";
+import AdminNavigate from "./AdminNavigate";
+import StudentNavigate from "./StudentNavigate";
 
 function DashboardNavigate() {
   // user info
@@ -27,6 +26,9 @@ function DashboardNavigate() {
         toast.error("An error occurred!");
       });
   };
+
+  const isUserRole = "tutor";
+
   return (
     <>
       <div className="p-4 shadow-md h-fit sticky top-[118px]">
@@ -56,7 +58,12 @@ function DashboardNavigate() {
         </div>
 
         {/* admin navigate */}
-        <ul className="pt-10 text-slate-500 font-medium font-roboto space-y-3 border-b border-slate-200 pb-2">
+        {isUserRole === "admin" && <AdminNavigate></AdminNavigate>}
+
+        {/* student navigate */}
+        {isUserRole === "student" && <StudentNavigate></StudentNavigate>}
+        {/* main navigate */}
+        <ul className="pt-10 text-slate-500 font-medium font-roboto space-y-3">
           <li className="flex items-center gap-2">
             <MdDashboardCustomize></MdDashboardCustomize>
             <NavLink
@@ -68,43 +75,6 @@ function DashboardNavigate() {
               Dashboard
             </NavLink>
           </li>
-          <li className="flex items-center gap-2">
-            <TbUsersGroup></TbUsersGroup>
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? "text-primary-main" : ""
-              }
-              to={"all-users"}
-            >
-              View All Users
-            </NavLink>
-          </li>{" "}
-          <li className="flex items-center gap-2">
-            <SiSession></SiSession>
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? "text-primary-main" : ""
-              }
-              to={"all-study-session"}
-            >
-              View All Study Session
-            </NavLink>
-          </li>{" "}
-          <li className="flex items-center gap-2">
-            <GiMaterialsScience></GiMaterialsScience>
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? "text-primary-main" : ""
-              }
-              to={"all-materials"}
-            >
-              View All Materials
-            </NavLink>
-          </li>
-        </ul>
-
-        {/* main navigate */}
-        <ul className="pt-10 text-slate-500 font-medium font-roboto space-y-3">
           <li className="flex items-center gap-2">
             <FaHome></FaHome>
             <NavLink

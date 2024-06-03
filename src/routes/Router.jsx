@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
-import AllMaterials from "../dashboard/all_materials/AllMaterials";
-import AllStudySession from "../dashboard/all_study_session/AllStudySession";
-import AllUsers from "../dashboard/all_users/AllUsers";
+import AllMaterials from "../dashboard/admin/all_materials/AllMaterials";
+import AllStudySession from "../dashboard/admin/all_study_session/AllStudySession";
+import AllUsers from "../dashboard/admin/all_users/AllUsers";
 import Dashboard from "../layout/dashboard/Dashboard";
 import DashboardLayout from "../layout/dashboard/DashboardLayout";
 import MainLayout from "../layout/main_layout/MainLayout";
@@ -12,6 +12,10 @@ import SignUp from "../pages/signup/SignUp";
 import PrivateRoute from "../private/PrivateRoute";
 import UserProfile from "../shared/user_profile/UserProfile";
 import StudySessionDetailes from "./../components/home/study_session/study_session_detailes/StudySessionDetailes";
+import CreateNote from "./../dashboard/student/CreateNote";
+import ManagePersonalNotes from "./../dashboard/student/ManagePersonalNotes";
+import ViewAllStudyMaterial from "./../dashboard/student/ViewAllStudyMaterial";
+import ViewBookedSession from "./../dashboard/student/ViewBookedSession";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +72,22 @@ const router = createBrowserRouter([
       {
         path: "user-profile",
         element: <UserProfile></UserProfile>,
+      },
+      {
+        path: "view-booked-session",
+        element: <ViewBookedSession></ViewBookedSession>,
+      },
+      {
+        path: "create-note",
+        element: <CreateNote></CreateNote>,
+      },
+      {
+        path: "manage-personal-notes",
+        element: <ManagePersonalNotes></ManagePersonalNotes>,
+      },
+      {
+        path: "view-all-study-materials",
+        element: <ViewAllStudyMaterial></ViewAllStudyMaterial>,
       },
     ],
   },
