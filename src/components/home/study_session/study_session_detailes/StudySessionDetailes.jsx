@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import moment from "moment";
 import { Helmet } from "react-helmet-async";
 import { GiExplosiveMaterials, GiFloatingPlatforms } from "react-icons/gi";
 import { useParams } from "react-router-dom";
@@ -25,8 +26,25 @@ function StudySessionDetailes() {
     },
   });
 
+  // current date
+  const currentDate = moment().format();
+
+  const isRegistrationEnd = moment(
+    singleStudySessionData?.registrationEndDate
+  ).isSameOrAfter(currentDate);
+
   const classStartTime = singleStudySessionData?.classStartTime;
   const classEndTime = singleStudySessionData?.classEndDate;
+
+  // handle study session booked
+  const handleStudySessionBooked = (id) => {
+    const studySessionBookedData = {
+      studySessionId: id,
+      tutorEmail: singleStudySessionData?.contactEmail,
+      tutorName: singleStudySessionData?.tutorName,
+    };
+    console.log(studySessionBookedData);
+  };
   return (
     <>
       <Helmet>
@@ -79,7 +97,7 @@ function StudySessionDetailes() {
                     {singleStudySessionData?.sessionDescription}
                   </p>
                 </div>
-                <div className="flex gap-6">
+                <div className="flex flex-wrap gap-6">
                   <div className="shadow-md p-4 text-center">
                     <h3 className="text-primary">
                       Rating:{" "}
@@ -104,6 +122,39 @@ function StudySessionDetailes() {
                       </span>
                     </h3>
                   </div>
+                  <div className="shadow-md p-4 text-center">
+                    <h3 className="text-primary">
+                      Max Participants:{" "}
+                      <span className="text-black font-roboto font-medium">
+                        3{singleStudySessionData?.maxParticipants}
+                      </span>
+                    </h3>
+                  </div>
+                  <div className="shadow-md p-4 text-center">
+                    <h3 className="text-primary">
+                      Current Participants:{" "}
+                      <span className="text-black font-roboto font-medium">
+                        {singleStudySessionData?.currentParticipants}
+                      </span>
+                    </h3>
+                  </div>
+                </div>
+                <div
+                  onClick={() => {
+                    if (!isRegistrationEnd) return;
+                    handleStudySessionBooked(id);
+                  }}
+                  className={`!mt-8 text-right cursor-pointer ${
+                    !isRegistrationEnd && "cursor-not-allowed"
+                  }`}
+                >
+                  <span
+                    className={`${
+                      isRegistrationEnd ? "bg-primary" : "bg-primary-main"
+                    }  text-white font-medium rounded-md !px-4 !py-3 hover:bg-primary-main my-transition`}
+                  >
+                    {isRegistrationEnd ? "Book Now" : "Registration End"}
+                  </span>
                 </div>
               </div>
             </div>
@@ -172,10 +223,10 @@ function StudySessionDetailes() {
             </div>
           </div>
           <div className="py-12">
-            <div className="space-y-3 flex justify-center items-center flex-col w-full md:max-w-2xl md:mx-auto">
+            <div className="space-y-3 flex justify-center text-center items-center flex-col w-full md:max-w-2xl md:mx-auto">
               <SectionTitle
-                firstCls={"text-primary"}
-                secondCls={"text-black"}
+                firstCls={"text-black"}
+                secondCls={"text-primary"}
                 firstName={"Study Session "}
                 secondName={"Other Details"}
                 description={
@@ -226,22 +277,6 @@ function StudySessionDetailes() {
               </div>
               <div className="shadow-md p-4 text-center">
                 <h3 className="text-primary">
-                  Max Participants:{" "}
-                  <span className="text-black font-roboto font-medium">
-                    3{singleStudySessionData?.maxParticipants}
-                  </span>
-                </h3>
-              </div>
-              <div className="shadow-md p-4 text-center">
-                <h3 className="text-primary">
-                  Current Participants:{" "}
-                  <span className="text-black font-roboto font-medium">
-                    {singleStudySessionData?.currentParticipants}
-                  </span>
-                </h3>
-              </div>{" "}
-              <div className="shadow-md p-4 text-center">
-                <h3 className="text-primary">
                   Session Type:{" "}
                   <span className="text-black font-roboto font-medium">
                     {singleStudySessionData?.sessionType}
@@ -256,6 +291,99 @@ function StudySessionDetailes() {
                   </span>
                 </h3>
               </div>
+            </div>
+          </div>
+          <div className="py-12">
+            <div className="space-y-3 flex justify-center text-center items-center flex-col w-full md:max-w-2xl md:mx-auto">
+              <SectionTitle
+                firstCls={"text-primary"}
+                secondCls={"text-black"}
+                firstName={"Study Session "}
+                secondName={"Review"}
+                description={
+                  "This section features feedback and testimonials from participants who have previously attended the study session. It helps potential participants gauge the effectiveness and quality of the session based on others' experiences."
+                }
+              ></SectionTitle>
+            </div>
+            <div className="py-12">
+              <section className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 lg:grid-cols-2 xl:grid-cols-3">
+                <div className="p-8 border rounded-lg ">
+                  <p className="leading-loose text-gray-500">
+                    “Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Tempore quibusdam ducimus libero ad tempora doloribus
+                    expedita laborum saepe voluptas perferendis delectus
+                    assumenda rerum, culpa aperiam dolorum, obcaecati corrupti
+                    aspernatur a.”.
+                  </p>
+
+                  <div className="flex items-center mt-8 -mx-2">
+                    <img
+                      className="object-cover mx-2 rounded-full w-14 shrink-0 h-14 ring-4 ring-gray-300"
+                      src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+                      alt=""
+                    />
+
+                    <div className="mx-2">
+                      <h1 className="font-semibold text-gray-800 ">Robert</h1>
+                      <span className="text-sm text-gray-500">
+                        CTO, Robert Consultency
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-8 border rounded-lg ">
+                  <p className="leading-loose text-gray-500">
+                    “Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Tempore quibusdam ducimus libero ad tempora doloribus
+                    expedita laborum saepe voluptas perferendis delectus
+                    assumenda rerum, culpa aperiam dolorum, obcaecati corrupti
+                    aspernatur a.”.
+                  </p>
+
+                  <div className="flex items-center mt-8 -mx-2">
+                    <img
+                      className="object-cover mx-2 rounded-full w-14 shrink-0 h-14 ring-4 ring-gray-300"
+                      src="https://images.unsplash.com/photo-1531590878845-12627191e687?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
+                      alt=""
+                    />
+
+                    <div className="mx-2">
+                      <h1 className="font-semibold text-gray-800 ">Jeny Doe</h1>
+                      <span className="text-sm text-gray-500">
+                        CEO, Jeny Consultency
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-8 border rounded-lg ">
+                  <p className="leading-loose text-gray-500">
+                    “Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Tempore quibusdam ducimus libero ad tempora doloribus
+                    expedita laborum saepe voluptas perferendis delectus
+                    assumenda rerum, culpa aperiam dolorum, obcaecati corrupti
+                    aspernatur a.”.
+                  </p>
+
+                  <div className="flex items-center mt-8 -mx-2">
+                    <img
+                      className="object-cover mx-2 rounded-full w-14 shrink-0 h-14 ring-4 ring-gray-300"
+                      src="https://images.unsplash.com/photo-1488508872907-592763824245?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                      alt=""
+                    />
+
+                    <div className="mx-2">
+                      <h1 className="font-semibold text-gray-800 ">
+                        Ema Watson{" "}
+                      </h1>
+                      <span className="text-sm text-gray-500">
+                        Marketing Manager at Stech
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </section>
             </div>
           </div>
         </div>

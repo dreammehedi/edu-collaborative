@@ -11,6 +11,7 @@ function StudySessionCart({ studySession }) {
     tutorName,
     fee,
     sessionDescription,
+
     registrationEndDate,
     image,
   } = studySession;
@@ -18,7 +19,9 @@ function StudySessionCart({ studySession }) {
   // current date
   const currentDate = moment().format();
 
-  const isRegistrationEnd = moment(registrationEndDate).isAfter(currentDate);
+  const isRegistrationEnd =
+    moment(registrationEndDate).isSameOrAfter(currentDate);
+
   return (
     <>
       <div className="space-y-3 p-4 rounded-md hover:shadow-md ring-1 ring-slate-200 my-transition">
@@ -33,10 +36,10 @@ function StudySessionCart({ studySession }) {
           <div className="flex justify-between items-center !mt-6 text-sm *:px-4 *:py-1">
             <span
               className={`${
-                !isRegistrationEnd ? "bg-primary-main" : "bg-primary"
+                isRegistrationEnd ? "bg-primary" : "bg-primary-main"
               } text-white font-medium rounded-md !px-4 !py-3`}
             >
-              {!isRegistrationEnd ? "Closed" : "Ongoing"}
+              {isRegistrationEnd ? "Ongoing" : "Closed"}
             </span>
 
             <Link to={`study-session-detailes/${_id}`}>

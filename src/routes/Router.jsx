@@ -5,6 +5,7 @@ import Error from "../pages/error/Error";
 import Home from "../pages/home/Home";
 import Login from "../pages/login/Login";
 import SignUp from "../pages/signup/SignUp";
+import PrivateRoute from "../private/PrivateRoute";
 import StudySessionDetailes from "./../components/home/study_session/study_session_detailes/StudySessionDetailes";
 
 const router = createBrowserRouter([
@@ -19,7 +20,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/study-session-detailes/:id",
-        element: <StudySessionDetailes></StudySessionDetailes>,
+        element: (
+          <PrivateRoute>
+            <StudySessionDetailes></StudySessionDetailes>
+          </PrivateRoute>
+        ),
       },
     ],
   },

@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
 import Logo from "../../shared/header/Logo";
@@ -11,6 +11,9 @@ function SignUp() {
   const { user, createNewUser, updateUserProfile } = useAuth();
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
 
   // handle sign up
   const {
@@ -27,7 +30,7 @@ function SignUp() {
       updateUserProfile(name, photo)
         .then(() => {
           toast.success("User Login successfully!");
-          navigate("/");
+          navigate(from, { replace: true });
         })
         .catch(() => {
           toast.error("An error occurred!");

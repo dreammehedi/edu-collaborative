@@ -1,11 +1,15 @@
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
 
 function SocialButton() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+
   // user info
   const { loginWithGoogle, loginWithFacebook } = useAuth();
 
@@ -14,7 +18,7 @@ function SocialButton() {
     loginWithFacebook()
       .then(() => {
         toast.success("User Login successfully!");
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch(() => {
         toast.error("An error occurred!");
@@ -26,7 +30,7 @@ function SocialButton() {
     loginWithGoogle()
       .then(() => {
         toast.success("User Login successfully!");
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch(() => {
         toast.error("An error occurred!");
