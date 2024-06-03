@@ -47,6 +47,7 @@ function Login() {
         <div className="container  grid grid-cols-2 gap-12">
           <div className="relative rounded-md overflow-hidden">
             <img
+              className="w-full h-full object-cover"
               src="https://img.freepik.com/free-photo/group-positive-young-people-working-together_23-2148431342.jpg?t=st=1717230351~exp=1717233951~hmac=500a36191d004510f44e2674c9d094d7ecf4f1be0c4c7e552a4326d19918d22a&w=740"
               alt=""
             />

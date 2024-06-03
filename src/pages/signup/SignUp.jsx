@@ -179,6 +179,7 @@ function SignUp() {
           </div>
           <div className="relative rounded-md overflow-hidden">
             <img
+              className="w-full h-full object-cover"
               src="https://img.freepik.com/free-photo/start-up-designers_1098-14229.jpg?t=st=1717235896~exp=1717239496~hmac=2e723870f597acf57e0517f56c92745c5626aa5f9045821672c6752bbc887104&w=740"
               alt=""
             />
