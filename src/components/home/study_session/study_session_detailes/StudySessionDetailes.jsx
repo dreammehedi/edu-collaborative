@@ -2,7 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
 import { Helmet } from "react-helmet-async";
 import { GiExplosiveMaterials, GiFloatingPlatforms } from "react-icons/gi";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
 import ErrorDataImage from "../../../../shared/error_data_image/ErrorDataImage";
 import SectionTitle from "../../../../shared/section_title/SectionTitle";
@@ -10,6 +11,8 @@ import DataLoader from "./../../../../shared/data_loader/DataLoader";
 
 function StudySessionDetailes() {
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
   const axiosPublic = useAxiosPublic();
   // study session detailes data load
@@ -37,13 +40,43 @@ function StudySessionDetailes() {
   const classEndTime = singleStudySessionData?.classEndDate;
 
   // handle study session booked
-  const handleStudySessionBooked = (id) => {
-    const studySessionBookedData = {
-      studySessionId: id,
-      tutorEmail: singleStudySessionData?.contactEmail,
-      tutorName: singleStudySessionData?.tutorName,
+  const handleStudySessionBooked = () => {
+    const fee = singleStudySessionData?.fee;
+
+    const studySessionBookedFn = async () => {
+      const { _id: studySessionId, ...studySessionCopy } =
+        singleStudySessionData;
+      const studySessionBookedData = {
+        studySessionId,
+        ...studySessionCopy,
+      };
+      const response = await axiosPublic.post(
+        "/study-session-booked",
+        studySessionBookedData
+      );
+      const data = await response.data;
+
+      if (data.insertedId) {
+        Swal.fire({
+          title: "Study Session Booked Successfully",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        Swal.fire({
+          title: "An error occurred!",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     };
-    console.log(studySessionBookedData);
+    if (fee === 0) {
+      studySessionBookedFn();
+    } else {
+      navigate("/payment");
+    }
   };
   return (
     <>
