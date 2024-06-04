@@ -31,6 +31,7 @@ function AllUsers() {
       return data;
     },
   });
+
   useEffect(() => {
     refetch();
   }, [refetch, searchNameOrEmail]);
@@ -41,9 +42,9 @@ function AllUsers() {
       title: "Are you sure?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#5c6bc0",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, update it!",
+      confirmButtonText: "Yes, admin it!",
     }).then(async (res) => {
       if (res.isConfirmed) {
         const res = await axiosSecure.patch(`/update-role`, {
