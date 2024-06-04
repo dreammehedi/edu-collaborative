@@ -5,6 +5,7 @@ import { MdDashboardCustomize } from "react-icons/md";
 import { Link, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import logo from "../../../assets/logo.png";
+import useAdmin from "../../../hooks/useAdmin";
 import useAuth from "../../../hooks/useAuth";
 import AdminNavigate from "./AdminNavigate";
 import StudentNavigate from "./StudentNavigate";
@@ -28,7 +29,7 @@ function DashboardNavigate() {
       });
   };
 
-  const isUserRole = "admin";
+  const [isAdmin] = useAdmin();
 
   return (
     <>
@@ -60,17 +61,17 @@ function DashboardNavigate() {
         <h3 className="pt-4 text-right font-semibold">
           You are{" "}
           <span className="text-primary font-bold capitalize">
-            {isUserRole}
+            {isAdmin && "Admin"}
           </span>
         </h3>
         {/* admin navigate */}
-        {isUserRole === "admin" && <AdminNavigate></AdminNavigate>}
+        {isAdmin && <AdminNavigate></AdminNavigate>}
 
         {/* student navigate */}
-        {isUserRole === "student" && <StudentNavigate></StudentNavigate>}
+        {isAdmin === "student" && <StudentNavigate></StudentNavigate>}
 
         {/* tutor navigate */}
-        {isUserRole === "tutor" && <TutorNavigate></TutorNavigate>}
+        {isAdmin === "tutor" && <TutorNavigate></TutorNavigate>}
         {/* main navigate */}
         <ul className="pt-10 text-slate-500 font-medium font-roboto space-y-3">
           <li className="flex items-center gap-2">
