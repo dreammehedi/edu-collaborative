@@ -8,6 +8,7 @@ import logo from "../../../assets/logo.png";
 import useAdmin from "../../../hooks/useAdmin";
 import useAuth from "../../../hooks/useAuth";
 import useStudent from "../../../hooks/useStudent";
+import useTutor from "../../../hooks/useTutor";
 import AdminNavigate from "./AdminNavigate";
 import StudentNavigate from "./StudentNavigate";
 import TutorNavigate from "./TutorNavigate";
@@ -32,8 +33,7 @@ function DashboardNavigate() {
 
   const [isAdmin] = useAdmin();
   const [isStudent] = useStudent();
-  console.log("admin is " + isAdmin);
-  console.log("student is " + isStudent);
+  const [isTutor] = useTutor();
 
   return (
     <>
@@ -66,6 +66,8 @@ function DashboardNavigate() {
           You are{" "}
           <span className="text-primary font-bold capitalize">
             {isAdmin && "Admin"}
+            {isStudent && "Student"}
+            {isTutor && "Tutor"}
           </span>
         </h3>
         {/* admin navigate */}
@@ -75,7 +77,7 @@ function DashboardNavigate() {
         {isStudent && <StudentNavigate></StudentNavigate>}
 
         {/* tutor navigate */}
-        {isAdmin === "tutor" && <TutorNavigate></TutorNavigate>}
+        {isTutor && <TutorNavigate></TutorNavigate>}
         {/* main navigate */}
         <ul className="pt-10 text-slate-500 font-medium font-roboto space-y-3">
           <li className="flex items-center gap-2">
