@@ -177,8 +177,10 @@ function StudySessionDetailes() {
                     if (!isRegistrationEnd) return;
                     handleStudySessionBooked(id);
                   }}
-                  className={`!mt-8 text-right cursor-pointer ${
-                    !isRegistrationEnd && "cursor-not-allowed"
+                  className={`!mt-8 text-right ${
+                    !isRegistrationEnd
+                      ? "cursor-not-allowed"
+                      : " cursor-pointer"
                   }`}
                 >
                   <span

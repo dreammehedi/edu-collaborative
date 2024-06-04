@@ -1,27 +1,58 @@
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import { MdPersonSearch } from "react-icons/md";
+import Swal from "sweetalert2";
 import SectionTitle from "../../shared/section_title/SectionTitle";
-import useAxiosPublic from "./../../hooks/useAxiosPublic";
+import useAxiosSecure from "./../../hooks/useAxiosSecure";
 import DataLoader from "./../../shared/data_loader/DataLoader";
 import ErrorDataImage from "./../../shared/error_data_image/ErrorDataImage";
 
 function AllUsers() {
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   // all users data get
   const {
     isPending,
     error,
     data: allUsersData = [],
+    refetch,
   } = useQuery({
     queryKey: ["allUsers"],
 
     queryFn: async () => {
-      const res = await axiosPublic.get("/users");
+      const res = await axiosSecure.get("/users");
       const data = await res.data;
       return data;
     },
   });
+
+  // handle update role
+  const handleUpdateRole = (userData) => {
+    Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, update it!",
+    }).then(async (res) => {
+      if (res.isConfirmed) {
+        const res = await axiosSecure.patch(`/update-role`, {
+          _id: userData._id,
+          email: userData.email,
+        });
+        const data = await res.data;
+        if (data.modifiedCount > 0) {
+          refetch();
+          Swal.fire({
+            title: "Role Updated Successfully",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      }
+    });
+  };
   return (
     <>
       <Helmet>
@@ -109,7 +140,7 @@ function AllUsers() {
                             scope="col"
                             className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 "
                           >
-                            Action
+                            Update Role
                           </th>
                         </tr>
                       </thead>
@@ -147,7 +178,19 @@ function AllUsers() {
                                 {email}
                               </td>
                               <td className="px-4 py-4 text-sm whitespace-nowrap">
-                                <div className="flex items-center space-x-2 justify-center px-3 py-1 text-xs text-primary my-transition rounded-full  bg-blue-100/60  cursor-pointer hover:bg-primary/50 hover:text-black">
+                                <div
+                                  onClick={() => {
+                                    if (role === "admin") {
+                                      return;
+                                    }
+                                    handleUpdateRole(userData);
+                                  }}
+                                  className={`${
+                                    role === "admin"
+                                      ? "cursor-not-allowed"
+                                      : "cursor-pointer "
+                                  } flex items-center space-x-2 justify-center px-3 py-1 text-xs text-primary my-transition rounded-full  bg-blue-100/60 hover:bg-primary/50 hover:text-black`}
+                                >
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
