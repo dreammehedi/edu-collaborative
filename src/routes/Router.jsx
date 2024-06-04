@@ -19,7 +19,6 @@ import ViewBookedSession from "./../dashboard/student/ViewBookedSession";
 import CreateStudySession from "./../dashboard/tutor/CreateStudySession";
 import UploadMaterials from "./../dashboard/tutor/UploadMaterials";
 import ViewAllMaterials from "./../dashboard/tutor/ViewAllMaterials";
-import ViewAllNotes from "./../dashboard/tutor/ViewAllNotes";
 import ViewAllStudySession from "./../dashboard/tutor/ViewAllStudySession";
 import Payment from "./../payment/Payment";
 
@@ -114,10 +113,6 @@ const router = createBrowserRouter([
       {
         path: "view-all-materials",
         element: <ViewAllMaterials></ViewAllMaterials>,
-      },
-      {
-        path: "view-all-notes",
-        element: <ViewAllNotes></ViewAllNotes>,
       },
     ],
   },

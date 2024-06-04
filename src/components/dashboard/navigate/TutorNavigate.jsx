@@ -1,4 +1,3 @@
-import { GrNotes } from "react-icons/gr";
 import { IoCreate } from "react-icons/io5";
 import { MdCreateNewFolder } from "react-icons/md";
 import { SiMaterialformkdocs, SiSession } from "react-icons/si";
@@ -45,15 +44,6 @@ function TutorNavigate() {
             View All Materials
           </NavLink>
         </li>{" "}
-        <li className="flex items-center gap-2">
-          <GrNotes></GrNotes>
-          <NavLink
-            className={({ isActive }) => (isActive ? "text-primary-main" : "")}
-            to={"view-all-notes"}
-          >
-            View All Notes
-          </NavLink>
-        </li>
       </ul>
     </>
   );
