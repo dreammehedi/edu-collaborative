@@ -59,12 +59,13 @@ function DashboardNavigate() {
           <img
             src={user?.photoURL}
             alt="user"
-            className="w-[40px] rounded-full h-auto object-cover"
+            className="w-[40px] rounded-full h-auto object-cover  ring-2 ring-primary-main/50 shadow-md"
           />
         </div>
         <h3 className="pt-4 text-right font-semibold">
           You are
           <span className="text-primary font-bold capitalize">
+            {" "}
             {isAdmin && "Admin"}
             {isStudent && "Student"}
             {isTutor && "Tutor"}
