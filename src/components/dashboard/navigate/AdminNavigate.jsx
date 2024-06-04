@@ -6,7 +6,6 @@ import { NavLink } from "react-router-dom";
 function AdminNavigate() {
   return (
     <>
-      {" "}
       <ul className="pt-10 text-slate-500 font-medium font-roboto space-y-3 border-b border-slate-200 pb-2">
         <li className="flex items-center gap-2">
           <TbUsersGroup></TbUsersGroup>

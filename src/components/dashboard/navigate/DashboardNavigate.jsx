@@ -63,7 +63,7 @@ function DashboardNavigate() {
           />
         </div>
         <h3 className="pt-4 text-right font-semibold">
-          You are{" "}
+          You are
           <span className="text-primary font-bold capitalize">
             {isAdmin && "Admin"}
             {isStudent && "Student"}

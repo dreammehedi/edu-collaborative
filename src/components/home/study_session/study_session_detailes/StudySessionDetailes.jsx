@@ -133,15 +133,15 @@ function StudySessionDetailes() {
                 <div className="flex flex-wrap gap-6">
                   <div className="shadow-md p-4 text-center">
                     <h3 className="text-primary">
-                      Rating:{" "}
+                      Rating:
                       <span className="text-black font-roboto font-medium">
                         {singleStudySessionData?.averageRating}
                       </span>
                     </h3>
-                  </div>{" "}
+                  </div>
                   <div className="shadow-md p-4 text-center">
                     <h3 className="text-primary">
-                      Fee:{" "}
+                      Fee:
                       <span className="text-black font-roboto font-medium">
                         ${singleStudySessionData?.fee}
                       </span>
@@ -149,7 +149,7 @@ function StudySessionDetailes() {
                   </div>
                   <div className="shadow-md p-4 text-center">
                     <h3 className="text-primary">
-                      Registration Start Date:{" "}
+                      Registration Start Date:
                       <span className="text-black font-roboto font-medium">
                         {singleStudySessionData?.registrationStartDate}
                       </span>
@@ -157,7 +157,7 @@ function StudySessionDetailes() {
                   </div>
                   <div className="shadow-md p-4 text-center">
                     <h3 className="text-primary">
-                      Max Participants:{" "}
+                      Max Participants:
                       <span className="text-black font-roboto font-medium">
                         3{singleStudySessionData?.maxParticipants}
                       </span>
@@ -165,7 +165,7 @@ function StudySessionDetailes() {
                   </div>
                   <div className="shadow-md p-4 text-center">
                     <h3 className="text-primary">
-                      Current Participants:{" "}
+                      Current Participants:
                       <span className="text-black font-roboto font-medium">
                         {singleStudySessionData?.currentParticipants}
                       </span>
@@ -272,7 +272,7 @@ function StudySessionDetailes() {
             <div className="py-12 grid grid-cols-6 gap-6">
               <div className="shadow-md p-4 text-center">
                 <h3 className="text-primary">
-                  Registration End Date:{" "}
+                  Registration End Date:
                   <span className="text-black font-roboto font-medium">
                     {singleStudySessionData?.registrationEndDate}
                   </span>
@@ -280,7 +280,7 @@ function StudySessionDetailes() {
               </div>
               <div className="shadow-md p-4 text-center">
                 <h3 className="text-primary">
-                  Class Start Time:{" "}
+                  Class Start Time:
                   <span className="text-black font-roboto font-medium">
                     {classStartTime?.split("T")[1]}
                   </span>
@@ -288,7 +288,7 @@ function StudySessionDetailes() {
               </div>
               <div className="shadow-md p-4 text-center">
                 <h3 className="text-primary">
-                  Class End Time:{" "}
+                  Class End Time:
                   <span className="text-black font-roboto font-medium">
                     {classEndTime?.split("T")[1]}
                   </span>
@@ -296,7 +296,7 @@ function StudySessionDetailes() {
               </div>
               <div className="shadow-md p-4 text-center">
                 <h3 className="text-primary">
-                  Session Duration:{" "}
+                  Session Duration:
                   <span className="text-black font-roboto font-medium">
                     {singleStudySessionData?.sessionDuration}
                   </span>
@@ -304,7 +304,7 @@ function StudySessionDetailes() {
               </div>
               <div className="shadow-md p-4 text-center">
                 <h3 className="text-primary">
-                  Location:{" "}
+                  Location:
                   <span className="text-black font-roboto font-medium">
                     {singleStudySessionData?.sessionLocation}
                   </span>
@@ -312,15 +312,15 @@ function StudySessionDetailes() {
               </div>
               <div className="shadow-md p-4 text-center">
                 <h3 className="text-primary">
-                  Session Type:{" "}
+                  Session Type:
                   <span className="text-black font-roboto font-medium">
                     {singleStudySessionData?.sessionType}
                   </span>
                 </h3>
-              </div>{" "}
+              </div>
               <div className="shadow-md p-4 text-center">
                 <h3 className="text-primary">
-                  Prerequisites:{" "}
+                  Prerequisites:
                   <span className="text-black font-roboto font-medium">
                     {singleStudySessionData?.prerequisites}
                   </span>
@@ -410,7 +410,7 @@ function StudySessionDetailes() {
 
                     <div className="mx-2">
                       <h1 className="font-semibold text-gray-800 ">
-                        Ema Watson{" "}
+                        Ema Watson
                       </h1>
                       <span className="text-sm text-gray-500">
                         Marketing Manager at Stech

@@ -15,7 +15,7 @@ function StudentNavigate() {
           >
             View Booked Session
           </NavLink>
-        </li>{" "}
+        </li>
         <li className="flex items-center gap-2">
           <IoCreate></IoCreate>
           <NavLink
@@ -24,7 +24,7 @@ function StudentNavigate() {
           >
             Create Note
           </NavLink>
-        </li>{" "}
+        </li>
         <li className="flex items-center gap-2">
           <MdCreateNewFolder></MdCreateNewFolder>
           <NavLink

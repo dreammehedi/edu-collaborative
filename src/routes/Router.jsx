@@ -13,6 +13,7 @@ import SignUp from "../pages/signup/SignUp";
 import AdminRoute from "../private/AdminRoute";
 import PrivateRoute from "../private/PrivateRoute";
 import StudentRoute from "../private/StudentRoute";
+import TutorRoute from "../private/TutorRoute";
 import StudySessionDetailes from "./../components/home/study_session/study_session_detailes/StudySessionDetailes";
 import CreateNote from "./../dashboard/student/CreateNote";
 import ManagePersonalNotes from "./../dashboard/student/ManagePersonalNotes";
@@ -130,19 +131,35 @@ const router = createBrowserRouter([
       },
       {
         path: "create-study-session",
-        element: <CreateStudySession></CreateStudySession>,
+        element: (
+          <TutorRoute>
+            <CreateStudySession></CreateStudySession>
+          </TutorRoute>
+        ),
       },
       {
         path: "view-all-study-session",
-        element: <ViewAllStudySession></ViewAllStudySession>,
+        element: (
+          <TutorRoute>
+            <ViewAllStudySession></ViewAllStudySession>
+          </TutorRoute>
+        ),
       },
       {
         path: "upload-materials",
-        element: <UploadMaterials></UploadMaterials>,
+        element: (
+          <TutorRoute>
+            <UploadMaterials></UploadMaterials>
+          </TutorRoute>
+        ),
       },
       {
         path: "view-all-materials",
-        element: <ViewAllMaterials></ViewAllMaterials>,
+        element: (
+          <TutorRoute>
+            <ViewAllMaterials></ViewAllMaterials>
+          </TutorRoute>
+        ),
       },
     ],
   },

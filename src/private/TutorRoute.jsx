@@ -4,12 +4,12 @@ import useAuth from "../hooks/useAuth";
 import useStudent from "../hooks/useStudent";
 import DataLoader from "../shared/data_loader/DataLoader";
 
-function StudentRoute({ children }) {
+function TutorRoute({ children }) {
   const { user, userLoading } = useAuth();
-  const [isStudent, isStudentLoading] = useStudent();
+  const [isTutor, isTutorLoading] = useStudent();
   const location = useLocation();
 
-  if (userLoading || isStudentLoading) {
+  if (userLoading || isTutorLoading) {
     return (
       <div className="flex justify-center items-center py-12 h-screen w-full">
         <DataLoader></DataLoader>
@@ -17,12 +17,12 @@ function StudentRoute({ children }) {
     );
   }
 
-  if (user && isStudent) {
+  if (user && isTutor) {
     return children;
   }
   return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
 }
-StudentRoute.propTypes = {
+TutorRoute.propTypes = {
   children: PropTypes.node.isRequired,
 };
-export default StudentRoute;
+export default TutorRoute;

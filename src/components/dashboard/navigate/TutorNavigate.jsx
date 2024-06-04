@@ -6,7 +6,6 @@ import { NavLink } from "react-router-dom";
 function TutorNavigate() {
   return (
     <>
-      {" "}
       <ul className="pt-10 text-slate-500 font-medium font-roboto space-y-3 border-b border-slate-200 pb-2">
         <li className="flex items-center gap-2">
           <IoCreate></IoCreate>
@@ -16,7 +15,7 @@ function TutorNavigate() {
           >
             Create Study Session
           </NavLink>
-        </li>{" "}
+        </li>
         <li className="flex items-center gap-2">
           <SiSession></SiSession>
           <NavLink
@@ -25,7 +24,7 @@ function TutorNavigate() {
           >
             View All Study Session
           </NavLink>
-        </li>{" "}
+        </li>
         <li className="flex items-center gap-2">
           <MdCreateNewFolder></MdCreateNewFolder>
           <NavLink
@@ -43,7 +42,7 @@ function TutorNavigate() {
           >
             View All Materials
           </NavLink>
-        </li>{" "}
+        </li>
       </ul>
     </>
   );
