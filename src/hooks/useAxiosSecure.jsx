@@ -30,7 +30,7 @@ function useAxiosSecure() {
       const statusCode = error.response.status;
       if (statusCode === 401 || statusCode === 403) {
         await userSignOut();
-        navigate("/login");
+        navigate("/login", { replace: true });
       }
       return Promise.reject(error);
     }

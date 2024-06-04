@@ -10,6 +10,7 @@ import Error from "../pages/error/Error";
 import Home from "../pages/home/Home";
 import Login from "../pages/login/Login";
 import SignUp from "../pages/signup/SignUp";
+import AdminRoute from "../private/AdminRoute";
 import PrivateRoute from "../private/PrivateRoute";
 import StudySessionDetailes from "./../components/home/study_session/study_session_detailes/StudySessionDetailes";
 import CreateNote from "./../dashboard/student/CreateNote";
@@ -68,15 +69,27 @@ const router = createBrowserRouter([
       },
       {
         path: "all-users",
-        element: <AllUsers></AllUsers>,
+        element: (
+          <AdminRoute>
+            <AllUsers></AllUsers>
+          </AdminRoute>
+        ),
       },
       {
         path: "all-study-session",
-        element: <AllStudySession></AllStudySession>,
+        element: (
+          <AdminRoute>
+            <AllStudySession></AllStudySession>
+          </AdminRoute>
+        ),
       },
       {
         path: "all-materials",
-        element: <AllMaterials></AllMaterials>,
+        element: (
+          <AdminRoute>
+            <AllMaterials></AllMaterials>
+          </AdminRoute>
+        ),
       },
       {
         path: "user-profile",
