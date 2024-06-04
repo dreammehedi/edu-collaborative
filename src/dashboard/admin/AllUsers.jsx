@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { MdPersonSearch } from "react-icons/md";
 import Swal from "sweetalert2";
@@ -8,6 +9,9 @@ import DataLoader from "./../../shared/data_loader/DataLoader";
 import ErrorDataImage from "./../../shared/error_data_image/ErrorDataImage";
 
 function AllUsers() {
+  // user search name or email
+  const [searchNameOrEmail, setSearchNameOrEmail] = useState(null);
+
   const axiosSecure = useAxiosSecure();
   // all users data get
   const {
@@ -19,11 +23,16 @@ function AllUsers() {
     queryKey: ["allUsers"],
 
     queryFn: async () => {
-      const res = await axiosSecure.get("/users");
+      const res = await axiosSecure.get(
+        `/users?userFilter=${searchNameOrEmail && searchNameOrEmail}`
+      );
       const data = await res.data;
       return data;
     },
   });
+  useEffect(() => {
+    refetch();
+  }, [refetch, searchNameOrEmail]);
 
   // handle update role
   const handleUpdateRole = (userData) => {
@@ -52,6 +61,15 @@ function AllUsers() {
         }
       }
     });
+  };
+
+  // handle user search
+  const handleUserSearch = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const userSearch = form.userFind.value;
+    setSearchNameOrEmail(userSearch);
+    form.reset();
   };
   return (
     <>
@@ -95,15 +113,21 @@ function AllUsers() {
                   {allUsersData.length}
                 </span>
               </div>
-              <div className="relative flex items-center mt-4 md:mt-0">
+              <form
+                onSubmit={(e) => {
+                  handleUserSearch(e);
+                }}
+                className="relative flex items-center mt-4 md:mt-0"
+              >
                 <MdPersonSearch className="text-2xl absolute ml-2 text-primary"></MdPersonSearch>
 
                 <input
+                  name="userFind"
                   type="text"
                   placeholder="Search User Name/Email"
                   className="block w-full py-1.5 pr-5 text-primary bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5  focus:border-primary  focus:ring-primary-main focus:outline-none focus:ring focus:ring-opacity-40"
                 />
-              </div>
+              </form>
             </div>
 
             <div className="flex flex-col mt-6">
