@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import logo from "../../../assets/logo.png";
 import useAdmin from "../../../hooks/useAdmin";
 import useAuth from "../../../hooks/useAuth";
+import useStudent from "../../../hooks/useStudent";
 import AdminNavigate from "./AdminNavigate";
 import StudentNavigate from "./StudentNavigate";
 import TutorNavigate from "./TutorNavigate";
@@ -30,6 +31,9 @@ function DashboardNavigate() {
   };
 
   const [isAdmin] = useAdmin();
+  const [isStudent] = useStudent();
+  console.log("admin is " + isAdmin);
+  console.log("student is " + isStudent);
 
   return (
     <>
@@ -68,7 +72,7 @@ function DashboardNavigate() {
         {isAdmin && <AdminNavigate></AdminNavigate>}
 
         {/* student navigate */}
-        {isAdmin === "student" && <StudentNavigate></StudentNavigate>}
+        {isStudent && <StudentNavigate></StudentNavigate>}
 
         {/* tutor navigate */}
         {isAdmin === "tutor" && <TutorNavigate></TutorNavigate>}
