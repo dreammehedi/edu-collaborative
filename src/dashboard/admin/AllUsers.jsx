@@ -78,7 +78,7 @@ function AllUsers() {
       <Helmet>
         <title>EduCollaborate | Dashboard | All Users</title>
       </Helmet>
-      <div className="space-y-8">
+      <section className="space-y-8">
         <div className="flex w-full md:max-w-2xl md:mx-auto justify-center text-center flex-col space-y-3">
           <SectionTitle
             firstCls={"text-primary"}
@@ -138,7 +138,7 @@ function AllUsers() {
                   <div className="overflow-hidden border border-gray-200  md:rounded-lg">
                     <table className="min-w-full divide-y divide-gray-200 ">
                       <thead className="bg-gray-50 ">
-                        <tr>
+                        <tr className="*:font-bold">
                           <th
                             scope="col"
                             className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 "
@@ -247,7 +247,7 @@ function AllUsers() {
             </div>
           </>
         )}
-      </div>
+      </section>
     </>
   );
 }

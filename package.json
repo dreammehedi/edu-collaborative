@@ -24,6 +24,7 @@
     "react-router-dom": "^6.23.1",
     "react-spinners": "^0.13.8",
     "react-toastify": "^10.0.5",
+    "reoverlay": "^1.0.3",
     "sweetalert2": "^11.11.0"
   },
   "devDependencies": {
