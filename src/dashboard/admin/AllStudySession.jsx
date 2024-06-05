@@ -13,8 +13,8 @@ function AllStudySession() {
   // accept status modal
   const [acceptStatusModal, setAcceptStatusModal] = useState(false);
   const [studySessionAcceptId, setStudySessionAcceptId] = useState("");
-  const axiosSecure = useAxiosSecure();
 
+  const axiosSecure = useAxiosSecure();
   const {
     isPending,
     error,
@@ -24,10 +24,21 @@ function AllStudySession() {
     queryKey: ["allStudySessionTutor"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/all-study-session-admin`);
-      const data = await res.data;
-      return data;
+      const resData = await res.data;
+      const resDataLength = resData.length;
+      const statusSuccess = resData.filter(
+        (studySession) => studySession.status === "success"
+      );
+      const statusPending = resData.filter(
+        (studySession) => studySession.status === "pending"
+      );
+      const statusReject = resData.filter(
+        (studySession) => studySession.status === "rejected"
+      );
+      return { resDataLength, statusSuccess, statusPending, statusReject };
     },
   });
+  console.log(allStudySession);
 
   // handle status accept
   const handleStatusAccept = (id) => {
@@ -131,6 +142,7 @@ function AllStudySession() {
       statusAcceptRequestDatabase();
     }
   };
+
   return (
     <>
       <Helmet>
@@ -161,48 +173,29 @@ function AllStudySession() {
             </span>
           </div>
         )}
-        {allStudySession.length > 0 && (
+        <div className="flex justify-center items-center gap-x-3">
+          <h2 className="text-2xl font-medium text-primary ">
+            All Study Session:
+          </h2>
+
+          <span className="px-3 py-1 text-lg font-bold text-primary bg-blue-200 rounded-full  ">
+            {allStudySession?.resDataLength}
+          </span>
+        </div>
+        {/* study session pending */}
+        <div className="flex items-center gap-x-3">
+          <h2 className="text-lg font-medium text-gray-800 ">
+            Pending Study Session:
+          </h2>
+
+          <span className="px-3 py-1 text-xs font-bold text-primary bg-blue-200 rounded-full  ">
+            {allStudySession?.statusPending?.length}
+          </span>
+        </div>
+
+        {allStudySession?.statusPending?.length > 0 ? (
           <>
-            <div className="grid grid-cols-2 justify-between gap-8">
-              <div className="flex items-center gap-x-3">
-                <h2 className="text-lg font-medium text-gray-800 ">
-                  All Study Session:
-                </h2>
-
-                <span className="px-3 py-1 text-xs font-bold text-primary bg-blue-200 rounded-full  ">
-                  {allStudySession.length}
-                </span>
-              </div>
-              <div className="flex items-center gap-x-3">
-                <h2 className="text-lg font-medium text-gray-800 ">
-                  Accept Study Session:
-                </h2>
-
-                <span className="px-3 py-1 text-xs font-bold text-primary bg-blue-200 rounded-full  ">
-                  {allStudySession.length}
-                </span>
-              </div>
-              <div className="flex items-center gap-x-3">
-                <h2 className="text-lg font-medium text-gray-800 ">
-                  Pending Study Session:
-                </h2>
-
-                <span className="px-3 py-1 text-xs font-bold text-primary bg-blue-200 rounded-full  ">
-                  {allStudySession.length}
-                </span>
-              </div>
-
-              <div className="flex items-center gap-x-3">
-                <h2 className="text-lg font-medium text-gray-800 ">
-                  Reject Study Session:
-                </h2>
-
-                <span className="px-3 py-1 text-xs font-bold text-primary bg-blue-200 rounded-full  ">
-                  {allStudySession.length}
-                </span>
-              </div>
-            </div>
-
+            {/* study session pending table */}
             <div className="flex flex-col mt-6">
               <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -246,98 +239,76 @@ function AllStudySession() {
                         </tr>
                       </thead>
                       <tbody className="bg-white divide-y divide-gray-200  ">
-                        {allStudySession.map((studySessionData, ind) => {
-                          const {
-                            _id,
-                            image,
-                            sessionTitle,
-                            status,
-                            tutorName,
-                            tutorEmail,
-                          } = studySessionData;
+                        {allStudySession?.statusPending?.map(
+                          (studySessionData, ind) => {
+                            const {
+                              _id,
+                              image,
+                              sessionTitle,
+                              status,
+                              tutorName,
+                              tutorEmail,
+                            } = studySessionData;
 
-                          return (
-                            <tr key={ind}>
-                              <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                <div className="inline-flex items-center gap-x-3">
-                                  <span className="text-primary ring-1 ring-primary rounded-full size-3 flex justify-center items-center p-3">
-                                    {ind + 1}
-                                  </span>
+                            return (
+                              <tr key={ind}>
+                                <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                  <div className="inline-flex items-center gap-x-3">
+                                    <span className="text-primary ring-1 ring-primary rounded-full size-3 flex justify-center items-center p-3">
+                                      {ind + 1}
+                                    </span>
 
-                                  <div className="flex items-center gap-x-2">
-                                    <img
-                                      className="object-cover size-16 rounded-md "
-                                      src={image}
-                                      alt=""
-                                    />
-                                    <div>
-                                      <h2 className="font-medium text-gray-800 ">
-                                        {sessionTitle}
-                                      </h2>
+                                    <div className="flex items-center gap-x-2">
+                                      <img
+                                        className="object-cover size-16 rounded-md "
+                                        src={image}
+                                        alt=""
+                                      />
+                                      <div>
+                                        <h2 className="font-medium text-gray-800 ">
+                                          {sessionTitle}
+                                        </h2>
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              </td>
-                              <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
-                                {tutorName}
-                              </td>
-                              <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
-                                {tutorEmail}
-                              </td>
-                              {status === "success" && (
-                                <td className="px-4 py-4 text-sm text-green-500  whitespace-nowrap capitalize">
-                                  {status}
                                 </td>
-                              )}
-                              {status === "pending" && (
-                                <td className="px-4 py-4 text-sm text-primary-main  whitespace-nowrap capitalize">
-                                  {status}
+                                <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
+                                  {tutorName}
                                 </td>
-                              )}
-                              {status === "rejected" && (
+                                <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
+                                  {tutorEmail}
+                                </td>
+
                                 <td className="px-4 py-4 text-sm text-red-500  whitespace-nowrap capitalize">
                                   {status}
                                 </td>
-                              )}
-                              <td className="px-4 py-4 text-sm whitespace-nowrap">
-                                {status === "success" && (
-                                  <div
-                                    className={` flex items-center space-x-2 justify-center px-3 py-1 text-[15px] text-green-500 rounded-full bg-green-100/60  `}
-                                  >
-                                    <span>Already Success</span>
-                                  </div>
-                                )}
-                                {status == "pending" && (
-                                  <div className="flex flex-col gap-3">
-                                    <div
-                                      onClick={() => {
-                                        handleStatusAccept(_id);
-                                      }}
-                                      className={`cursor-pointer flex items-center space-x-2 justify-center px-3 py-1 text-[15px] text-green-500 my-transition rounded-full  bg-green-100/60 hover:bg-green-500/50 hover:text-black`}
-                                    >
-                                      <span>Accept</span>
+
+                                <td className="px-4 py-4 text-sm whitespace-nowrap">
+                                  {status == "pending" && (
+                                    <div className="flex flex-col gap-3">
+                                      <div
+                                        onClick={() => {
+                                          handleStatusAccept(_id);
+                                        }}
+                                        className={`cursor-pointer flex items-center space-x-2 justify-center px-3 py-1 text-[15px] text-green-500 my-transition rounded-full  bg-green-100/60 hover:bg-green-500/50 hover:text-black`}
+                                      >
+                                        <span>Accept</span>
+                                      </div>
+                                      <div
+                                        onClick={() => {
+                                          handleStatusReject(_id);
+                                        }}
+                                        className={`cursor-pointer flex items-center space-x-2 justify-center px-3 py-1 text-[15px] text-red-500 my-transition rounded-full  bg-red-100/60 hover:bg-red-500/50 hover:text-black`}
+                                      >
+                                        <span>Reject</span>
+                                      </div>
                                     </div>
-                                    <div
-                                      onClick={() => {
-                                        handleStatusReject(_id);
-                                      }}
-                                      className={`cursor-pointer flex items-center space-x-2 justify-center px-3 py-1 text-[15px] text-red-500 my-transition rounded-full  bg-red-100/60 hover:bg-red-500/50 hover:text-black`}
-                                    >
-                                      <span>Reject</span>
-                                    </div>
-                                  </div>
-                                )}{" "}
-                                {status == "rejected" && (
-                                  <div
-                                    className={` flex items-center space-x-2 justify-center px-3 py-1 text-[15px] text-red-500 rounded-full bg-red-100/60  `}
-                                  >
-                                    <span>Already Rejected</span>
-                                  </div>
-                                )}
-                              </td>
-                            </tr>
-                          );
-                        })}
+                                  )}
+                                </td>
+                              </tr>
+                            );
+                          }
+                        )}
                       </tbody>
                     </table>
                   </div>
@@ -345,7 +316,267 @@ function AllStudySession() {
               </div>
             </div>
           </>
+        ) : (
+          <>
+            <span className="text-red-500 flex justify-center text-center font-medium">
+              No Study Session Pending!
+            </span>
+          </>
         )}
+
+        {/* study session success */}
+        <div className="flex items-center gap-x-3">
+          <h2 className="text-lg font-medium text-gray-800 ">
+            Accept Study Session:
+          </h2>
+
+          <span className="px-3 py-1 text-xs font-bold text-primary bg-blue-200 rounded-full  ">
+            {allStudySession?.statusSuccess?.length}
+          </span>
+        </div>
+        {allStudySession?.statusSuccess?.length > 0 ? (
+          <>
+            {/* study session success table */}
+            <div className="flex flex-col mt-6">
+              <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                  <div className="overflow-hidden border border-gray-200  md:rounded-lg">
+                    <table className="min-w-full divide-y divide-gray-200 ">
+                      <thead className="bg-gray-50 ">
+                        <tr className="*:font-bold">
+                          <th
+                            scope="col"
+                            className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 "
+                          >
+                            <div className="flex items-center gap-x-3">
+                              <span>Session Title - Image</span>
+                            </div>
+                          </th>
+
+                          <th
+                            scope="col"
+                            className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 "
+                          >
+                            Tutor Name
+                          </th>
+                          <th
+                            scope="col"
+                            className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 "
+                          >
+                            Tutor Email address
+                          </th>
+                          <th
+                            scope="col"
+                            className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 "
+                          >
+                            Status
+                          </th>
+                          <th
+                            scope="col"
+                            className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 "
+                          >
+                            Action Status
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200  ">
+                        {allStudySession?.statusSuccess?.map(
+                          (studySessionData, ind) => {
+                            const {
+                              image,
+                              sessionTitle,
+                              status,
+                              tutorName,
+                              tutorEmail,
+                            } = studySessionData;
+
+                            return (
+                              <tr key={ind}>
+                                <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                  <div className="inline-flex items-center gap-x-3">
+                                    <span className="text-primary ring-1 ring-primary rounded-full size-3 flex justify-center items-center p-3">
+                                      {ind + 1}
+                                    </span>
+
+                                    <div className="flex items-center gap-x-2">
+                                      <img
+                                        className="object-cover size-16 rounded-md "
+                                        src={image}
+                                        alt=""
+                                      />
+                                      <div>
+                                        <h2 className="font-medium text-gray-800 ">
+                                          {sessionTitle}
+                                        </h2>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
+                                  {tutorName}
+                                </td>
+                                <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
+                                  {tutorEmail}
+                                </td>
+
+                                <td className="px-4 py-4 text-sm text-green-500  whitespace-nowrap capitalize">
+                                  {status}
+                                </td>
+
+                                <td className="px-4 py-4 text-sm whitespace-nowrap">
+                                  <div
+                                    className={` flex items-center space-x-2 justify-center px-3 py-1 text-[15px] text-green-500 rounded-full bg-green-100/60  `}
+                                  >
+                                    <span>Already Success</span>
+                                  </div>
+                                </td>
+                              </tr>
+                            );
+                          }
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            {" "}
+            <span className="text-red-500 flex justify-center text-center font-medium">
+              No Study Session Success!
+            </span>
+          </>
+        )}
+
+        {/*  study session rejectd  */}
+        <div className="flex items-center gap-x-3">
+          <h2 className="text-lg font-medium text-gray-800 ">
+            Rejected Study Session:
+          </h2>
+
+          <span className="px-3 py-1 text-xs font-bold text-primary bg-blue-200 rounded-full  ">
+            {allStudySession?.statusReject?.length}
+          </span>
+        </div>
+
+        {allStudySession?.statusReject?.length > 0 ? (
+          <>
+            {/*  study session rejectd table */}
+            <div className="flex flex-col mt-6">
+              <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                  <div className="overflow-hidden border border-gray-200  md:rounded-lg">
+                    <table className="min-w-full divide-y divide-gray-200 ">
+                      <thead className="bg-gray-50 ">
+                        <tr className="*:font-bold">
+                          <th
+                            scope="col"
+                            className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 "
+                          >
+                            <div className="flex items-center gap-x-3">
+                              <span>Session Title - Image</span>
+                            </div>
+                          </th>
+
+                          <th
+                            scope="col"
+                            className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 "
+                          >
+                            Tutor Name
+                          </th>
+                          <th
+                            scope="col"
+                            className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 "
+                          >
+                            Tutor Email address
+                          </th>
+                          <th
+                            scope="col"
+                            className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 "
+                          >
+                            Status
+                          </th>
+                          <th
+                            scope="col"
+                            className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 "
+                          >
+                            Action Status
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200  ">
+                        {allStudySession?.statusReject?.map(
+                          (studySessionData, ind) => {
+                            const {
+                              image,
+                              sessionTitle,
+                              status,
+                              tutorName,
+                              tutorEmail,
+                            } = studySessionData;
+
+                            return (
+                              <tr key={ind}>
+                                <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                  <div className="inline-flex items-center gap-x-3">
+                                    <span className="text-primary ring-1 ring-primary rounded-full size-3 flex justify-center items-center p-3">
+                                      {ind + 1}
+                                    </span>
+
+                                    <div className="flex items-center gap-x-2">
+                                      <img
+                                        className="object-cover size-16 rounded-md "
+                                        src={image}
+                                        alt=""
+                                      />
+                                      <div>
+                                        <h2 className="font-medium text-gray-800 ">
+                                          {sessionTitle}
+                                        </h2>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
+                                  {tutorName}
+                                </td>
+                                <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
+                                  {tutorEmail}
+                                </td>
+
+                                <td className="px-4 py-4 text-sm text-red-500  whitespace-nowrap capitalize">
+                                  {status}
+                                </td>
+
+                                <td className="px-4 py-4 text-sm whitespace-nowrap">
+                                  <div
+                                    className={` flex items-center space-x-2 justify-center px-3 py-1 text-[15px] text-red-500 rounded-full bg-red-100/60  `}
+                                  >
+                                    <span>Already Rejected</span>
+                                  </div>
+                                </td>
+                              </tr>
+                            );
+                          }
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            {" "}
+            <span className="text-red-500 flex justify-center text-center font-medium">
+              No Study Session Reject!
+            </span>
+          </>
+        )}
+
         {acceptStatusModal && (
           <div className="my-transition fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white flex justify-center items-center p-8 z-[999] shadow-lg shadow-primary  w-full md:max-w-2xl md:mx-auto rounded-md flex-col ">
             <h2 className="font-semibold text-center mb-4 text-2xl text-primary">
