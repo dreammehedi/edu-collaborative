@@ -70,7 +70,7 @@ function StudySession() {
         {studySessionData.length > sliceData && (
           <div
             onClick={() => {
-              setSliceData(studySessionData.length);
+              setSliceData(sliceData + 4);
             }}
             className="flex justify-center"
           >
