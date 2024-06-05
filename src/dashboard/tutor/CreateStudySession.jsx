@@ -68,7 +68,7 @@ function CreateStudySession() {
       <Helmet>
         <title>EduCollaborate | Dashboard | Create Study Session</title>
       </Helmet>
-      <div className="space-y-8">
+      <section className="space-y-8">
         <div className="flex w-full md:max-w-2xl md:mx-auto justify-center text-center flex-col space-y-3">
           <SectionTitle
             firstCls={"text-black"}
@@ -298,7 +298,7 @@ function CreateStudySession() {
             </button>
           </div>
         </form>
-      </div>
+      </section>
     </>
   );
 }
