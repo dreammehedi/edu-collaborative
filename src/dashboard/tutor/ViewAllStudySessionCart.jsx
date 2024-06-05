@@ -13,6 +13,7 @@ function ViewAllStudySessionCart({ viewStudySession, handlePendingRequest }) {
     registrationEndDate,
     classStartTime,
     classEndTime,
+    sessionDuration,
   } = viewStudySession;
 
   return (
@@ -24,21 +25,24 @@ function ViewAllStudySessionCart({ viewStudySession, handlePendingRequest }) {
           <h3 className="text-primary font-bold text-xl">{sessionTitle}</h3>
           <p>{sessionDescription}</p>
           <div className="flex flex-col space-y-3">
-            <button className="ring-1 ring-primary font-medium px-4 py-1 rounded-full text-primary flex items-center gap-2">
+            <button className="ring-1 ring-orange-500 font-medium px-4 py-1 rounded-full text-orange-500 flex items-center gap-2">
               <p>Registration Start Time:</p> {registrationStartDate}
             </button>{" "}
-            <button className="ring-1 ring-primary font-medium px-4 py-1 rounded-full text-primary flex items-center gap-2">
+            <button className="ring-1 ring-orange-500 font-medium px-4 py-1 rounded-full text-orange-500 flex items-center gap-2">
               <p>Registration End Time:</p> {registrationEndDate}
             </button>{" "}
-            <button className="ring-1 ring-primary font-medium px-4 py-1 rounded-full text-primary flex items-center gap-2">
+            <button className="ring-1 ring-pink-500 font-medium px-4 py-1 rounded-full text-pink-500 flex items-center gap-2">
               <p>Class Start Time:</p> {classStartTime}
             </button>{" "}
-            <button className="ring-1 ring-primary font-medium px-4 py-1 rounded-full text-primary flex items-center gap-2">
+            <button className="ring-1 ring-pink-500 font-medium px-4 py-1 rounded-full text-pink-500 flex items-center gap-2">
               <p>Class End Time:</p> {classEndTime}
+            </button>
+            <button className="ring-1 ring-primary font-medium px-4 py-1 rounded-full text-primary flex items-center gap-2">
+              <p>Session Duration:</p> {sessionDuration}
             </button>
           </div>
           <div className="flex justify-between items-center">
-            <h5 className="ring-1 ring-primary font-medium px-4 py-1 rounded-full text-primary flex items-center  gap-2">
+            <h5 className="ring-1 ring-teal-500 font-medium px-4 py-1 rounded-full text-teal-500 flex items-center  gap-2">
               <p>Fee: $</p> {fee}
             </h5>
             {status === "success" && (
