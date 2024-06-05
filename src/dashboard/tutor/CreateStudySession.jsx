@@ -13,6 +13,7 @@ function CreateStudySession() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -49,6 +50,8 @@ function CreateStudySession() {
     );
     const data = await res.data;
     if (data.insertedId) {
+      reset();
+      setFormattedDuration("0 hours and 0 minutes");
       Swal.fire({
         title: "Study Session Created Successfully",
         icon: "success",

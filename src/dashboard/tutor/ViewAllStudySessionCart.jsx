@@ -71,7 +71,7 @@ function ViewAllStudySessionCart({ viewStudySession, handlePendingRequest }) {
 
           {status === "pending" && (
             <>
-              <p className="text-red-500 font-medium font-roboto">
+              <p className="text-primary-main font-medium font-roboto">
                 Your study session request has been pending.
               </p>
             </>
