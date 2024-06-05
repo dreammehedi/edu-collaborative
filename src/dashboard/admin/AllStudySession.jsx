@@ -5,6 +5,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import AcceptStudySessionModal from "../../modal/AcceptStudySessionModal";
+import RejectStudySessionModal from "../../modal/RejectStudySessionModal";
 import DataLoader from "../../shared/data_loader/DataLoader";
 import ErrorDataImage from "../../shared/error_data_image/ErrorDataImage";
 import SectionTitle from "../../shared/section_title/SectionTitle";
@@ -12,9 +13,16 @@ import SectionTitle from "../../shared/section_title/SectionTitle";
 function AllStudySession() {
   // accept status modal
   const [acceptStatusModal, setAcceptStatusModal] = useState(false);
+
+  // reject status modal
+  const [rejectStatusModal, setRejectStatusModal] = useState(false);
+
   const [studySessionAcceptId, setStudySessionAcceptId] = useState("");
 
+  const [studySessionRejectId, setStudySessionRejectId] = useState("");
+
   const axiosSecure = useAxiosSecure();
+
   const {
     isPending,
     error,
@@ -38,7 +46,6 @@ function AllStudySession() {
       return { resDataLength, statusSuccess, statusPending, statusReject };
     },
   });
-  console.log(allStudySession);
 
   // handle status accept
   const handleStatusAccept = (id) => {
@@ -65,32 +72,16 @@ function AllStudySession() {
       showCancelButton: true,
       confirmButtonColor: "#5c6bc0",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Ok, Reject it!",
+      confirmButtonText: "Yes, Reject it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await axiosSecure.patch(`/status-reject-request/${id}`);
-        const resData = await res.data;
-        if (resData.modifiedCount > 0) {
-          refetch();
-          Swal.fire({
-            title: "Request Rejected Successfully",
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        } else {
-          Swal.fire({
-            title: "An error occurred!",
-            icon: "error",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
+        setRejectStatusModal(true);
+        setStudySessionRejectId(id);
       }
     });
   };
 
-  const onSubmit = (adminSessionDataUpdate) => {
+  const onAccept = (adminSessionDataUpdate) => {
     const fee = Number(adminSessionDataUpdate.fee);
     const maxParticipants = adminSessionDataUpdate.maxParticipants;
 
@@ -102,6 +93,7 @@ function AllStudySession() {
         studySessionUpdatedData
       );
       const resData = await res.data;
+
       if (resData.modifiedCount > 0) {
         setAcceptStatusModal(false);
         refetch();
@@ -143,6 +135,61 @@ function AllStudySession() {
     }
   };
 
+  const onReject = (rejectedResonAndFeedback) => {
+    const rejectReson = rejectedResonAndFeedback.rejectionReson;
+    const rejectFeedback = rejectedResonAndFeedback.rejectionFeedback;
+    const rejectedResonAndFeedbackData = {
+      studySessionId: studySessionRejectId,
+      rejectReson,
+      rejectFeedback,
+    };
+
+    // status reject function
+    const statusRejectRequestDatabase = async () => {
+      const res = await axiosSecure.patch(
+        `/status-reject-request/${studySessionRejectId}`
+      );
+      const resData = await res.data;
+      if (resData.modifiedCount > 0) {
+        refetch();
+        setRejectStatusModal(false);
+        Swal.fire({
+          title: "Request Rejected Successfully",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        Swal.fire({
+          title: "An error occurred!",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    };
+
+    // reject reson and feedback send database
+
+    const sendRejectResonAndFeedback = async () => {
+      const res = await axiosSecure.post(
+        `/study-session-reject-reson-feedback`,
+        rejectedResonAndFeedbackData
+      );
+      const resData = await res.data;
+      if (resData.insertedId) {
+        statusRejectRequestDatabase();
+      } else {
+        Swal.fire({
+          title: "An error occurred!",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    };
+    sendRejectResonAndFeedback();
+  };
   return (
     <>
       <Helmet>
@@ -192,7 +239,6 @@ function AllStudySession() {
             {allStudySession?.statusPending?.length}
           </span>
         </div>
-
         {allStudySession?.statusPending?.length > 0 ? (
           <>
             {/* study session pending table */}
@@ -323,7 +369,6 @@ function AllStudySession() {
             </span>
           </>
         )}
-
         {/* study session success */}
         <div className="flex items-center gap-x-3">
           <h2 className="text-lg font-medium text-gray-800 ">
@@ -449,7 +494,6 @@ function AllStudySession() {
             </span>
           </>
         )}
-
         {/*  study session rejectd  */}
         <div className="flex items-center gap-x-3">
           <h2 className="text-lg font-medium text-gray-800 ">
@@ -460,7 +504,6 @@ function AllStudySession() {
             {allStudySession?.statusReject?.length}
           </span>
         </div>
-
         {allStudySession?.statusReject?.length > 0 ? (
           <>
             {/*  study session rejectd table */}
@@ -576,19 +619,37 @@ function AllStudySession() {
             </span>
           </>
         )}
-
         {acceptStatusModal && (
           <div className="my-transition fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white flex justify-center items-center p-8 z-[999] shadow-lg shadow-primary  w-full md:max-w-2xl md:mx-auto rounded-md flex-col ">
             <h2 className="font-semibold text-center mb-4 text-2xl text-primary">
               Provide Session Fee & Max Participants Student
             </h2>
             <AcceptStudySessionModal
-              onSubmit={onSubmit}
+              onAccept={onAccept}
               setAcceptStatusModal={setAcceptStatusModal}
             ></AcceptStudySessionModal>
             <div
               onClick={() => {
                 setAcceptStatusModal(false);
+              }}
+              className="absolute top-4 right-4 p-3 cursor-pointer bg-red-100/50 rounded-full"
+            >
+              <AiOutlineClose className=" text-xl text-red-500"></AiOutlineClose>
+            </div>
+          </div>
+        )}
+        {rejectStatusModal && (
+          <div className="my-transition fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white flex justify-center items-center p-8 z-[999] shadow-lg shadow-primary  w-full md:max-w-2xl md:mx-auto rounded-md flex-col ">
+            <h2 className="font-semibold text-center mb-4 text-2xl text-primary">
+              Provide Rejection Reson & Feedback
+            </h2>
+            <RejectStudySessionModal
+              onReject={onReject}
+              setAcceptStatusModal={setAcceptStatusModal}
+            ></RejectStudySessionModal>
+            <div
+              onClick={() => {
+                setRejectStatusModal(false);
               }}
               className="absolute top-4 right-4 p-3 cursor-pointer bg-red-100/50 rounded-full"
             >
