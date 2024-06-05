@@ -20,7 +20,9 @@ function StudentRoute({ children }) {
   if (user && isStudent) {
     return children;
   }
-  return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
+  return (
+    <Navigate to="/login" state={{ from: location }} replace={true}></Navigate>
+  );
 }
 StudentRoute.propTypes = {
   children: PropTypes.node.isRequired,

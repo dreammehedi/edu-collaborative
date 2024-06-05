@@ -20,7 +20,9 @@ function TutorRoute({ children }) {
   if (user && isTutor) {
     return children;
   }
-  return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
+  return (
+    <Navigate to="/login" state={{ from: location }} replace={true}></Navigate>
+  );
 }
 TutorRoute.propTypes = {
   children: PropTypes.node.isRequired,
