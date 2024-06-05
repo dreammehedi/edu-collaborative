@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
 import Button from "../../shared/button/Button";
 
-function ViewAllStudySessionCart({ viewStudySession }) {
+function ViewAllStudySessionCart({ viewStudySession, handlePendingRequest }) {
   const {
+    _id,
     image,
     sessionTitle,
     sessionDescription,
@@ -13,6 +14,7 @@ function ViewAllStudySessionCart({ viewStudySession }) {
     classStartTime,
     classEndTime,
   } = viewStudySession;
+
   return (
     <>
       <div className="shadow-md p-4">
@@ -79,7 +81,13 @@ function ViewAllStudySessionCart({ viewStudySession }) {
                 <p className="text-black font-medium font-roboto">
                   Please Send Request Again:
                 </p>
-                <Button name={"Request"}></Button>
+                <div
+                  onClick={() => {
+                    handlePendingRequest(_id);
+                  }}
+                >
+                  <Button name={"Request"}></Button>
+                </div>
               </div>
             </>
           )}
@@ -90,5 +98,6 @@ function ViewAllStudySessionCart({ viewStudySession }) {
 }
 ViewAllStudySessionCart.propTypes = {
   viewStudySession: PropTypes.object,
+  handlePendingRequest: PropTypes.func,
 };
 export default ViewAllStudySessionCart;

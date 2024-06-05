@@ -1,7 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
+import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import DataLoader from "../../shared/data_loader/DataLoader";
+import ErrorDataImage from "../../shared/error_data_image/ErrorDataImage";
 import SectionTitle from "../../shared/section_title/SectionTitle";
 import ViewAllStudySessionCart from "./ViewAllStudySessionCart";
 
@@ -9,7 +12,12 @@ function ViewAllStudySession() {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const { data: ViewAllStudySession = [] } = useQuery({
+  const {
+    isPending,
+    error,
+    refetch,
+    data: ViewAllStudySession = [],
+  } = useQuery({
     queryKey: ["ViewAllStudySessionTutor"],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -20,7 +28,27 @@ function ViewAllStudySession() {
     },
   });
 
-  console.log(ViewAllStudySession);
+  // handle status pending request
+  const handlePendingRequest = async (id) => {
+    const res = await axiosSecure.patch(`/status-pending-request/${id}`);
+    const data = await res.data;
+    if (data.modifiedCount > 0) {
+      Swal.fire({
+        title: "Request Sent Successfully",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      refetch();
+    } else {
+      Swal.fire({
+        title: "An error occurred!",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
   return (
     <>
       <Helmet>
@@ -38,17 +66,32 @@ function ViewAllStudySession() {
             }
           ></SectionTitle>
         </div>
-
-        <div className="grid grid-cols-2 gap-8 justify-between">
-          {ViewAllStudySession.map((viewStudySession, ind) => {
-            return (
-              <ViewAllStudySessionCart
-                key={ind}
-                viewStudySession={viewStudySession}
-              ></ViewAllStudySessionCart>
-            );
-          })}
-        </div>
+        {isPending && (
+          <div className="flex justify-center py-12 ">
+            <DataLoader></DataLoader>
+          </div>
+        )}
+        {error && (
+          <div className="flex flex-col spacey-2 justify-center items-center">
+            <ErrorDataImage></ErrorDataImage>
+            <span className="text-red-500">
+              An error has occurred: {error.message}
+            </span>
+          </div>
+        )}
+        {ViewAllStudySession.length > 0 && (
+          <div className="grid grid-cols-2 gap-8 justify-between">
+            {ViewAllStudySession.map((viewStudySession, ind) => {
+              return (
+                <ViewAllStudySessionCart
+                  key={ind}
+                  viewStudySession={viewStudySession}
+                  handlePendingRequest={handlePendingRequest}
+                ></ViewAllStudySessionCart>
+              );
+            })}
+          </div>
+        )}
       </section>
     </>
   );
