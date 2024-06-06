@@ -18,7 +18,7 @@ function ViewBookedSessionCart({ viewStudentBookedSession }) {
           <h2 className="font-bold text-2xl">{sessionTitle}</h2>
           <p className="text-sm ">{sessionDescription}</p>
           <div>
-            <Link to={`/view-booked-session-detailes/${_id}`}>
+            <Link to={`/dashboard/view-booked-session-detailes/${_id}`}>
               <Button name="Read More">
                 <FaArrowAltCircleRight className="relative z-10"></FaArrowAltCircleRight>
               </Button>

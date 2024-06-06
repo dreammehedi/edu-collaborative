@@ -24,7 +24,6 @@ function ViewBookedSession() {
       return data;
     },
   });
-  console.log(viewStudentBookedSession);
 
   return (
     <>
