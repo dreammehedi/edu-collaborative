@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { GiExplosiveMaterials, GiFloatingPlatforms } from "react-icons/gi";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAuth from "../../../../hooks/useAuth";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
 import ErrorDataImage from "../../../../shared/error_data_image/ErrorDataImage";
 import SectionTitle from "../../../../shared/section_title/SectionTitle";
@@ -12,6 +13,7 @@ import DataLoader from "./../../../../shared/data_loader/DataLoader";
 function StudySessionDetailes() {
   const { id } = useParams();
 
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const axiosPublic = useAxiosPublic();
@@ -47,6 +49,8 @@ function StudySessionDetailes() {
       const { _id: studySessionId, ...studySessionCopy } =
         singleStudySessionData;
       const studySessionBookedData = {
+        studentName: user.displayName,
+        studentEmail: user.email,
         studySessionId,
         ...studySessionCopy,
       };
