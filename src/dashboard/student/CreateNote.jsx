@@ -73,20 +73,20 @@ function CreateNote() {
               disabled
               {...register("studentEmail", { value: user.email })}
               className="my-transition w-full border border-slate-200 bg-primary/10 rounded-md py-2 px-4 outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-roboto placeholder:text-[13px] placeholder:text-primary"
-              placeholder="Rejection Reson..."
+              placeholder="Student Email..."
               name="studentEmail"
               id="studentEmail"
             />
           </div>
           <div className="space-y-1">
             <label className=" font-roboto font-medium text-[15px]">
-              Title:
+              Note Title:
             </label>
             <input
               type="text"
               {...register("noteTitle", { required: true })}
               className="my-transition w-full border border-slate-200 bg-primary/10 rounded-md py-2 px-4 outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-roboto placeholder:text-[13px] placeholder:text-primary"
-              placeholder="Rejection Feedback..."
+              placeholder="Note Title..."
               name="noteTitle"
               id="noteTitle"
             />
@@ -101,14 +101,14 @@ function CreateNote() {
             <label className=" font-roboto font-medium text-[15px]">
               Note Description:
             </label>
-            <input
-              type="text"
+            <textarea
+              rows={5}
               {...register("noteDescription", { required: true })}
-              className="my-transition w-full border border-slate-200 bg-primary/10 rounded-md py-2 px-4 outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-roboto placeholder:text-[13px] placeholder:text-primary"
-              placeholder="Rejection Feedback..."
               name="noteDescription"
               id="noteDescription"
-            />
+              className="my-transition w-full border border-slate-200 bg-primary/10 rounded-md py-2 px-4 outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-roboto placeholder:text-[13px] placeholder:text-primary"
+              placeholder="Note Description..."
+            ></textarea>
 
             {errors.noteDescription && (
               <span className="text-xs mt-2 font-bold text-red-500">

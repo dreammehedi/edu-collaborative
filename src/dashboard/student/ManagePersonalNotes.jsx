@@ -1,7 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { AiOutlineClose } from "react-icons/ai";
+import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import UpdateStudentCreateNoteModal from "../../modal/UpdateStudentCreateNoteModal";
 import DataLoader from "../../shared/data_loader/DataLoader";
 import ErrorDataImage from "../../shared/error_data_image/ErrorDataImage";
 import SectionTitle from "../../shared/section_title/SectionTitle";
@@ -10,6 +14,11 @@ import ManagePersonalNoteCart from "./ManagePersonalNoteCart";
 function ManagePersonalNotes() {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
+
+  // update modal toggle
+  const [updateCreateNoteModal, setUpdateCreateNoteModal] = useState(false);
+  const [updatePersonalNoteCartId, setUpdatePersonalNoteCartId] = useState("");
+
   const {
     isPending,
     error,
@@ -23,6 +32,32 @@ function ManagePersonalNotes() {
       return data;
     },
   });
+
+  // on Update student created note form handle
+  const onUpdate = async (data) => {
+    const res = await axiosSecure.patch(
+      `/update-create-note/${updatePersonalNoteCartId}`,
+      data
+    );
+    const resData = await res.data;
+    if (resData.modifiedCount > 0) {
+      Swal.fire({
+        title: "Note Updated Successfully",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setUpdateCreateNoteModal(false);
+      refetch();
+    } else {
+      Swal.fire({
+        title: "An error occurred!",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
   return (
     <>
       <Helmet>
@@ -63,9 +98,31 @@ function ManagePersonalNotes() {
                   key={ind}
                   manageNote={manageNote}
                   dataRefetch={refetch}
+                  setUpdateCreateNoteModal={setUpdateCreateNoteModal}
+                  setUpdatePersonalNoteCartId={setUpdatePersonalNoteCartId}
                 ></ManagePersonalNoteCart>
               );
             })}
+          </div>
+        )}
+
+        {updateCreateNoteModal && (
+          <div className="my-transition fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white flex justify-center items-center p-8 z-[999] shadow-lg shadow-primary  w-full md:max-w-2xl md:mx-auto rounded-md flex-col ">
+            <h2 className="font-semibold text-center mb-4 text-2xl text-primary">
+              Update Personal Note
+            </h2>
+            <UpdateStudentCreateNoteModal
+              onUpdate={onUpdate}
+              setUpdateCreateNoteModal={setUpdateCreateNoteModal}
+            ></UpdateStudentCreateNoteModal>
+            <div
+              onClick={() => {
+                setUpdateCreateNoteModal(false);
+              }}
+              className="absolute top-4 right-4 p-3 cursor-pointer bg-red-100/50 rounded-full"
+            >
+              <AiOutlineClose className=" text-xl text-red-500"></AiOutlineClose>
+            </div>
           </div>
         )}
       </section>

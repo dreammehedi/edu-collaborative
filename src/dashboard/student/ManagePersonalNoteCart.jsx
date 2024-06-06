@@ -3,7 +3,12 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Button from "../../shared/button/Button";
 
-function ManagePersonalNoteCart({ manageNote, dataRefetch }) {
+function ManagePersonalNoteCart({
+  manageNote,
+  dataRefetch,
+  setUpdateCreateNoteModal,
+  setUpdatePersonalNoteCartId,
+}) {
   const {
     _id,
     studentName,
@@ -17,7 +22,8 @@ function ManagePersonalNoteCart({ manageNote, dataRefetch }) {
 
   // handle update create note
   const handleUpdateCreateNote = (id) => {
-    console.log(id);
+    setUpdateCreateNoteModal(true);
+    setUpdatePersonalNoteCartId(id);
   };
 
   //   handle create note delete
@@ -94,5 +100,7 @@ function ManagePersonalNoteCart({ manageNote, dataRefetch }) {
 ManagePersonalNoteCart.propTypes = {
   manageNote: PropTypes.object,
   dataRefetch: PropTypes.func,
+  setUpdateCreateNoteModal: PropTypes.func,
+  setUpdatePersonalNoteCartId: PropTypes.func,
 };
 export default ManagePersonalNoteCart;
