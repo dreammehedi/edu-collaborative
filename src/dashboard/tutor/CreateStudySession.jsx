@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 import SectionTitle from "../../shared/section_title/SectionTitle";
 import useAuth from "./../../hooks/useAuth";
 import useAxiosSecure from "./../../hooks/useAxiosSecure";
 
 function CreateStudySession() {
+  const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   // handle create study session
   const {
@@ -25,6 +27,11 @@ function CreateStudySession() {
   const [formattedDuration, setFormattedDuration] = useState(
     "0 hours and 0 minutes"
   );
+
+  // image hosting key in imgbb
+  const imageHostingApiKey = import.meta.env.VITE_HOSTING_API_KEY;
+  const imageHostingApiUrl = `https://api.imgbb.com/1/upload?key=${imageHostingApiKey}`;
+
   // Update duration on component mount and state changes (startTime, endTime)
   useEffect(() => {
     const calculateDuration = () => {
@@ -37,33 +44,44 @@ function CreateStudySession() {
   }, [startTime, endTime]);
 
   const onSubmit = async (studySessionData) => {
-    const sessionDuration = formattedDuration;
-    const createStudySessionData = {
-      sessionDuration: sessionDuration,
-      status: "pending",
-      ...studySessionData,
-    };
-
-    const res = await axiosSecure.post(
-      "/create-study-session",
-      createStudySessionData
-    );
-    const data = await res.data;
-    if (data.insertedId) {
-      reset();
-      setFormattedDuration("0 hours and 0 minutes");
-      Swal.fire({
-        title: "Study Session Created Successfully",
-        icon: "success",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    } else {
-      Swal.fire({
-        title: "An error occurred!",
-        icon: "error",
-        showConfirmButton: false,
-      });
+    const { image, ...studySessionDataMain } = studySessionData;
+    const sessionImgFile = { image: image[0] };
+    const res = await axiosPublic.post(imageHostingApiUrl, sessionImgFile, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    const resData = await res.data;
+    if (resData.success) {
+      const image = resData.data.display_url;
+      const sessionDuration = formattedDuration;
+      const createStudySessionData = {
+        image,
+        sessionDuration: sessionDuration,
+        status: "pending",
+        ...studySessionDataMain,
+      };
+      const res = await axiosSecure.post(
+        "/create-study-session",
+        createStudySessionData
+      );
+      const data = await res.data;
+      if (data.insertedId) {
+        reset();
+        setFormattedDuration("0 hours and 0 minutes");
+        Swal.fire({
+          title: "Study Session Created Successfully",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        Swal.fire({
+          title: "An error occurred!",
+          icon: "error",
+          showConfirmButton: false,
+        });
+      }
     }
   };
   return (
@@ -136,10 +154,10 @@ function CreateStudySession() {
             <input
               {...register("image", { required: true })}
               type="file"
-              placeholder="Session Description..."
+              placeholder="Session Image..."
               className="my-transition w-full border border-slate-200 bg-primary/10 rounded-md py-2 px-4 outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-roboto placeholder:text-[13px] placeholder:text-primary"
             />
-            {errors.sessionDescription && (
+            {errors.image && (
               <span className="text-xs mt-2 font-bold text-red-500">
                 This field is required!
               </span>
