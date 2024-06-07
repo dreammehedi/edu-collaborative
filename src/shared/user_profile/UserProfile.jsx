@@ -4,7 +4,7 @@ function UserProfile() {
   const { user } = useAuth();
 
   return (
-    <div className="cursor-pointer relative group">
+    <div className="hidden md:inline-block cursor-pointer relative group">
       <img
         className="rounded-full size-14 object-cover ring-1 ring-primary p-1"
         src={user?.photoURL}
