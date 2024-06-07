@@ -10,11 +10,7 @@ function AllTutorCart() {
 
         <div className="space-y-1 p-4">
           <span className="font-medium text-primary">John Smith</span>
-          <h2 className="font-bold text-2xl"> PhD in Mathematics</h2>
-          <p className="text-sm ">
-            John has over 10 years of experience in teaching math at various
-            levels.
-          </p>
+          <h2 className="font-bold text-2xl"> email@email.com</h2>
         </div>
       </div>
     </>
