@@ -10,7 +10,7 @@ function Header() {
   const { user } = useAuth();
   return (
     <>
-      <header className="w-full h-[80px] flex items-center py-2 bg-slate-100">
+      <header className="sticky top-0 left-0 z-[99999] shadow-md w-full h-[80px] flex items-center py-2 bg-slate-100">
         <nav className="container flex justify-between items-center">
           {/* logo */}
           <Link to={"/"}>
