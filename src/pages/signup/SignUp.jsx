@@ -69,12 +69,13 @@ function SignUp() {
       <section className="py-12 bg-slate-100 w-full h-auto flex justify-center items-center">
         <div className="container  grid grid-cols-1 lg:grid-cols-2 gap-8  lg:gap-12 items-center">
           <div className="space-y-3">
-            <h2 className="font-bold text-3xl relative">
-              Sign Up to your <span className="font-normal">Account</span>
+            <h2 className="font-bold text-3xl relative text-primary">
+              Sign Up to your{" "}
+              <span className="font-normal text-black">Account</span>
             </h2>
             <p className="text-sm">
               {`Already have an account?  `}
-              <Link to={"/login"} className="underline">
+              <Link to={"/login"} className="underline text-primary">
                 Login
               </Link>
             </p>

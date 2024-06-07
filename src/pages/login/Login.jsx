@@ -44,8 +44,8 @@ function Login() {
         <title>EduCollaborate | Login</title>
       </Helmet>
       <section className="py-12 bg-slate-100 w-full min-h-screen flex justify-center items-center">
-        <div className="container  grid grid-cols-2 gap-12">
-          <div className="relative rounded-md overflow-hidden">
+        <div className="container  grid grid-cols-1 lg:grid-cols-2 gap-8  lg:gap-12 items-center">
+          <div className="hidden lg:inline-block relative rounded-md overflow-hidden w-full max-h-[600px]">
             <img
               className="w-full h-full object-cover"
               src="https://img.freepik.com/free-photo/group-positive-young-people-working-together_23-2148431342.jpg?t=st=1717230351~exp=1717233951~hmac=500a36191d004510f44e2674c9d094d7ecf4f1be0c4c7e552a4326d19918d22a&w=740"
@@ -56,12 +56,13 @@ function Login() {
             </div>
           </div>
           <div className="space-y-3">
-            <h2 className="font-bold text-3xl relative">
-              Login to your <span className="font-normal">Account</span>
+            <h2 className="font-bold text-3xl relative text-primary">
+              Login to your{" "}
+              <span className="font-normal text-black">Account</span>
             </h2>
             <p className="text-sm">
               {`Don't have an account?  `}
-              <Link to={"/signup"} className="underline">
+              <Link to={"/signup"} className="underline text-primary">
                 Create one here
               </Link>
             </p>
