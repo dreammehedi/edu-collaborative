@@ -9,11 +9,11 @@ function LearnInfo() {
       }}
     >
       <div className="container">
-        <div className="py-8 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          <LearnInfoCart></LearnInfoCart>
-          <LearnInfoCart></LearnInfoCart>
-          <LearnInfoCart></LearnInfoCart>
-          <LearnInfoCart></LearnInfoCart>
+        <div className="py-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          <LearnInfoCart count={15} name={"Tutor"}></LearnInfoCart>
+          <LearnInfoCart count={50} name={"Study Session"}></LearnInfoCart>
+          <LearnInfoCart count={30} name={"Student"}></LearnInfoCart>
+          <LearnInfoCart count={50} name={"All Users"}></LearnInfoCart>
         </div>
       </div>
     </section>
