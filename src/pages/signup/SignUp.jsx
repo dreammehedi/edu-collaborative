@@ -67,7 +67,7 @@ function SignUp() {
         <title>EduCollaboration | Sign Up</title>
       </Helmet>
       <section className="py-12 bg-slate-100 w-full h-auto flex justify-center items-center">
-        <div className="container  grid grid-cols-2 gap-12">
+        <div className="container  grid grid-cols-1 lg:grid-cols-2 gap-8  lg:gap-12 items-center">
           <div className="space-y-3">
             <h2 className="font-bold text-3xl relative">
               Sign Up to your <span className="font-normal">Account</span>
@@ -177,7 +177,7 @@ function SignUp() {
               </div>
             </div>
           </div>
-          <div className="relative rounded-md overflow-hidden">
+          <div className="hidden lg:inline-block relative rounded-md overflow-hidden w-full max-h-[600px]">
             <img
               className="w-full h-full object-cover"
               src="https://img.freepik.com/free-photo/start-up-designers_1098-14229.jpg?t=st=1717235896~exp=1717239496~hmac=2e723870f597acf57e0517f56c92745c5626aa5f9045821672c6752bbc887104&w=740"
