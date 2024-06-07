@@ -42,6 +42,31 @@ Welcome to the EduCollaborative Study Platform, designed to enhance collaboratio
 
    - Students can create and update personal notes for their studies.
 
+6. **Feedback and Rating**
+
+   - Students can provide feedback and ratings for study sessions and tutors.
+   - Tutors can receive constructive feedback to improve their sessions.
+
+7. **Secure API System**
+
+   - Secure API system to protect data transmission between the client and server.
+   - API endpoints are secured to prevent unauthorized access.
+
+8. **Privacy and Data Security**
+
+   - Admins cannot access sensitive student and tutor data.
+   - Tutors and students cannot access each other's private data.
+   - Advanced security measures to protect user data and ensure privacy.
+
+9. **Fully Responsive Design**
+
+   - Fully responsive design ensuring accessibility across desktops, tablets, and smartphones.
+   - Optimized user experience on all device types.
+
+10. **Scalability**
+
+    - Robust infrastructure designed to accommodate growing numbers of users and sessions.
+
 ## Getting Started
 
 To get started, visit the live site, create your user profile, and explore the various features designed to enhance your educational experience. If you are an admin, log in using the provided credentials to manage users, sessions, materials and resources effectively.
