@@ -8,9 +8,9 @@ function Footer() {
     <>
       <footer className="bg-slate-100">
         <div className="container px-6 py-12 mx-auto">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
-            <div className="sm:col-span-2">
-              <h1 className="max-w-lg text-xl font-semibold tracking-tight text-gray-800 xl:text-2xl ">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            <div className="col-span-2">
+              <h1 className="max-w-2x text-xl font-semibold tracking-tight text-gray-800 xl:text-2xl ">
                 Subscribe our newsletter to get update.
               </h1>
 
@@ -22,7 +22,7 @@ function Footer() {
                   placeholder="Email Address"
                 />
 
-                <div className="ml-2">
+                <div className="ml-0 md:ml-2">
                   <Button name={"Subscribe"}></Button>
                 </div>
               </div>
@@ -35,11 +35,8 @@ function Footer() {
                 <NavLink to={"/"} className="text-gray-600">
                   Home
                 </NavLink>
-                <NavLink to={"/about-us"} className="text-gray-600">
-                  About Us
-                </NavLink>
-                <NavLink to={"/contact-us"} className="text-gray-600">
-                  Contact Us
+                <NavLink to={"/dashboard"} className="text-gray-600">
+                  Dashboard
                 </NavLink>
               </div>
             </div>
@@ -48,14 +45,14 @@ function Footer() {
               <p className="font-semibold text-gray-800 ">Courses</p>
 
               <div className="flex flex-col items-start mt-5 space-y-2">
-                <NavLink to={"/courses"} className="text-gray-600">
+                <NavLink to={"/"} className="text-gray-600">
                   Courses
                 </NavLink>
 
-                <NavLink to={"/membership"} className="text-gray-600">
+                <NavLink to={"/"} className="text-gray-600">
                   Detailes
                 </NavLink>
-                <NavLink to={"/membership"} className="text-gray-600">
+                <NavLink to={"/"} className="text-gray-600">
                   Membership
                 </NavLink>
               </div>
@@ -87,6 +84,16 @@ function Footer() {
               </a>
             </div>
           </div>
+          <p className=" pt-8 text-center text-[14px] font-medium text-slate-700 font-roboto">
+            &copy; Copyright 2024. All Rights Reserved. By{" "}
+            <a
+              href="https://www.facebook.com/profile.php?id=61554869056271"
+              target="_blank"
+              className="underline text-primary"
+            >
+              Mehedi Hassan Miraj
+            </a>
+          </p>
         </div>
       </footer>
     </>
