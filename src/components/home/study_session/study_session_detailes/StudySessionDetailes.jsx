@@ -18,7 +18,6 @@ function StudySessionDetailes() {
   const { user } = useAuth();
   const [resUserRole, setResUserRole] = useState(null);
 
-
   useEffect(() => {
     const checkUserRole = async () => {
       const res = await axiosPublic.get(`/check-user-role/${user?.email}`);
@@ -57,7 +56,6 @@ function StudySessionDetailes() {
       return data;
     },
   });
-
 
   // current date
   const currentDate = moment().format();
@@ -144,7 +142,7 @@ function StudySessionDetailes() {
           )}
 
           <div className="py-12 flex flex-col space-y-4">
-            <div className="h-fit w-full md:max-w-2xl md:mx-auto bg-white rounded-md shadow-md overflow-hidden">
+            <div className="h-fit w-full md:max-w-3xl md:mx-auto bg-white rounded-md shadow-md overflow-hidden">
               <img
                 className="object-cover w-full h-[400px]"
                 src={singleStudySessionData?.image}
@@ -167,14 +165,14 @@ function StudySessionDetailes() {
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-6">
-                  <div className="shadow-md p-4 text-center">
+                  {/* <div className="shadow-md p-4 text-center">
                     <h3 className="text-primary">
                       Rating:
                       <span className="text-black font-roboto font-medium">
-                        {singleStudySessionData?.averageRating}
+                        {singleStudySessionData?.rating}
                       </span>
                     </h3>
-                  </div>
+                  </div> */}
                   <div className="shadow-md p-4 text-center">
                     <h3 className="text-primary">
                       Fee:{" "}
