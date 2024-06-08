@@ -37,20 +37,20 @@ function DashboardNavigate() {
 
   return (
     <>
-      <div className="p-4 shadow-md h-fit sticky top-[118px]">
+      <div className="p-4 shadow-md w-full h-fit sticky top-[118px] rounded-md">
         <div className="flex justify-between items-center border-b border-slate-200 pb-2">
           <Link to={"/"}>
-            <div className=" flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-1 lg:gap-2">
               <img
                 src={logo}
                 alt="logo"
-                className="w-[30px] h-auto object-cover"
+                className="w-[20px] lg:w-[30px] h-auto object-cover"
               />
               <div className="flex flex-col">
-                <span className="text-base font-bold text-primary">
+                <span className="text-[14px] lg:text-base font-bold text-primary">
                   EduCollaborate
                 </span>
-                <span className="capitalize text-xs font-medium text-primary-main">
+                <span className="capitalize text-[10px] lg:ext-xs font-medium text-primary-main">
                   Education & Courses
                 </span>
               </div>

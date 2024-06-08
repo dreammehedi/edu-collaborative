@@ -11,11 +11,14 @@ function Dashboard() {
       </Helmet>
       <section>
         <DashboardNavbar></DashboardNavbar>
-        <main className="py-12 container grid grid-cols-4 gap-10 justify-between">
-          <DashboardNavigate></DashboardNavigate>
-          <div className="col-span-3 shadow-md p-4">
+        <main className="py-12 px-8 grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8 justify-between">
+          <aside className="col-span-1">
+            <DashboardNavigate></DashboardNavigate>
+          </aside>
+
+          <article className="lg:col-span-3 shadow-md p-4">
             <Outlet></Outlet>
-          </div>
+          </article>
         </main>
       </section>
     </>

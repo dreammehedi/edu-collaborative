@@ -34,7 +34,7 @@ function DashboardNavbar() {
             <img
               src={user?.photoURL}
               alt="user"
-              className="w-[50px] rounded-full h-auto object-cover  ring-2 ring-primary-main/50 shadow-md"
+              className="hidden md:inline-block w-[50px] rounded-full h-auto object-cover  ring-2 ring-primary-main/50 shadow-md"
             />
             <Link to={"/"}>
               <Button name={"Home"}>
