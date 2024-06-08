@@ -104,7 +104,7 @@ function CreateStudySession() {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="rounded-md shadow-md p-4 grid grid-cols-3 justify-between gap-8"
+          className="rounded-md shadow-md p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-between gap-6 md:gap-8"
         >
           <div className="space-y-1">
             <label className=" font-roboto font-medium text-[15px]">
@@ -134,7 +134,6 @@ function CreateStudySession() {
               className="my-transition w-full border border-slate-200 bg-primary/10 rounded-md py-2 px-4 outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-roboto placeholder:text-[13px] placeholder:text-primary"
             />
           </div>
-
           <div className="space-y-1">
             <label className=" font-roboto font-medium text-[15px]">
               Tutor Email:
@@ -146,6 +145,22 @@ function CreateStudySession() {
               placeholder="Tutor Email..."
               className="my-transition w-full border border-slate-200 bg-primary/10 rounded-md py-2 px-4 outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-roboto placeholder:text-[13px] placeholder:text-primary"
             />
+          </div>{" "}
+          <div className="space-y-1 md:col-span-2 lg:col-span-3">
+            <label className=" font-roboto font-medium text-[15px]">
+              Session Description:
+            </label>
+            <textarea
+              rows={5}
+              {...register("sessionDescription", { required: true })}
+              placeholder="Session Description..."
+              className="my-transition w-full border border-slate-200 bg-primary/10 rounded-md py-2 px-4 outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-roboto placeholder:text-[13px] placeholder:text-primary"
+            />
+            {errors.sessionDescription && (
+              <span className="text-xs mt-2 font-bold text-red-500">
+                This field is required!
+              </span>
+            )}
           </div>
           <div className="space-y-1">
             <label className=" font-roboto font-medium text-[15px]">
@@ -158,22 +173,6 @@ function CreateStudySession() {
               className="my-transition w-full border border-slate-200 bg-primary/10 rounded-md py-2 px-4 outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-roboto placeholder:text-[13px] placeholder:text-primary"
             />
             {errors.image && (
-              <span className="text-xs mt-2 font-bold text-red-500">
-                This field is required!
-              </span>
-            )}
-          </div>
-          <div className="space-y-1">
-            <label className=" font-roboto font-medium text-[15px]">
-              Session Description:
-            </label>
-            <input
-              {...register("sessionDescription", { required: true })}
-              type="text"
-              placeholder="Session Description..."
-              className="my-transition w-full border border-slate-200 bg-primary/10 rounded-md py-2 px-4 outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-roboto placeholder:text-[13px] placeholder:text-primary"
-            />
-            {errors.sessionDescription && (
               <span className="text-xs mt-2 font-bold text-red-500">
                 This field is required!
               </span>
@@ -274,23 +273,6 @@ function CreateStudySession() {
               className="my-transition w-full border border-slate-200 bg-primary/10 rounded-md py-2 px-4 outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-roboto placeholder:text-[13px] placeholder:text-primary"
             />
           </div>
-
-          <div className="space-y-1">
-            <label className=" font-roboto font-medium text-[15px]">
-              Session Location:
-            </label>
-            <input
-              {...register("sessionLocation", { required: true })}
-              type="text"
-              placeholder="Session Location..."
-              className="my-transition w-full border border-slate-200 bg-primary/10 rounded-md py-2 px-4 outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-roboto placeholder:text-[13px] placeholder:text-primary"
-            />
-            {errors.sessionLocation && (
-              <span className="text-xs mt-2 font-bold text-red-500">
-                This field is required!
-              </span>
-            )}
-          </div>
           <div className="space-y-1">
             <label className=" font-roboto font-medium text-[15px]">
               Max Participant:
@@ -309,8 +291,7 @@ function CreateStudySession() {
               </span>
             )}
           </div>
-
-          <div className="col-span-3 flex justify-center">
+          <div className="lg:col-span-3 flex justify-center">
             <button className=" group relative h-12 overflow-hidden overflow-x-hidden rounded-md bg-primary px-8 py-2 text-neutral-50 flex justify-between items-center gap-2">
               <span className="relative z-10">Create Study Session</span>
               <span className="absolute inset-0 overflow-hidden rounded-md">
