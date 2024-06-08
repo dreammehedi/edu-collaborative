@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import Button from "../../shared/button/Button";
 
 function ViewAllStudySessionCart({ viewStudySession, handlePendingRequest }) {
@@ -81,10 +82,13 @@ function ViewAllStudySessionCart({ viewStudySession, handlePendingRequest }) {
             </>
           )}
           {status === "rejected" && (
-            <>
+            <div className="space-y-3">
               <p className="text-red-500 font-medium font-roboto">
                 Your study session request has been rejected.
               </p>
+              <Link to={`/dashboard/view-rejected-reson-feedback/${_id}`}>
+                <Button name={"View Rejected Reason & Feedback"}></Button>
+              </Link>
               <div className="flex justify-start gap-3 items-center">
                 <p className="text-black font-medium font-roboto">
                   Please Send Request Again:
@@ -97,7 +101,7 @@ function ViewAllStudySessionCart({ viewStudySession, handlePendingRequest }) {
                   <Button name={"Request"}></Button>
                 </div>
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>

@@ -18,7 +18,6 @@ function AllTutor() {
       return resData;
     },
   });
-  console.log(allTutor);
   return (
     <section className="py-12">
       <div className="container">

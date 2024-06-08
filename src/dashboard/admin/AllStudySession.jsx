@@ -231,7 +231,7 @@ function AllStudySession() {
         </div>
         {/* study session pending */}
         <div className="flex items-center gap-x-3">
-          <h2 className="text-lg font-medium text-gray-800 ">
+          <h2 className="text-lg text-wrap break-words font-medium text-gray-800 ">
             Pending Study Session:
           </h2>
 
@@ -311,7 +311,7 @@ function AllStudySession() {
                                         alt=""
                                       />
                                       <div>
-                                        <h2 className="font-medium text-gray-800 ">
+                                        <h2 className="text-wrap break-words font-medium text-gray-800 ">
                                           {sessionTitle}
                                         </h2>
                                       </div>
@@ -371,7 +371,7 @@ function AllStudySession() {
         )}
         {/* study session success */}
         <div className="flex items-center gap-x-3">
-          <h2 className="text-lg font-medium text-gray-800 ">
+          <h2 className="text-lg text-wrap break-words font-medium text-gray-800 ">
             Accept Study Session:
           </h2>
 
@@ -450,7 +450,7 @@ function AllStudySession() {
                                         alt=""
                                       />
                                       <div>
-                                        <h2 className="font-medium text-gray-800 ">
+                                        <h2 className="text-wrap break-words font-medium text-gray-800 ">
                                           {sessionTitle}
                                         </h2>
                                       </div>
@@ -496,7 +496,7 @@ function AllStudySession() {
         )}
         {/*  study session rejectd  */}
         <div className="flex items-center gap-x-3">
-          <h2 className="text-lg font-medium text-gray-800 ">
+          <h2 className="text-lg text-wrap break-words font-medium text-gray-800 ">
             Rejected Study Session:
           </h2>
 
@@ -575,7 +575,7 @@ function AllStudySession() {
                                         alt=""
                                       />
                                       <div>
-                                        <h2 className="font-medium text-gray-800 ">
+                                        <h2 className="text-wrap break-words font-medium text-gray-800 ">
                                           {sessionTitle}
                                         </h2>
                                       </div>

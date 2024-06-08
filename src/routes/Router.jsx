@@ -3,6 +3,7 @@ import AllMaterials from "../dashboard/admin/AllMaterials";
 import AllStudySession from "../dashboard/admin/AllStudySession";
 import AllUsers from "../dashboard/admin/AllUsers";
 import ViewBookedSessionDetailes from "../dashboard/student/ViewBookedSessionDetailes";
+import ViewRejectedResonFeedback from "../dashboard/tutor/ViewRejectedResonFeedback";
 import Profile from "../dashboard/user_profile/Profile";
 import Dashboard from "../layout/dashboard/Dashboard";
 import DashboardLayout from "../layout/dashboard/DashboardLayout";
@@ -151,6 +152,14 @@ const router = createBrowserRouter([
         element: (
           <TutorRoute>
             <ViewAllStudySession></ViewAllStudySession>
+          </TutorRoute>
+        ),
+      },
+      {
+        path: "view-rejected-reson-feedback/:id",
+        element: (
+          <TutorRoute>
+            <ViewRejectedResonFeedback></ViewRejectedResonFeedback>
           </TutorRoute>
         ),
       },
