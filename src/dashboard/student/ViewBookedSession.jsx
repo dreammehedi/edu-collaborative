@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import Button from "../../shared/button/Button";
 import DataLoader from "../../shared/data_loader/DataLoader";
 import ErrorDataImage from "../../shared/error_data_image/ErrorDataImage";
 import useAxiosSecure from "./../../hooks/useAxiosSecure";
@@ -57,7 +59,7 @@ function ViewBookedSession() {
           </div>
         )}
 
-        {viewStudentBookedSession.length > 0 && (
+        {viewStudentBookedSession.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2  gap-8">
             {viewStudentBookedSession.map(
               (viewStudentBookedSessionData, ind) => {
@@ -69,6 +71,21 @@ function ViewBookedSession() {
                 );
               }
             )}
+          </div>
+        ) : (
+          <div className="pt-12">
+            <h2 className="text-red-500 text-center ">
+              {`Hi there! We noticed that you haven’t booked any study sessions
+              yet. Booking a session is a great way to kickstart your learning
+              journey and take full advantage of our platform. Here’s a simple
+              guide to help you book your first session.`}
+            </h2>
+
+            <div className="flex justify-center mt-6">
+              <Link to={"/"}>
+                <Button name={"Visit Study Session"}></Button>
+              </Link>
+            </div>
           </div>
         )}
       </section>

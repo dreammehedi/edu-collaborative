@@ -392,8 +392,7 @@ function StudySessionDetailes() {
             ) : (
               <div className="pt-12">
                 <h2 className="text-red-500 text-center ">
-                  The student might be newly enrolled and has not provide any
-                  review or rating.
+                  No review and rating found!
                 </h2>
               </div>
             )}

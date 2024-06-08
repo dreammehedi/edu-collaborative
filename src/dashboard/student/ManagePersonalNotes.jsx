@@ -2,10 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { AiOutlineClose } from "react-icons/ai";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import UpdateStudentCreateNoteModal from "../../modal/UpdateStudentCreateNoteModal";
+import Button from "../../shared/button/Button";
 import DataLoader from "../../shared/data_loader/DataLoader";
 import ErrorDataImage from "../../shared/error_data_image/ErrorDataImage";
 import SectionTitle from "../../shared/section_title/SectionTitle";
@@ -75,7 +77,6 @@ function ManagePersonalNotes() {
             }
           ></SectionTitle>
         </div>
-
         {isPending && (
           <div className="flex justify-center py-12 ">
             <DataLoader></DataLoader>
@@ -89,8 +90,7 @@ function ManagePersonalNotes() {
             </span>
           </div>
         )}
-
-        {managePersonalNote.length > 0 && (
+        {managePersonalNote.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-between gap-8">
             {managePersonalNote.map((manageNote, ind) => {
               return (
@@ -103,6 +103,18 @@ function ManagePersonalNotes() {
                 ></ManagePersonalNoteCart>
               );
             })}
+          </div>
+        ) : (
+          <div className="pt-12">
+            <h2 className="text-red-500 text-center ">
+              {`Hi there! We noticed that you haven’t created any personal notes yet. Managing your notes is a fantastic way to organize your thoughts and take full advantage of our platform. Here’s a simple guide to help you create your first note.`}
+            </h2>
+
+            <div className="flex justify-center mt-6">
+              <Link to={"/dashboard/create-note"}>
+                <Button name={"Create Note"}></Button>
+              </Link>
+            </div>
           </div>
         )}
 

@@ -32,6 +32,7 @@ function ViewBookedSessionDetailes() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
@@ -47,6 +48,7 @@ function ViewBookedSessionDetailes() {
     );
     const resData = await res.data;
     if (resData.insertedId) {
+      reset();
       Swal.fire({
         title: "Review and Rating Submitted Successfully",
         icon: "success",
@@ -116,7 +118,7 @@ function ViewBookedSessionDetailes() {
               </p>
               <p className="font-medium text-primary">
                 Student Email:{" "}
-                <span className="text-black">
+                <span className="text-black break-words">
                   {viewStudentBookedSessionDetailes?.studentEmail}
                 </span>
               </p>
@@ -156,12 +158,12 @@ function ViewBookedSessionDetailes() {
                   {viewStudentBookedSessionDetailes?.maxParticipants}
                 </span>
               </p>{" "}
-              <p className="font-medium text-primary">
+              {/* <p className="font-medium text-primary">
                 Current Participants:{" "}
                 <span className="text-black">
                   {viewStudentBookedSessionDetailes?.currentParticipants}
                 </span>
-              </p>
+              </p> */}
             </div>
           </div>
         )}
