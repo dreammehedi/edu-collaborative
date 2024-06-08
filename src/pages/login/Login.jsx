@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,6 +10,8 @@ import Logo from "../../shared/header/Logo";
 import SocialButton from "../../shared/social_button/SocialButton";
 
 function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -75,29 +79,71 @@ function Login() {
                   {...register("email", { required: true })}
                   type="email"
                   placeholder="Your email"
-                  className="input border-0 border-b border-primary !outline-none"
+                  className="my-transition w-full border border-slate-200 bg-primary/10 rounded-md py-2 px-4 outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-roboto placeholder:text-[13px] placeholder:text-primary"
                 />
                 {errors.email && (
                   <span className="text-xs mt-2 font-bold text-red-500">
-                    This field is required!
+                    Email is required!
                   </span>
                 )}
               </div>
+
               <div className="form-control">
                 <label className="label font-bold">
                   <span className="label-text">Password</span>
                 </label>
-                <input
-                  {...register("password", { required: true })}
-                  type="password"
-                  placeholder="Your password"
-                  className="input border-0 border-b border-primary !outline-none"
-                />
-                {errors.password && (
+                <div className="relative">
+                  <input
+                    {...register("password", {
+                      required: true,
+                      minLength: 6,
+                      maxLength: 20,
+                      pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[a-z])/,
+                    })}
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Your password"
+                    className="my-transition w-full border border-slate-200 bg-primary/10 rounded-md py-2 px-4 outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-roboto placeholder:text-[13px] placeholder:text-primary"
+                  />
+                  <div
+                    onClick={() => {
+                      setShowPassword(!showPassword);
+                    }}
+                    className="cursor-pointer my-transiton hover:text-primary absolute top-1/2 right-4 -translate-y-1/2 "
+                  >
+                    {showPassword ? (
+                      <FaEyeSlash className="my-transiton"></FaEyeSlash>
+                    ) : (
+                      <FaEye className="my-transiton"></FaEye>
+                    )}
+                  </div>
+                </div>
+                {errors.password?.type === "required" && (
                   <span className="text-xs mt-2 font-bold text-red-500">
-                    This field is required!
+                    Password is required!
                   </span>
                 )}
+                {errors.password?.type === "minLength" && (
+                  <span className="text-xs mt-2 font-bold text-red-500">
+                    Password must be 6 character long!
+                  </span>
+                )}
+
+                {errors.password?.type === "maxLength" && (
+                  <span className="text-xs mt-2 font-bold text-red-500">
+                    Password must be less than 20 character!
+                  </span>
+                )}
+                {errors.password?.type === "pattern" && (
+                  <span className="text-xs mt-2 font-bold text-red-500">
+                    Password must have one uppercase one lower case and one
+                    special character.
+                  </span>
+                )}
+                <label className="label">
+                  <a href="#" className="label-text-alt link link-hover">
+                    Forgot password?
+                  </a>
+                </label>
               </div>
               <input
                 className="rounded-md bg-primary px-8 py-3 cursor-pointer text-neutral-50"
