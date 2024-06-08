@@ -195,7 +195,7 @@ function AllStudySession() {
       <Helmet>
         <title>EduCollaborate | Dashboard | All Study Session</title>
       </Helmet>
-      <section className="space-y-8">
+      <section className="space-y-8 overflow-hidden">
         <div className="flex w-full md:max-w-2xl md:mx-auto justify-center text-center flex-col space-y-3">
           <SectionTitle
             firstCls={"text-primary"}
