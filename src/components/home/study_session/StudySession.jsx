@@ -24,7 +24,6 @@ function StudySession() {
       return data;
     },
   });
-
   return (
     <section className="py-12">
       <div className="container">
@@ -68,13 +67,14 @@ function StudySession() {
         )}
 
         {studySessionData.length > sliceData && (
-          <div
-            onClick={() => {
-              setSliceData(sliceData + 4);
-            }}
-            className="flex justify-center"
-          >
-            <Button name={"See all Session"}></Button>
+          <div className="flex justify-center">
+            <div
+              onClick={() => {
+                setSliceData(sliceData + 4);
+              }}
+            >
+              <Button name={"See all Session"}></Button>
+            </div>
           </div>
         )}
       </div>

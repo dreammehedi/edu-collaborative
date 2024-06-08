@@ -11,7 +11,7 @@ function StudySessionCart({ studySession }) {
     tutorName,
     fee,
     sessionDescription,
-
+    registrationStartDate,
     registrationEndDate,
     image,
   } = studySession;
@@ -37,6 +37,18 @@ function StudySessionCart({ studySession }) {
           </div>
           <h2 className="font-bold text-2xl">{sessionTitle}</h2>
           <p className="text-sm ">{sessionDescription}</p>
+          <p className="font-medium font-roboto">
+            Registration Start Date:{" "}
+            <span className="text-[15px] text-slate-500">
+              {registrationStartDate}
+            </span>
+          </p>
+          <p className="font-medium font-roboto">
+            Registration End Date:{" "}
+            <span className="text-[15px] text-slate-500">
+              {registrationEndDate}
+            </span>
+          </p>
           <div className="flex justify-between items-center !mt-6 text-sm *:px-4 *:py-1">
             <span
               className={`${

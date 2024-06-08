@@ -36,9 +36,9 @@ function SocialButton() {
               showConfirmButton: false,
               timer: 1500,
             });
-            navigate(from, { replace: true });
           }
         });
+        navigate(from, { replace: true });
       })
       .catch(() => {
         toast.error("An error occurred!");
@@ -66,9 +66,9 @@ function SocialButton() {
               showConfirmButton: false,
               timer: 1500,
             });
-            navigate(from, { replace: true });
           }
         });
+        navigate(from, { replace: true });
       })
       .catch(() => {
         toast.error("An error occurred!");
