@@ -6,6 +6,7 @@ import Button from "./../../shared/button/Button";
 function ViewBookedSessionCart({ viewStudentBookedSession }) {
   const { _id, image, tutorName, fee, sessionTitle, sessionDescription } =
     viewStudentBookedSession;
+
   return (
     <>
       <div className="space-y-3 p-4 rounded-md hover:shadow-md ring-1 ring-slate-200 my-transition">

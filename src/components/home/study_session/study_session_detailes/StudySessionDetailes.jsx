@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { MdStar } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../../../hooks/useAuth";
@@ -12,10 +13,11 @@ import DataLoader from "./../../../../shared/data_loader/DataLoader";
 
 function StudySessionDetailes() {
   const { id } = useParams();
+
   const axiosPublic = useAxiosPublic();
   const { user } = useAuth();
   const [resUserRole, setResUserRole] = useState(null);
-  console.log(resUserRole);
+
 
   useEffect(() => {
     const checkUserRole = async () => {
@@ -56,7 +58,7 @@ function StudySessionDetailes() {
     },
   });
 
-  console.log(singleStudySessionReviewData);
+
   // current date
   const currentDate = moment().format();
 
@@ -230,24 +232,26 @@ function StudySessionDetailes() {
                     </h3>
                   </div>
                 </div>
-                <div
-                  onClick={() => {
-                    if (!isRegistrationEnd || !resUserRole) return;
-                    handleStudySessionBooked(id);
-                  }}
-                  className={`!mt-8 text-left ${
-                    !isRegistrationEnd || !resUserRole
-                      ? "cursor-not-allowed"
-                      : " cursor-pointer"
-                  }`}
-                >
-                  <span
-                    className={`${
-                      isRegistrationEnd ? "bg-primary" : "bg-primary-main"
-                    }  text-white font-medium rounded-md !px-4 !py-3 hover:bg-primary-main my-transition`}
+                <div className="">
+                  <button
+                    onClick={() => {
+                      if (!isRegistrationEnd || !resUserRole) return;
+                      handleStudySessionBooked(id);
+                    }}
+                    className={`mt-6  ${
+                      !isRegistrationEnd || !resUserRole
+                        ? "cursor-not-allowed"
+                        : " cursor-pointer"
+                    }`}
                   >
-                    {isRegistrationEnd ? "Book Now" : "Registration End"}
-                  </span>
+                    <span
+                      className={`${
+                        isRegistrationEnd ? "bg-primary" : "bg-primary-main"
+                      }  text-white font-medium rounded-md hover:bg-primary-main my-transition  px-4 py-3`}
+                    >
+                      {isRegistrationEnd ? "Book Now" : "Registration End"}
+                    </span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -355,11 +359,16 @@ function StudySessionDetailes() {
                         rating,
                       } = studySessionReview;
                       return (
-                        <div key={ind} className="p-8 border rounded-lg ">
-                          <p className="leading-loose text-gray-500">
-                            “{review}”.
-                          </p>
-                          <span className="font-medium">{rating}</span>
+                        <div key={ind} className=" p-8 border rounded-lg ">
+                          <div className="flex flex-col space-y-3 text-center">
+                            <p className="leading-loose text-gray-500">
+                              “{review}”.
+                            </p>
+                            <span className="font-medium justify-center flex items-center gap-1">
+                              Rating: {rating}
+                              <MdStar className="text-base text-yellow-500"></MdStar>
+                            </span>
+                          </div>
                           <div className="flex items-center mt-8 -mx-2">
                             <img
                               className="object-cover mx-2 rounded-full w-14 shrink-0 h-14 ring-4 ring-gray-300"

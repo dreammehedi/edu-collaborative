@@ -27,6 +27,7 @@ function ViewBookedSessionDetailes() {
       return data;
     },
   });
+  const mainStudySessionId = viewStudentBookedSessionDetailes?.studySessionId;
 
   const {
     register,
@@ -35,7 +36,7 @@ function ViewBookedSessionDetailes() {
   } = useForm();
   const onSubmit = async (data) => {
     const sessionData = {
-      studentBookedSessionId: id,
+      studentBookedSessionId: mainStudySessionId,
       studentImage: user.photoURL,
       ...data,
     };

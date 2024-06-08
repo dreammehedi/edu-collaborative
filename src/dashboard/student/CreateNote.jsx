@@ -20,7 +20,6 @@ function CreateNote() {
       studentImage: user.photoURL,
       ...data,
     };
-    console.log(studentCreatedNoteData);
     const res = await axiosSecure.post(
       "/student-creat-note",
       studentCreatedNoteData
