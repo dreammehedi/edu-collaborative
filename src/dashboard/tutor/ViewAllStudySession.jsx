@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Button from "../../shared/button/Button";
 import DataLoader from "../../shared/data_loader/DataLoader";
 import ErrorDataImage from "../../shared/error_data_image/ErrorDataImage";
 import SectionTitle from "../../shared/section_title/SectionTitle";
@@ -79,8 +81,8 @@ function ViewAllStudySession() {
             </span>
           </div>
         )}
-        {ViewAllStudySession.length > 0 && (
-          <div className="grid grid-cols-2 gap-8 justify-between">
+        {ViewAllStudySession.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 justify-between">
             {ViewAllStudySession.map((viewStudySession, ind) => {
               return (
                 <ViewAllStudySessionCart
@@ -90,6 +92,18 @@ function ViewAllStudySession() {
                 ></ViewAllStudySessionCart>
               );
             })}
+          </div>
+        ) : (
+          <div className="pt-12">
+            <h2 className="text-red-500 text-center ">
+              {`Hi there! We noticed that you haven’t created any study sessions yet. Managing your sessions is a fantastic way to organize your learning schedule and take full advantage of our platform. Here’s a simple guide to help you create your first study session.`}
+            </h2>
+
+            <div className="flex justify-center mt-6">
+              <Link to={"/dashboard/create-study-session"}>
+                <Button name={"Create Study Session"}></Button>
+              </Link>
+            </div>
           </div>
         )}
       </section>

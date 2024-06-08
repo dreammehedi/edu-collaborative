@@ -19,7 +19,11 @@ function ViewAllStudySessionCart({ viewStudySession, handlePendingRequest }) {
   return (
     <>
       <div className="shadow-md p-4">
-        <img className="w-full h-[300px] object-cover" src={image} alt="" />
+        <img
+          className="w-full h-[280px] md:h-[300px] rounded-md object-cover"
+          src={image}
+          alt=""
+        />
 
         <div className="mt-4 space-y-3">
           <h3 className="text-primary font-bold text-xl">{sessionTitle}</h3>
