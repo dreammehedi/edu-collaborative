@@ -105,7 +105,7 @@ function AllUsers() {
         )}
         {allUsersData.length > 0 && (
           <>
-            <div className="flex justify-between items-center pb-6">
+            <div className="flex flex-col md:flex-row justify-between items-center pb-6">
               <div className="flex items-center gap-x-3">
                 <h2 className="text-lg font-medium text-gray-800 ">
                   All Users:
