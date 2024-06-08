@@ -62,34 +62,36 @@ function ManagePersonalNoteCart({
     <>
       <div className="shadow-md p-4 rounded-md space-y-3">
         <img
-          className="w-full h-[200px] object-cover"
+          className="size-[100px] rounded-full mx-auto  object-cover"
           src={studentImage}
           alt=""
         />
-        <div className="flex justify-between items-center text-primary font-medium text-xs">
+        <div className="flex justify-between flex-col items-center text-primary font-medium text-xs">
           <h2>{studentName}</h2>
           <p>{studentEmail}</p>
         </div>
-        <div>
-          <h2 className="text-xl font-semibold">{noteTitle}</h2>
-          <p className="font-medium text-xs">{noteDescription}</p>
-        </div>
-        <div className="flex justify-between items-center gap-4">
-          <div
-            onClick={() => {
-              handleUpdateCreateNote(_id);
-            }}
-            className="text-[13px]"
-          >
-            <Button name={"Update"}></Button>
+        <div className="flex flex-col justify-center items-center gap-x-8 gap-y-3">
+          <div>
+            <h2 className="text-xl font-semibold">{noteTitle}</h2>
+            <p className="font-medium text-xs">{noteDescription}</p>
           </div>
-          <div
-            onClick={() => {
-              handleCreateNoteDelete(_id);
-            }}
-            className="text-[13px]"
-          >
-            <Button name={"Delete"}></Button>
+          <div className="flex justify-between items-center gap-4">
+            <div
+              onClick={() => {
+                handleUpdateCreateNote(_id);
+              }}
+              className="text-[13px]"
+            >
+              <Button name={"Update"}></Button>
+            </div>
+            <div
+              onClick={() => {
+                handleCreateNoteDelete(_id);
+              }}
+              className="text-[13px]"
+            >
+              <Button name={"Delete"}></Button>
+            </div>
           </div>
         </div>
       </div>
