@@ -99,7 +99,7 @@ function ViewBookedSessionDetailes() {
         {viewStudentBookedSessionDetailes && (
           <div className="space-y-4">
             <img
-              className="w-full h-[400px] object-cover"
+              className="w-full h-[300px] md:h-[320px] lg:h-[400px] object-cover"
               src={viewStudentBookedSessionDetailes?.image}
               alt=""
             />

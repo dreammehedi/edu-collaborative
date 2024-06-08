@@ -9,10 +9,11 @@ function SectionTitle({
   return (
     <>
       <h2
-        className={`text-3xl ${firstCls} h-full font-bold flex justify-center items-center gap-3`}
+        className={`text-xl md:text-2xl lg:text-3xl ${firstCls} h-full font-bold flex flex-col md:flex-row justify-center items-center gap-1`}
       >
-        <div className="!h-8 w-1 bg-primary-main"></div>
-        {firstName} <span className={secondCls}>{secondName}</span>
+        <div className="hidden md:inline-block !h-8 w-1 bg-primary-main"></div>
+        {firstName} <div className="md:hidden !h-1 w-8 bg-primary-main"></div>
+        <span className={`inline-block ${secondCls}`}>{secondName}</span>
       </h2>
       <p className="text-sm font-medium text-slate-900">{description}</p>
     </>
