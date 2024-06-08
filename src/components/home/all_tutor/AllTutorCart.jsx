@@ -1,20 +1,29 @@
-function AllTutorCart() {
+import PropTypes from "prop-types";
+
+function AllTutorCart({ tutor }) {
+  const { email, name, photo, role } = tutor;
   return (
     <>
-      <div className="w-full overflow-hidden bg-white rounded-md shadow-md">
+      <div className="w-full overflow-hidden p-2 bg-white rounded-md shadow-md">
         <img
-          className="object-cover w-full h-56"
-          src="https://img.freepik.com/free-photo/pretty-young-student-with-big-glasses-near-some-books-smiling-white-background_231208-1850.jpg?t=st=1717250737~exp=1717254337~hmac=2b1b96ad4e7154cea5907b595e63019af2062c8c7cb1736f65078a6d246967c8&w=740"
+          className="object-cover  size-[120px] ring-2 ring-primary p-2 rounded-full mx-auto"
+          src={photo}
           alt="avatar"
         />
 
-        <div className="space-y-1 p-4">
-          <span className="font-medium text-primary">John Smith</span>
-          <h2 className="font-bold text-2xl"> email@email.com</h2>
+        <div className="space-y-1 flex flex-col items-center justify-center text-center p-4">
+          <span className="text-primary-main font-medium text-sm capitalize">
+            {role}
+          </span>
+          <span className="font-medium text-primary text-[15px]">{name}</span>
+          <h2 className="font-bold text-xl break-words">{email}</h2>
         </div>
       </div>
     </>
   );
 }
+AllTutorCart.propTypes = {
+  tutor: PropTypes.object,
+};
 
 export default AllTutorCart;
