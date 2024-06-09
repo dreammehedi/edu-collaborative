@@ -346,7 +346,7 @@ function StudySessionDetailes() {
             )}
             {singleStudySessionReviewData.length > 0 ? (
               <div className="py-12">
-                <section className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 lg:grid-cols-2 xl:grid-cols-3">
+                <section className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-8 ">
                   {singleStudySessionReviewData.map(
                     (studySessionReview, ind) => {
                       const {
@@ -367,7 +367,7 @@ function StudySessionDetailes() {
                               <MdStar className="text-base text-yellow-500"></MdStar>
                             </span>
                           </div>
-                          <div className="flex items-center mt-8 -mx-2">
+                          <div className="flex justify-center items-center mt-8 -mx-2">
                             <img
                               className="object-cover mx-2 rounded-full w-14 shrink-0 h-14 ring-4 ring-gray-300"
                               src={studentImage}

@@ -10,6 +10,7 @@ function CreateNote() {
   const axiosSecure = useAxiosSecure();
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm();
@@ -33,6 +34,7 @@ function CreateNote() {
         showConfirmButton: false,
         timer: 1500,
       });
+      reset();
     } else {
       Swal.fire({
         title: "An error occurred!",

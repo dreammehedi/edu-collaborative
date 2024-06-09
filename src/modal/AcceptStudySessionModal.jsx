@@ -19,7 +19,7 @@ function AcceptStudySessionModal({ onAccept }) {
             Session Fee:
           </label>
           <input
-            {...register("fee", { max: 10000 })}
+            {...register("fee", { max: 20000 })}
             type="number"
             placeholder="$ Fee..."
             className="my-transition w-full border border-slate-200 bg-primary/10 rounded-md py-2 px-4 outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-roboto placeholder:text-[13px] placeholder:text-primary"
@@ -36,7 +36,7 @@ function AcceptStudySessionModal({ onAccept }) {
             Max Participants:
           </label>
           <input
-            {...register("maxParticipants", { required: true, max: 500 })}
+            {...register("maxParticipants", { required: true, max: 2000 })}
             type="number"
             placeholder="  Max Participants..."
             className="my-transition w-full border border-slate-200 bg-primary/10 rounded-md py-2 px-4 outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-roboto placeholder:text-[13px] placeholder:text-primary"

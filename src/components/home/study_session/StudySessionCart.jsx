@@ -24,7 +24,7 @@ function StudySessionCart({ studySession }) {
 
   return (
     <>
-      <div className="space-y-3 p-4 rounded-md hover:shadow-md ring-1 ring-slate-200 my-transition">
+      <div className="space-y-3 p-4 rounded-md hover:shadow-md ring-1 ring-slate-200 my-transition h-fit">
         <img
           className="object-cover w-full h-[300px] md:h-[250px] lg:h-[280px] rounded-md"
           src={image}
@@ -36,7 +36,7 @@ function StudySessionCart({ studySession }) {
             <span className="font-medium text-primary">${fee}</span>
           </div>
           <h2 className="font-bold text-2xl">{sessionTitle}</h2>
-          <p className="text-sm ">{sessionDescription}</p>
+          <p className="text-sm ">{sessionDescription.slice(0, 200)}...</p>
           <p className="font-medium font-roboto">
             Registration Start Date:{" "}
             <span className="text-[15px] text-slate-500">

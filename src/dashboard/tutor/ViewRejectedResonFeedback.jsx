@@ -13,7 +13,7 @@ function ViewRejectedResonFeedback() {
   const {
     isPending,
     error,
-    data: viewRejectedResonFeedback,
+    data: viewRejectedResonFeedback = [],
   } = useQuery({
     queryKey: ["viewRejectedResonFeedback"],
     queryFn: async () => {
@@ -58,12 +58,26 @@ function ViewRejectedResonFeedback() {
               <h2 className="font-semibold text-2xl text-primary">
                 Reson & Feedback
               </h2>
-              <p className="text-[15px] font-medium font-roboto text-red-500">
-                {viewRejectedResonFeedback?.rejectReson}
-              </p>
-              <p className="text-[15px] font-medium font-roboto text-black">
-                {viewRejectedResonFeedback?.rejectFeedback}
-              </p>
+              {viewRejectedResonFeedback.map((resonOrFeedback, ind) => {
+                return (
+                  <div
+                    key={ind}
+                    className="flex flex-col gap-3 border-t border-t-slate-200 pt-4"
+                  >
+                    <span className="text-center bg-primary text-white mx-auto p-2 rounded-full flex justify-center items-center size-8 font-bold">
+                      {ind + 1}
+                    </span>
+                    <p className="text-[15px] font-medium font-roboto text-red-500 flex items-start gap-2">
+                      <span className="font-semibold">Reson: </span>
+                      {resonOrFeedback?.rejectReson}
+                    </p>
+                    <p className="text-[15px] font-medium font-roboto text-black flex items-start gap-2">
+                      <span className="font-semibold">Feedback: </span>
+                      {resonOrFeedback?.rejectFeedback}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
