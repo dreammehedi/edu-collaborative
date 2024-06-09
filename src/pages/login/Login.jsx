@@ -47,7 +47,7 @@ function Login() {
       <Helmet>
         <title>EduCollaborate | Login</title>
       </Helmet>
-      <section className="py-12 bg-slate-100 w-full min-h-screen flex justify-center items-center">
+      <section className="bg-slate-100 w-full min-h-screen flex justify-center items-center">
         <div className="container  grid grid-cols-1 lg:grid-cols-2 gap-8  lg:gap-12 items-center">
           <div className="hidden lg:inline-block relative rounded-md overflow-hidden w-full max-h-[600px]">
             <img

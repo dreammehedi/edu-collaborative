@@ -114,11 +114,11 @@ function CreateStudySession() {
               {...register("sessionTitle", { required: true })}
               type="text"
               placeholder="Session Title..."
-              className="my-transition w-full border border-slate-200 bg-primary/10 rounded-md py-2 px-4 outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-roboto placeholder:text-[13px] placeholder:text-primary"
+              className="capitalize my-transition w-full border border-slate-200 bg-primary/10 rounded-md py-2 px-4 outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-roboto placeholder:text-[13px] placeholder:text-primary"
             />
             {errors.sessionTitle && (
               <span className="text-xs mt-2 font-bold text-red-500">
-                This field is required!
+                Session title is required!
               </span>
             )}
           </div>
@@ -158,7 +158,7 @@ function CreateStudySession() {
             />
             {errors.sessionDescription && (
               <span className="text-xs mt-2 font-bold text-red-500">
-                This field is required!
+                Session description is required!
               </span>
             )}
           </div>
@@ -174,7 +174,7 @@ function CreateStudySession() {
             />
             {errors.image && (
               <span className="text-xs mt-2 font-bold text-red-500">
-                This field is required!
+                Session image is required!
               </span>
             )}
           </div>
@@ -190,7 +190,7 @@ function CreateStudySession() {
             />
             {errors.registrationStartDate && (
               <span className="text-xs mt-2 font-bold text-red-500">
-                This field is required!
+                Registration start date is required!
               </span>
             )}
           </div>
@@ -206,7 +206,7 @@ function CreateStudySession() {
             />
             {errors.registrationEndDate && (
               <span className="text-xs mt-2 font-bold text-red-500">
-                This field is required!
+                Registration end date is required!
               </span>
             )}
           </div>
@@ -227,7 +227,7 @@ function CreateStudySession() {
             />
             {errors.classStartTime && (
               <span className="text-xs mt-2 font-bold text-red-500">
-                This field is required!
+                Class start time is required!
               </span>
             )}
           </div>
@@ -248,7 +248,7 @@ function CreateStudySession() {
             />
             {errors.classEndTime && (
               <span className="text-xs mt-2 font-bold text-red-500">
-                This field is required!
+                Class end time is required!
               </span>
             )}
           </div>
@@ -285,11 +285,6 @@ function CreateStudySession() {
               placeholder="Max Participant..."
               className="my-transition w-full border border-slate-200 bg-primary/10 rounded-md py-2 px-4 outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-roboto placeholder:text-[13px] placeholder:text-primary"
             />
-            {errors.maxParticipants && (
-              <span className="text-xs mt-2 font-bold text-red-500">
-                This field is required!
-              </span>
-            )}
           </div>
           <div className="lg:col-span-3 flex justify-center">
             <button className=" group relative h-12 overflow-hidden overflow-x-hidden rounded-md bg-primary px-8 py-2 text-neutral-50 flex justify-between items-center gap-2">

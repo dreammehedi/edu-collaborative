@@ -11,12 +11,14 @@ function AllTutorCart({ tutor }) {
           alt="avatar"
         />
 
-        <div className="space-y-1 flex flex-col items-center justify-center text-center p-4">
+        <div className="space-y-1 flex flex-col items-center justify-center text-center p-4 break-words">
           <span className="text-primary-main font-medium text-sm capitalize">
             {role}
           </span>
           <span className="font-medium text-primary text-[15px]">{name}</span>
-          <h2 className="font-bold text-xl break-words">{email}</h2>
+          <h4 className="w-full font-bold text-[18px] break-words text-wrap">
+            {email}
+          </h4>
         </div>
       </div>
     </>

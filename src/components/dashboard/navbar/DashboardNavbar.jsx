@@ -17,7 +17,7 @@ function DashboardNavbar() {
                 <img
                   src={logo}
                   alt="logo"
-                  className="w-[50px] h-auto object-cover"
+                  className="size-[50px] object-cover"
                 />
                 <div className="flex flex-col">
                   <span className="text-xl font-bold text-white">
