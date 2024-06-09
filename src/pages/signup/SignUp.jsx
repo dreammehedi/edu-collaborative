@@ -33,33 +33,37 @@ function SignUp() {
     const photo = data.photo;
     const email = data.email;
     const password = data.password;
-    createNewUser(email, password).then(() => {
-      updateUserProfile(name, photo)
-        .then(() => {
-          const userAllInfo = {
-            name,
-            photo,
-            email,
-            role: data.role,
-          };
-          // user data store in database
-          axiosPublic.post("/users", userAllInfo).then((res) => {
-            const data = res.data;
-            if (data.insertedData) {
-              Swal.fire({
-                title: "User Created Successfully",
-                icon: "success",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              navigate(from, { replace: true });
-            }
+    createNewUser(email, password)
+      .then(() => {
+        updateUserProfile(name, photo)
+          .then(() => {
+            const userAllInfo = {
+              name,
+              photo,
+              email,
+              role: data.role,
+            };
+            // user data store in database
+            axiosPublic.post("/users", userAllInfo).then((res) => {
+              const data = res.data;
+              if (data.insertedData) {
+                Swal.fire({
+                  title: "User Created Successfully",
+                  icon: "success",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                navigate(from, { replace: true });
+              }
+            });
+          })
+          .catch(() => {
+            toast.error("An error occurred!");
           });
-        })
-        .catch(() => {
-          toast.error("An error occurred!");
-        });
-    });
+      })
+      .catch(() => {
+        toast.error("An error occurred!");
+      });
   };
 
   if (user) {
