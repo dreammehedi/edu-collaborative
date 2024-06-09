@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
-  baseURL: "https://edu-collaborate.vercel.app",
+  baseURL: "http://localhost:5000",
 });
 function useAxiosSecure() {
   const { userSignOut } = useAuth();

@@ -113,7 +113,7 @@ function StudySessionDetailes() {
     if (fee === 0) {
       studySessionBookedFn();
     } else {
-      navigate("/payment");
+      navigate("/payment", { state: singleStudySessionData });
     }
   };
   return (

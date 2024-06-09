@@ -27,6 +27,7 @@ function ViewBookedSessionDetailes() {
       return data;
     },
   });
+
   const mainStudySessionId = viewStudentBookedSessionDetailes?.studySessionId;
 
   const {
