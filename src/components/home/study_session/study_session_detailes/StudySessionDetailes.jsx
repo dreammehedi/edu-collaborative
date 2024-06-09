@@ -86,11 +86,18 @@ function StudySessionDetailes() {
         studySessionBookedData
       );
       const data = await response.data;
-
+      console.log(data);
       if (data.insertedId) {
         Swal.fire({
           title: "Study Session Booked Successfully",
           icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else if (data.message === "Already Booked!") {
+        Swal.fire({
+          title: "You have already booked this session!",
+          icon: "info",
           showConfirmButton: false,
           timer: 1500,
         });
