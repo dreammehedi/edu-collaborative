@@ -101,7 +101,7 @@ function UploadMaterials() {
             firstName={"Upload Your"}
             secondName={"Materials"}
             description={
-              "This intuitive tool allows you to design and share in-depth study sessions, creating valuable resources for your students and fellow tutors. You can upload materials for your approved sessions, including images and Google Drive links. Follow the steps below to set up and use this feature."
+              "Our intuitive tool allows you to enhance study sessions by uploading and sharing materials seamlessly. Simply gather your documents, images, and Google Drive links, then upload them to your session. Organize your materials for easy access, ensuring a collaborative and effective learning experience."
             }
           ></SectionTitle>
         </div>
