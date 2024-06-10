@@ -166,6 +166,10 @@ function ViewAllMaterials() {
                     src={studySessionMaterialData?.materialImageUrl}
                     alt=""
                   />
+                  <span className="text-sm font-semibold flex flex-wrap items-center gap-2 text-primary">
+                    Study Session Material Id:{" "}
+                    <p>{studySessionMaterialData?.mainStudySessionId}</p>
+                  </span>
                   <div className="pt-2">
                     <a
                       title="Visit Material Google Drive Link"
