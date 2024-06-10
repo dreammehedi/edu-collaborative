@@ -1,6 +1,5 @@
 import { FaHome } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
-import { ImProfile } from "react-icons/im";
 import { MdDashboardCustomize } from "react-icons/md";
 import { Link, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -103,7 +102,7 @@ function DashboardNavigate() {
               Home
             </NavLink>
           </li>
-          <li className="flex items-center gap-2">
+          {/* <li className="flex items-center gap-2">
             <ImProfile></ImProfile>
             <NavLink
               className={({ isActive }) =>
@@ -113,7 +112,7 @@ function DashboardNavigate() {
             >
               Profile
             </NavLink>
-          </li>
+          </li> */}
           <li className="flex items-center gap-2">
             <FiLogOut></FiLogOut>
             <button onClick={handleLogout}>Logout</button>

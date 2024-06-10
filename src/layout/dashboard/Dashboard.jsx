@@ -22,7 +22,9 @@ function Dashboard() {
           <Link to={"/"}>
             <Button name={"Home"}></Button>
           </Link>
-          <Button name={"Profile Update"}></Button>
+          {/* <Link to={"/dashboard/user-profile"}>
+            <Button name={"Profile Update"}></Button>
+          </Link> */}
         </div>
       </div>
     </>

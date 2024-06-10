@@ -4,7 +4,6 @@ import AllStudySession from "../dashboard/admin/AllStudySession";
 import AllUsers from "../dashboard/admin/AllUsers";
 import ViewBookedSessionDetailes from "../dashboard/student/ViewBookedSessionDetailes";
 import ViewRejectedResonFeedback from "../dashboard/tutor/ViewRejectedResonFeedback";
-import Profile from "../dashboard/user_profile/Profile";
 import Dashboard from "../layout/dashboard/Dashboard";
 import DashboardLayout from "../layout/dashboard/DashboardLayout";
 import MainLayout from "../layout/main_layout/MainLayout";
@@ -95,10 +94,10 @@ const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
-      {
-        path: "user-profile",
-        element: <Profile></Profile>,
-      },
+      // {
+      //   path: "user-profile",
+      //   element: <Profile></Profile>,
+      // },
       {
         path: "view-booked-session",
         element: (

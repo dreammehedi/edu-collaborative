@@ -387,7 +387,7 @@ function StudySessionDetailes() {
                         rating,
                       } = studySessionReview;
                       return (
-                        <div key={ind} className=" p-8 border rounded-lg ">
+                        <div key={ind} className="h-fit p-8 border rounded-lg ">
                           <div className="flex flex-col space-y-3 text-center">
                             <p className="leading-loose text-gray-500">
                               “{review}”.
