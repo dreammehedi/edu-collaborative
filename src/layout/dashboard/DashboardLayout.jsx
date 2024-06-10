@@ -1,9 +1,14 @@
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import DashboardNavbar from "../../components/dashboard/navbar/DashboardNavbar";
 import DashboardNavigate from "../../components/dashboard/navigate/DashboardNavigate";
 
 function Dashboard() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [pathname]);
   return (
     <>
       <Helmet>

@@ -8,7 +8,7 @@ import useAxiosPublic from "./../../../hooks/useAxiosPublic";
 import StudySessionCart from "./StudySessionCart";
 
 function StudySession() {
-  const [sliceData, setSliceData] = useState(3);
+  const [sliceData, setSliceData] = useState(5);
 
   const axiosPublic = useAxiosPublic();
   // get study session data
