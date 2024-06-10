@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { saveAs } from "file-saver";
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -17,7 +18,6 @@ function ViewAllStudyMaterial() {
   const [getMaterialDataBookedSession, setMaterialDataBookedSession] = useState(
     []
   );
-  console.log(getMaterialDataBookedSession);
 
   const {
     isPending,
@@ -42,6 +42,12 @@ function ViewAllStudyMaterial() {
     );
     const responseData = await response.data;
     setMaterialDataBookedSession(responseData);
+  };
+
+  // handle download image
+  const handleDownloadImage = (imageUrl) => {
+    const fileExtension = imageUrl.split(".").pop().split("?")[0];
+    saveAs(imageUrl, `material-image.${fileExtension}`);
   };
   return (
     <>
@@ -145,11 +151,14 @@ function ViewAllStudyMaterial() {
                         </a>
                       </div>
 
-                      <div>
-                        <button className="text-sm font-medium font-roboto text-white bg-primary my-transition hover:bg-primary-main rounded-md px-3 py-1">
-                          Download Image
-                        </button>
-                      </div>
+                      <button
+                        onClick={() =>
+                          handleDownloadImage(materialData?.materialImageUrl)
+                        }
+                        className="text-sm font-medium font-roboto text-white bg-primary my-transition hover:bg-primary-main rounded-md px-3 py-1"
+                      >
+                        Download Image
+                      </button>
                     </div>
                   );
                 })}
