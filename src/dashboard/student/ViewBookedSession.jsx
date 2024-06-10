@@ -1,32 +1,45 @@
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Button from "../../shared/button/Button";
 import DataLoader from "../../shared/data_loader/DataLoader";
 import ErrorDataImage from "../../shared/error_data_image/ErrorDataImage";
+import Pagination from "../../shared/pagination/Pagination";
 import useAxiosSecure from "./../../hooks/useAxiosSecure";
 import SectionTitle from "./../../shared/section_title/SectionTitle";
 import ViewBookedSessionCart from "./ViewBookedSessionCart";
 
 function ViewBookedSession() {
+  const [totalBookedSessionCount, setTotalBookedSessionCount] = useState(0);
+  const [activePage, setActivePage] = useState(0);
+
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  useEffect(() => {
+    axiosSecure
+      .get(`/view-student-booked-session-count/${user?.email}`)
+      .then((res) => res.data)
+      .then((data) => {
+        setTotalBookedSessionCount(data?.bookedSessionCount);
+      });
+  }, [axiosSecure, user?.email]);
+
   const {
     isPending,
     error,
     data: viewStudentBookedSession = [],
   } = useQuery({
-    queryKey: ["viewStudentBookedSession"],
+    queryKey: ["viewStudentBookedSession", activePage],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/view-student-booked-session/${user.email}`
+        `/view-student-booked-session/${user.email}?page=${activePage}`
       );
       const data = await res.data;
       return data;
     },
   });
-
   return (
     <>
       <Helmet>
@@ -60,18 +73,30 @@ function ViewBookedSession() {
         )}
 
         {viewStudentBookedSession.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2  gap-8">
-            {viewStudentBookedSession.map(
-              (viewStudentBookedSessionData, ind) => {
-                return (
-                  <ViewBookedSessionCart
-                    key={ind}
-                    viewStudentBookedSession={viewStudentBookedSessionData}
-                  ></ViewBookedSessionCart>
-                );
-              }
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2  gap-8">
+              {viewStudentBookedSession.map(
+                (viewStudentBookedSessionData, ind) => {
+                  return (
+                    <ViewBookedSessionCart
+                      key={ind}
+                      viewStudentBookedSession={viewStudentBookedSessionData}
+                    ></ViewBookedSessionCart>
+                  );
+                }
+              )}
+            </div>
+            {totalBookedSessionCount > 3 && (
+              <div>
+                <Pagination
+                  totalCount={totalBookedSessionCount}
+                  perPageData={3}
+                  activePage={activePage}
+                  setActivePage={setActivePage}
+                ></Pagination>
+              </div>
             )}
-          </div>
+          </>
         ) : (
           <div className="pt-12">
             <h2 className="text-red-500 text-center ">

@@ -9,8 +9,12 @@ function ViewBookedSessionCart({ viewStudentBookedSession }) {
 
   return (
     <>
-      <div className="space-y-3 p-4 rounded-md hover:shadow-md ring-1 ring-slate-200 my-transition">
-        <img className="object-cover w-full h-[300px]" src={image} alt="" />
+      <div className="h-fit space-y-3 p-4 rounded-md hover:shadow-md ring-1 ring-slate-200 my-transition">
+        <img
+          className="object-cover w-full h-[300px] rounded-md"
+          src={image}
+          alt=""
+        />
         <div className="space-y-3">
           <div className="flex justify-between items-center">
             <span className="font-medium text-primary">{tutorName}</span>
