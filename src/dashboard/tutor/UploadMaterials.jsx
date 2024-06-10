@@ -71,7 +71,6 @@ function UploadMaterials() {
         uploadedMaterialStudySessionData
       );
       const responsePostData = await responsePost.data;
-      console.log(responsePostData);
       if (responsePostData.insertedId) {
         setUploadmaterialModal(false);
         Swal.fire({

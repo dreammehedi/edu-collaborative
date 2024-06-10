@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import UploadMaterialModal from "../../modal/UploadMaterialModal";
+import UpdateMaterialModal from "../../modal/UpdateMaterialModal";
 import DataLoader from "../../shared/data_loader/DataLoader";
 import ErrorDataImage from "../../shared/error_data_image/ErrorDataImage";
 import SectionTitle from "../../shared/section_title/SectionTitle";
@@ -17,8 +17,9 @@ function ViewAllMaterials() {
   const axiosPublic = useAxiosPublic();
   const { user } = useAuth();
 
-  const [uploadMaterialModal, setUploadmaterialModal] = useState(false);
-  const [studySessionMainData, setStudySessionMainData] = useState({});
+  const [updateMaterialModal, setUpdateMaterialModal] = useState(false);
+  const [studySessionMaterialMainData, setStudySessionMaterialMainData] =
+    useState({});
 
   // image hosting key in imgbb
   const imageHostingApiKey = import.meta.env.VITE_HOSTING_API_KEY;
@@ -39,17 +40,17 @@ function ViewAllMaterials() {
       return resData;
     },
   });
-  console.log(viewStudySessionMaterial);
+
   // handle material upload
-  const handleUploadMaterial = (studySessionData) => {
-    setUploadmaterialModal(true);
-    setStudySessionMainData(studySessionData);
+  const handleMaterialUpdate = (StudySessionMaterialData) => {
+    setUpdateMaterialModal(true);
+    setStudySessionMaterialMainData(StudySessionMaterialData);
   };
 
   // on upload material
-  const onUploadMaterial = async (materialUploadData) => {
+  const onUpdateMaterial = async (materialUpdateData) => {
     const materialImageFiels = {
-      image: materialUploadData?.materialImage[0],
+      image: materialUpdateData?.materialImage[0],
     };
     const response = await axiosPublic.post(
       imageHostingApiUrl,
@@ -64,20 +65,18 @@ function ViewAllMaterials() {
     if (resData.success) {
       const materialImageUrl = resData.data.display_url;
       const uploadedMaterialStudySessionData = {
-        mainStudySessionId: studySessionMainData?._id,
-        tutorEmail: user?.email,
         materialImageUrl: materialImageUrl,
-        materialLink: materialUploadData?.materialLink,
+        materialLink: materialUpdateData?.materialLink,
       };
 
-      const responsePost = await axiosSecure.post(
-        "/upload-study-session-material",
+      const responsePost = await axiosSecure.patch(
+        `/update-study-session-material/${studySessionMaterialMainData?._id}`,
         uploadedMaterialStudySessionData
       );
       const responsePostData = await responsePost.data;
-      console.log(responsePostData);
-      if (responsePostData.insertedId) {
-        setUploadmaterialModal(false);
+      if (responsePostData.modifiedCount > 0) {
+        setUpdateMaterialModal(false);
+        refetch();
         Swal.fire({
           title: "Material Uploaded Successfully",
           icon: "success",
@@ -97,7 +96,6 @@ function ViewAllMaterials() {
 
   // handle material delete
   const handleMaterialDelete = (id) => {
-    console.log(id);
     Swal.fire({
       title: "Are You Sure!",
       icon: "warning",
@@ -111,7 +109,6 @@ function ViewAllMaterials() {
           `/delete-study-session-material/${id}`
         );
         const data = await res.data;
-        console.log(data);
         if (data.deletedCount > 0) {
           refetch();
           Swal.fire({
@@ -185,7 +182,7 @@ function ViewAllMaterials() {
                   <div className="flex flex-wrap justify-between items-center gap-3">
                     <div
                       onClick={() => {
-                        handleMaterialUpdate();
+                        handleMaterialUpdate(studySessionMaterialData);
                       }}
                     >
                       <Button name={"Update"}></Button>
@@ -216,15 +213,15 @@ function ViewAllMaterials() {
           </div>
         )}
 
-        {uploadMaterialModal && (
+        {updateMaterialModal && (
           <div className="my-transition fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white flex justify-center items-center p-8 z-[999] shadow-lg shadow-primary  w-full md:max-w-2xl md:mx-auto rounded-md flex-col ">
-            <UploadMaterialModal
-              studySessionSuccessData={studySessionMainData}
-              onUploadMaterial={onUploadMaterial}
-            ></UploadMaterialModal>
+            <UpdateMaterialModal
+              studySessionMaterialMainData={studySessionMaterialMainData}
+              onUpdateMaterial={onUpdateMaterial}
+            ></UpdateMaterialModal>
             <div
               onClick={() => {
-                setUploadmaterialModal(false);
+                setUpdateMaterialModal(false);
               }}
               className="absolute top-4 right-4 p-3 cursor-pointer bg-red-100/50 rounded-full"
             >
