@@ -133,7 +133,7 @@ function StudySessionDetailes() {
           });
         }
         if (data.message === "Not Booked!") {
-          navigate("/payment", { state: singleStudySessionData });
+          navigate(`/payment/${id}`, { state: singleStudySessionData });
         }
       };
       checkSessionAlreadyBooked();

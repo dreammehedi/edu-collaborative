@@ -1,10 +1,13 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { FaCcVisa } from "react-icons/fa";
 import { ImSpinner9 } from "react-icons/im";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import amiricanExpressCard from "../assets/payment/american-express.svg";
+import discoverCard from "../assets/payment/discover.svg";
+import masterCard from "../assets/payment/mastercard.svg";
+import visaCard from "../assets/payment/visa.svg";
 import useAuth from "../hooks/useAuth";
 import Button from "../shared/button/Button";
 import useAxiosSecure from "./../hooks/useAxiosSecure";
@@ -127,7 +130,7 @@ function CheckOutForm({ studySessionData }) {
   };
   return (
     <>
-      <div className="bg-gradient-to-br from-gray-200 to-gray-100 p-6 w-full max-w-5xl max-lg:max-w-xl mx-auto rounded-md">
+      <div className="container bg-gradient-to-br from-gray-200 to-gray-100 p-6 w-full max-w-4xl mx-auto rounded-md">
         <h2 className="text-3xl font-extrabold text-primary text-center">
           Checkout
         </h2>
@@ -138,7 +141,7 @@ function CheckOutForm({ studySessionData }) {
               {studySessionData?.sessionTitle}
             </h3>
             <img
-              className="rounded-md w-full h-[150px]"
+              className="rounded-md w-full h-[250px] md:h-[300px] lg:h-[150px] "
               src={studySessionData?.image}
               alt=""
             />
@@ -151,9 +154,27 @@ function CheckOutForm({ studySessionData }) {
           </div>
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2">
-              {" "}
-              <h2>Pay for </h2>
-              <FaCcVisa className="text-4xl text-primary"></FaCcVisa>
+              <h2>Pay for:</h2>
+              <img
+                className="size-9 object-contain"
+                src={visaCard}
+                alt="Visa"
+              />
+              <img
+                className="size-9 object-contain"
+                src={masterCard}
+                alt="Visa"
+              />
+              <img
+                className="size-9 object-contain"
+                src={discoverCard}
+                alt="Visa"
+              />
+              <img
+                className="size-9 object-contain"
+                src={amiricanExpressCard}
+                alt="Visa"
+              />
             </div>
             <form
               onSubmit={handlePaymentSubmit}
