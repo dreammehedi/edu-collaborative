@@ -21,7 +21,7 @@ function Dashboard() {
             <DashboardNavigate></DashboardNavigate>
           </aside>
 
-          <article className="lg:col-span-3 shadow-md p-4">
+          <article className="lg:col-span-3 shadow-md p-4 rounded-md">
             <Outlet></Outlet>
           </article>
         </main>

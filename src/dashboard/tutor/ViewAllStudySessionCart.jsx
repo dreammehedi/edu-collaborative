@@ -19,7 +19,7 @@ function ViewAllStudySessionCart({ viewStudySession, handlePendingRequest }) {
 
   return (
     <>
-      <div className="shadow-md p-4 h-fit">
+      <div className="shadow-md p-4 h-fit rounded-md">
         <img
           className="w-full h-[280px] md:h-[300px] rounded-md object-cover"
           src={image}
