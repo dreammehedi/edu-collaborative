@@ -81,6 +81,40 @@ function AllStudySession() {
     });
   };
 
+  // handle study session delete
+  const handleStudySessionDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#5c6bc0",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/study-session/${id}`);
+        const resData = await res.data;
+        if (resData.deletedCount > 0) {
+          Swal.fire({
+            title: "Study Session Deleted Successfully",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          refetch();
+        } else {
+          Swal.fire({
+            title: "An error occurred!",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      }
+    });
+  };
+
   const onAccept = (adminSessionDataUpdate) => {
     const fee = Number(adminSessionDataUpdate.fee);
     const maxParticipants = adminSessionDataUpdate.maxParticipants;
@@ -410,17 +444,18 @@ function AllStudySession() {
                           >
                             Tutor Email address
                           </th>
-                          <th
-                            scope="col"
-                            className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 "
-                          >
-                            Status
-                          </th>
+
                           <th
                             scope="col"
                             className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 "
                           >
                             Action Status
+                          </th>
+                          <th
+                            scope="col"
+                            className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 "
+                          >
+                            Action
                           </th>
                         </tr>
                       </thead>
@@ -428,9 +463,9 @@ function AllStudySession() {
                         {allStudySession?.statusSuccess?.map(
                           (studySessionData, ind) => {
                             const {
+                              _id,
                               image,
                               sessionTitle,
-                              status,
                               tutorName,
                               tutorEmail,
                             } = studySessionData;
@@ -460,12 +495,8 @@ function AllStudySession() {
                                 <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
                                   {tutorName}
                                 </td>
-                                <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
+                                <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap break-words text-wrap">
                                   {tutorEmail}
-                                </td>
-
-                                <td className="px-4 py-4 text-sm text-green-500  whitespace-nowrap capitalize">
-                                  {status}
                                 </td>
 
                                 <td className="px-4 py-4 text-sm whitespace-nowrap">
@@ -473,6 +504,21 @@ function AllStudySession() {
                                     className={` flex items-center space-x-2 justify-center px-3 py-1 text-[15px] text-green-500 rounded-full bg-green-100/60  `}
                                   >
                                     <span>Already Success</span>
+                                  </div>
+                                </td>
+                                <td className="px-4 py-4 text-sm whitespace-nowrap flex flex-col gap-3">
+                                  <div
+                                    className={`cursor-pointer flex items-center  justify-center px-3 py-1 text-[15px] text-green-500 rounded-full bg-green-100/60  `}
+                                  >
+                                    <span>Update</span>
+                                  </div>
+                                  <div
+                                    onClick={() => {
+                                      handleStudySessionDelete(_id);
+                                    }}
+                                    className={`cursor-pointer flex items-center  justify-center px-3 py-1 text-[15px] text-red-500 rounded-full bg-red-100/60  `}
+                                  >
+                                    <span>Delete</span>
                                   </div>
                                 </td>
                               </tr>
