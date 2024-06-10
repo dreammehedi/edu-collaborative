@@ -100,8 +100,7 @@ function SocialButton() {
         });
         navigate(from, { replace: true });
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         toast.error("An error occurred!");
       });
   };

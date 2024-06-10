@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import AcceptStudySessionModal from "../../modal/AcceptStudySessionModal";
 import RejectStudySessionModal from "../../modal/RejectStudySessionModal";
+import UpdatPriceMaxStudentModal from "../../modal/UpdatPriceMaxStudentModal";
 import DataLoader from "../../shared/data_loader/DataLoader";
 import ErrorDataImage from "../../shared/error_data_image/ErrorDataImage";
 import SectionTitle from "../../shared/section_title/SectionTitle";
@@ -17,9 +18,19 @@ function AllStudySession() {
   // reject status modal
   const [rejectStatusModal, setRejectStatusModal] = useState(false);
 
+  // update price and max participant student
+  const [updatePriceMaxStudentModal, setUpdatePriceMaxStudentModal] =
+    useState(false);
+
+  const [studySessionUpdateData, setStudySessionUpdateData] = useState({});
   const [studySessionAcceptId, setStudySessionAcceptId] = useState("");
 
   const [studySessionRejectId, setStudySessionRejectId] = useState("");
+
+  const [
+    studySessionUpdatePriceMaxStudentId,
+    setStudySessionUpdatePriceMaxStudentId,
+  ] = useState("");
 
   const axiosSecure = useAxiosSecure();
 
@@ -111,6 +122,70 @@ function AllStudySession() {
             timer: 1500,
           });
         }
+      }
+    });
+  };
+
+  // handle study session update
+  const handleStudySessionUpdate = (studySessionData) => {
+    const id = studySessionData?._id;
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#5c6bc0",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, update it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setUpdatePriceMaxStudentModal(true);
+        setStudySessionUpdatePriceMaxStudentId(id);
+        setStudySessionUpdateData(studySessionData);
+      }
+    });
+  };
+
+  const onUpdatePriceMaxStudent = async (updatedPriceMaxStudentData) => {
+    const fee = parseInt(updatedPriceMaxStudentData?.fee);
+    const maxParticipants = parseInt(
+      updatedPriceMaxStudentData?.maxParticipants
+    );
+    const updatePriceMaxPartipantsFn = async () => {
+      const res = await axiosSecure.patch(
+        `/update-study-session-price-maxparticipants/${studySessionUpdatePriceMaxStudentId}`,
+        updatedPriceMaxStudentData
+      );
+      const resData = await res.data;
+      if (resData.modifiedCount > 0) {
+        Swal.fire({
+          title: "Study Session Updated Successfully",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        refetch();
+        setUpdatePriceMaxStudentModal(false);
+      } else {
+        Swal.fire({
+          title: "An error occurred!",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setUpdatePriceMaxStudentModal(false);
+      }
+    };
+
+    Swal.fire({
+      title: "Are You Sure!",
+      text: `Session Fee is ${fee} and Max Participant Student is ${maxParticipants}`,
+      icon: "info",
+      showConfirmButton: true,
+      showCancelButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        updatePriceMaxPartipantsFn();
       }
     });
   };
@@ -508,6 +583,11 @@ function AllStudySession() {
                                 </td>
                                 <td className="px-4 py-4 text-sm whitespace-nowrap flex flex-col gap-3">
                                   <div
+                                    onClick={() => {
+                                      handleStudySessionUpdate(
+                                        studySessionData
+                                      );
+                                    }}
                                     className={`cursor-pointer flex items-center  justify-center px-3 py-1 text-[15px] text-green-500 rounded-full bg-green-100/60  `}
                                   >
                                     <span>Update</span>
@@ -696,6 +776,26 @@ function AllStudySession() {
             <div
               onClick={() => {
                 setRejectStatusModal(false);
+              }}
+              className="absolute top-4 right-4 p-3 cursor-pointer bg-red-100/50 rounded-full"
+            >
+              <AiOutlineClose className=" text-xl text-red-500"></AiOutlineClose>
+            </div>
+          </div>
+        )}
+
+        {updatePriceMaxStudentModal && (
+          <div className="my-transition fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white flex justify-center items-center p-8 z-[999] shadow-lg shadow-primary  w-full md:max-w-2xl md:mx-auto rounded-md flex-col ">
+            <h2 className="font-semibold text-center mb-4 text-2xl text-primary">
+              Update Study Session Fee And Max Participants Student
+            </h2>
+            <UpdatPriceMaxStudentModal
+              onUpdatePriceMaxStudent={onUpdatePriceMaxStudent}
+              studySessionUpdateData={studySessionUpdateData}
+            ></UpdatPriceMaxStudentModal>
+            <div
+              onClick={() => {
+                setUpdatePriceMaxStudentModal(false);
               }}
               className="absolute top-4 right-4 p-3 cursor-pointer bg-red-100/50 rounded-full"
             >
