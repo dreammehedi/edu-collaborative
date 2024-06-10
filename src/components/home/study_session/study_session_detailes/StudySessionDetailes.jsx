@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../../../hooks/useAuth";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import ErrorDataImage from "../../../../shared/error_data_image/ErrorDataImage";
 import SectionTitle from "../../../../shared/section_title/SectionTitle";
 import DataLoader from "./../../../../shared/data_loader/DataLoader";
@@ -15,6 +16,7 @@ function StudySessionDetailes() {
   const { id } = useParams();
 
   const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [resUserRole, setResUserRole] = useState(null);
 
@@ -51,7 +53,7 @@ function StudySessionDetailes() {
   } = useQuery({
     queryKey: ["singleStudySessionReview"],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/study-session-review/${id}`);
+      const res = await axiosSecure.get(`/study-session-review/${id}`);
       const data = await res.data;
       return data;
     },
@@ -81,12 +83,11 @@ function StudySessionDetailes() {
         studySessionId,
         ...studySessionCopy,
       };
-      const response = await axiosPublic.post(
+      const response = await axiosSecure.post(
         "/study-session-booked",
         studySessionBookedData
       );
       const data = await response.data;
-      console.log(data);
       if (data.insertedId) {
         Swal.fire({
           title: "Study Session Booked Successfully",
@@ -112,8 +113,30 @@ function StudySessionDetailes() {
     };
     if (fee === 0) {
       studySessionBookedFn();
-    } else {
-      navigate("/payment", { state: singleStudySessionData });
+    }
+    if (fee > 0) {
+      const checkSessionAlreadyBooked = async () => {
+        const res = await axiosSecure.post(
+          "/check-study-session-already-booked-by-user",
+          {
+            studySessionId: id,
+            studentEmail: user?.email,
+          }
+        );
+        const data = await res.data;
+        if (data.message === "Already Booked!") {
+          return Swal.fire({
+            title: "You have already booked this session!",
+            icon: "info",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+        if (data.message === "Not Booked!") {
+          navigate("/payment", { state: singleStudySessionData });
+        }
+      };
+      checkSessionAlreadyBooked();
     }
   };
   return (

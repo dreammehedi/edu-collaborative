@@ -3,8 +3,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useLocation } from "react-router-dom";
 import CheckOutForm from "./CheckOutForm";
 
-const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
-console.log(stripePromise);
+const stripePromise = loadStripe(import.meta.env.VITE_PK_KEY);
 
 function Payment() {
   const { state } = useLocation();
