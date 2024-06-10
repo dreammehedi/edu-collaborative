@@ -1,5 +1,6 @@
 import {
   FacebookAuthProvider,
+  GithubAuthProvider,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -52,6 +53,12 @@ function AuthProvider({ children }) {
     return signInWithPopup(auth, provider);
   };
 
+  // login with github
+  const loginWithGithub = () => {
+    setUserLoading(true);
+    const provider = new GithubAuthProvider();
+    return signInWithPopup(auth, provider);
+  };
   //   logout user
   const userSignOut = () => {
     setUserLoading(true);
@@ -97,6 +104,7 @@ function AuthProvider({ children }) {
     createNewUser,
     loginWithEmailAndPassword,
     loginWithGoogle,
+    loginWithGithub,
     loginWithFacebook,
     updateUserProfile,
     userSignOut,

@@ -1,4 +1,4 @@
-import { FaFacebook } from "react-icons/fa";
+import { FaFacebook, FaGithubSquare } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -13,7 +13,7 @@ function SocialButton() {
   const from = location.state?.from?.pathname || "/";
 
   // user info
-  const { loginWithGoogle, loginWithFacebook } = useAuth();
+  const { loginWithGoogle, loginWithFacebook, loginWithGithub } = useAuth();
 
   // handle facebook
   const handleFacebook = () => {
@@ -75,6 +75,36 @@ function SocialButton() {
       });
   };
 
+  // handle github
+  const handleGithub = () => {
+    loginWithGithub()
+      .then((userData) => {
+        const userAllInfo = {
+          name: userData?.user.displayName,
+          photo: userData?.user.photoURL,
+          email: userData?.user.email,
+          role: "student",
+        };
+
+        // user data store in database
+        axiosPublic.post("/users", userAllInfo).then((res) => {
+          const data = res.data;
+          if (data.insertedData) {
+            Swal.fire({
+              title: "User Created Successfully",
+              icon: "success",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
+        navigate(from, { replace: true });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("An error occurred!");
+      });
+  };
   return (
     <>
       <button
@@ -94,6 +124,15 @@ function SocialButton() {
           <FcGoogle className="text-xl"></FcGoogle>
         </div>
         <span>Google</span>
+      </button>
+      <button
+        onClick={handleGithub}
+        className="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md bg-black px-6 font-medium text-neutral-200"
+      >
+        <div className="mr-0 w-0 -translate-x-[100%] opacity-0 transition-all duration-200 group-hover:mr-1 group-hover:w-5 group-hover:translate-x-0 group-hover:opacity-100">
+          <FaGithubSquare className="text-xl"></FaGithubSquare>
+        </div>
+        <span>Github</span>
       </button>
     </>
   );
