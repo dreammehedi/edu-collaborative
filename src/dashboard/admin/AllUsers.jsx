@@ -4,16 +4,31 @@ import { Helmet } from "react-helmet-async";
 import { MdPersonSearch } from "react-icons/md";
 import { RiAdminFill } from "react-icons/ri";
 import Swal from "sweetalert2";
+import Pagination from "../../shared/pagination/Pagination";
 import SectionTitle from "../../shared/section_title/SectionTitle";
 import useAxiosSecure from "./../../hooks/useAxiosSecure";
 import DataLoader from "./../../shared/data_loader/DataLoader";
 import ErrorDataImage from "./../../shared/error_data_image/ErrorDataImage";
 
 function AllUsers() {
+  // total users count
+  const [totalUsersCount, setTotalUsersCount] = useState(0);
+  const [activePageUser, setActivePageUser] = useState(0);
+
   // user search name or email
   const [searchNameOrEmail, setSearchNameOrEmail] = useState(null);
 
   const axiosSecure = useAxiosSecure();
+
+  useEffect(() => {
+    axiosSecure
+      .get(`/users-count`)
+      .then((res) => res.data)
+      .then((data) => {
+        setTotalUsersCount(data?.usersCount);
+      });
+  }, [axiosSecure]);
+
   // all users data get
   const {
     isPending,
@@ -21,11 +36,13 @@ function AllUsers() {
     data: allUsersData = [],
     refetch,
   } = useQuery({
-    queryKey: ["allUsers"],
+    queryKey: ["allUsers", activePageUser],
 
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/users?userFilter=${searchNameOrEmail && searchNameOrEmail}`
+        `/users?userFilter=${
+          searchNameOrEmail && searchNameOrEmail
+        }&page=${activePageUser}`
       );
       const data = await res.data;
       return data;
@@ -112,7 +129,7 @@ function AllUsers() {
                 </h2>
 
                 <span className="px-3 py-1 text-xs font-bold text-primary bg-blue-200 rounded-full  ">
-                  {allUsersData.length}
+                  {totalUsersCount}
                 </span>
               </div>
               <form
@@ -144,7 +161,7 @@ function AllUsers() {
                             className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 "
                           >
                             <div className="flex items-center gap-x-3">
-                              <span>Name</span>
+                              <span>Image-Name</span>
                             </div>
                           </th>
 
@@ -178,10 +195,6 @@ function AllUsers() {
                             <tr key={ind}>
                               <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                 <div className="inline-flex items-center gap-x-3">
-                                  <span className="text-white bg-primary rounded-full size-3 flex justify-center items-center p-3">
-                                    {ind + 1}
-                                  </span>
-
                                   <div className="flex items-center gap-x-2">
                                     <img
                                       className="object-cover size-10 rounded-full ring-1 ring-primary p-1"
@@ -245,6 +258,17 @@ function AllUsers() {
                 </div>
               </div>
             </div>
+
+            {totalUsersCount > 5 && (
+              <div>
+                <Pagination
+                  totalCount={totalUsersCount}
+                  perPageData={5}
+                  activePage={activePageUser}
+                  setActivePage={setActivePageUser}
+                ></Pagination>
+              </div>
+            )}
           </>
         )}
       </section>

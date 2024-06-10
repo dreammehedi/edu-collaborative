@@ -57,6 +57,5 @@ Pagination.propTypes = {
   perPageData: PropTypes.number.isRequired,
   activePage: PropTypes.number.isRequired,
   setActivePage: PropTypes.func.isRequired,
-  refetch: PropTypes.func.isRequired,
 };
 export default Pagination;

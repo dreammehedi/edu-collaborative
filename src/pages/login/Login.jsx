@@ -139,11 +139,6 @@ function Login() {
                     special character.
                   </span>
                 )}
-                <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
-                    Forgot password?
-                  </a>
-                </label>
               </div>
               <input
                 className="rounded-md bg-primary px-8 py-3 cursor-pointer text-neutral-50"

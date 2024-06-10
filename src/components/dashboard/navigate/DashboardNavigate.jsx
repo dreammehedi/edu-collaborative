@@ -59,7 +59,7 @@ function DashboardNavigate() {
           <img
             src={user?.photoURL}
             alt="user"
-            className="w-[40px] rounded-full h-auto object-cover  ring-2 ring-primary-main/50 shadow-md"
+            className="size-[40px] rounded-full  object-cover  ring-2 ring-primary-main/50 shadow-md"
           />
         </div>
         <h3 className="pt-4 text-right font-semibold">

@@ -13,7 +13,7 @@ import ViewBookedSessionCart from "./ViewBookedSessionCart";
 
 function ViewBookedSession() {
   const [totalBookedSessionCount, setTotalBookedSessionCount] = useState(0);
-  const [activePage, setActivePage] = useState(0);
+  const [activePageBooked, setActivePageBooked] = useState(0);
 
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
@@ -31,10 +31,10 @@ function ViewBookedSession() {
     error,
     data: viewStudentBookedSession = [],
   } = useQuery({
-    queryKey: ["viewStudentBookedSession", activePage],
+    queryKey: ["viewStudentBookedSession", activePageBooked],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/view-student-booked-session/${user.email}?page=${activePage}`
+        `/view-student-booked-session/${user.email}?page=${activePageBooked}`
       );
       const data = await res.data;
       return data;
@@ -91,8 +91,8 @@ function ViewBookedSession() {
                 <Pagination
                   totalCount={totalBookedSessionCount}
                   perPageData={3}
-                  activePage={activePage}
-                  setActivePage={setActivePage}
+                  activePage={activePageBooked}
+                  setActivePage={setActivePageBooked}
                 ></Pagination>
               </div>
             )}
